@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/zen-zone-cleaning-website/static/css/main.36f4de54.css",
-    "main.js": "/zen-zone-cleaning-website/static/js/main.6183279b.js",
+    "main.js": "/zen-zone-cleaning-website/static/js/main.441bbb36.js",
     "index.html": "/zen-zone-cleaning-website/index.html",
     "main.36f4de54.css.map": "/zen-zone-cleaning-website/static/css/main.36f4de54.css.map",
-    "main.6183279b.js.map": "/zen-zone-cleaning-website/static/js/main.6183279b.js.map"
+    "main.441bbb36.js.map": "/zen-zone-cleaning-website/static/js/main.441bbb36.js.map"
   },
   "entrypoints": [
     "static/css/main.36f4de54.css",
-    "static/js/main.6183279b.js"
+    "static/js/main.441bbb36.js"
   ]
 }
