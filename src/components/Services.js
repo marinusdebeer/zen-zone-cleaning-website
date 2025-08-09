@@ -58,6 +58,9 @@ const Services = () => {
           </div>
         ))}
       </div>
+      <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
+        <a href="#how-it-works" className="btn btn--outline">How It Works</a>
+      </div>
     </section>
   );
 };

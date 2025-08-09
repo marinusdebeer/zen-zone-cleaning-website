@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Hero.css';
 
 /**
@@ -17,11 +18,22 @@ const Hero = () => {
       ></div>
       <div className="hero__overlay"></div>
       <div className="hero__content">
-        <h1 className="hero__title">House Cleaning Barrie & Orillia</h1>
+        <h1 className="hero__title">House Cleaning in Barrie & Orillia</h1>
         <p className="hero__subtitle">
-          Serving Simcoe County. Take cleaning off your busy schedule with our
-          family‑owned service and reclaim your free time.
+          Family‑owned, reliable, and background‑checked professionals. Enjoy a spotless
+          home and more free time—without lifting a finger.
         </p>
+
+        <div className="hero__buttons">
+          <Link to="/book" className="btn">Request an Estimate</Link>
+          <a href="#services" className="btn btn--outline">See Services</a>
+        </div>
+
+        <ul className="hero__trust" aria-label="reasons to trust Zen Zone Cleaning">
+          <li>5‑Star Rated</li>
+          <li>Background‑Checked</li>
+          <li>Supplies Included</li>
+        </ul>
         <form
           className="hero__form"
           onSubmit={(e) => {

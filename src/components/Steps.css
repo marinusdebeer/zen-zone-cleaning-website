@@ -34,7 +34,7 @@
 .step__title {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 .step__description {

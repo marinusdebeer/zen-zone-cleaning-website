@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 
 /**
@@ -8,10 +8,23 @@ import './Header.css';
  * scroll to the corresponding sections on the page.
  */
 const Header = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogoClick = () => {
+    if (location.pathname === '/') {
+      // If already on home page, scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // If on different page, navigate to home page
+      navigate('/');
+    }
+  };
+
   return (
     <header className="header">
       <div className="header__container">
-        <div className="header__logo">
+        <div className="header__logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
           <span className="logo--highlight">Zen</span> Zone Cleaning Services
         </div>
         <nav className="header__nav">

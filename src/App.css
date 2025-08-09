@@ -19,7 +19,7 @@ main {
   padding: 0.75rem 1.5rem;
   border-radius: var(--border-radius);
   background-color: var(--color-primary);
-  color: var(--color-secondary);
+  color: var(--color-light);
   font-weight: 600;
   border: none;
   cursor: pointer;
@@ -27,8 +27,8 @@ main {
 }
 
 .btn:hover {
-  /* On hover, use the secondary colour to complement the primary palette */
-  background-color: var(--color-secondary);
+  /* On hover, use a lighter shade of the primary color */
+  background-color: var(--color-dark);
 }
 
 .btn--outline {
@@ -39,5 +39,5 @@ main {
 
 .btn--outline:hover {
   background-color: var(--color-primary);
-  color: var(--color-secondary);
+  color: var(--color-light);
 }

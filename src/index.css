@@ -1,12 +1,12 @@
 /* Global styles and CSS variables */
 
 :root {
-  /* Brand colours based on the existing Zen Zone Cleaning Services site */
-  --color-primary: #6b5b95; /* purple */
-  --color-secondary: #78a265; /* green */
-  --color-accent: #f6f5f3; /* light neutral background */
-  --color-dark: #2e3d2f; /* dark green/black for text */
-  --color-light: #ffffff;
+  /* Brand colours - dark green, white, and black only */
+  --color-primary: #2e3d2f; /* dark green */
+  --color-secondary: #ffffff; /* white */
+  --color-accent: #f8f8f8; /* very light gray (almost white) */
+  --color-dark: #000000; /* black */
+  --color-light: #ffffff; /* white */
   --max-content-width: 1200px;
   --border-radius: 6px;
   --transition-fast: 0.2s ease-in-out;
@@ -20,7 +20,7 @@
 }
 
 body {
-  color: var(--color-secondary);
+  color: var(--color-dark);
   background-color: var(--color-light);
   line-height: 1.6;
 }

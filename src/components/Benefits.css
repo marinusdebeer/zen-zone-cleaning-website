@@ -34,7 +34,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 .benefit-card__description {

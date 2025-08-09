@@ -43,7 +43,7 @@ const Footer = () => {
           </p>
           <p>
             Email:{' '}
-            <a href="mailto:info@zenzonecleaning.ca">info@zenzonecleaning.ca</a>
+            <a href="mailto:admin@zenzonecleaning.ca">admin@zenzonecleaning.ca</a>
           </p>
           <p>Simcoe County, Ontario</p>
         </div>

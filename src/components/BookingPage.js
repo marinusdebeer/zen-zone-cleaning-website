@@ -1,260 +1,881 @@
-import React, { useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import './BookingPage.css';
 
 /**
- * BookingPage renders a comprehensive booking form for clients to
- * request a cleaning service. The form gathers all the essential
- * information our team needs to prepare an accurate quote. On
- * submission the form simply acknowledges the request; in a real
- * implementation this data would be sent to a backend or CRM.
+ * BookingPage renders a multi-step booking form with conditional fields
+ * and browser-level validation. On submission, it acknowledges the
+ * request. Replace the submit handler with a real API call as needed.
  */
 const BookingPage = () => {
-  // Define the initial state for the booking form. Using a single
-  // state object allows us to manage all fields cleanly. Extras are
-  // captured in an array because multiple values can be selected.
+  const formRef = useRef(null);
+  const [currentStep, setCurrentStep] = useState(1);
+
   const initialState = {
-    name: '',
+    // Step 1: Personal Information
+    firstName: '',
+    lastName: '',
+    company: '',
     email: '',
     phone: '',
-    address: '',
-    propertyType: '',
-    serviceType: '',
-    frequency: '',
+
+    // Step 2: Select Industry
+    industry: '', // "Home Cleaning" | "Office Cleaning"
+    propertyType: '', // House, Apartment, Condo, Townhouse, Commercial
+
+    // Step 3: Select Service
+    bookingType: '', // One-Time | Recurring
+    frequency: '', // if Recurring
+    reason: '', // if One-Time (input type="textarea")
+    firstTimeDeepCleaning: '', // if Recurring; stores 'Yes' when checked
+
+    // Step 4: Property Details
+    squareFootage: '',
+    levels: '',
     bedrooms: '',
     bathrooms: '',
-    extras: [],
-    comments: '',
+    powderRooms: '',
+    kitchens: '',
+    lastCleaned: '',
+    people: '',
+    builtYear: '',
+    lastRenovated: '',
+    pets: '',
+    furnished: '',
+
+    // Step 5: Packages and Extras
+    package: '', // if Recurring
+    extras: [], // if One-Time
+    interiorWindows: '', // if One-Time
+    insideEmptyKitchenCabinets: '', // if One-Time
+
+    // Step 6: Additional Details
+    address: '',
+    city: '',
+    province: '',
+    postal: '',
+    date: '',
+    accessMethod: '',
+    accessDetails: '', // when Other
+    details: '',
+    hearAbout: '',
+    referralName: '', // when Referral
+    images: [],
   };
+
   const [formData, setFormData] = useState(initialState);
 
-  /**
-   * Handles updates to form inputs. For checkboxes, we add or remove
-   * the value from the extras array. For other fields, we update the
-   * corresponding key on the formData object.
-   */
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    if (type === 'checkbox') {
-      setFormData((prev) => {
-        const extras = prev.extras.includes(value)
-          ? prev.extras.filter((item) => item !== value)
+  const isRecurring = formData.bookingType === 'Recurring';
+  const isOneTime = formData.bookingType === 'One-Time';
+
+  const handleInputChange = (event) => {
+    const target = event.target;
+    const { name, type, value, checked, files } = target;
+
+    setFormData((prev) => {
+      if (type === 'checkbox' && name === 'extras') {
+        const isSelected = prev.extras.includes(value);
+        const updated = isSelected
+          ? prev.extras.filter((v) => v !== value)
           : [...prev.extras, value];
-        return { ...prev, extras };
-      });
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+        return { ...prev, extras: updated };
+      }
+
+      if (type === 'checkbox') {
+        if (name === 'firstTimeDeepCleaning') {
+          return { ...prev, [name]: checked ? 'Yes' : '' };
+        }
+        return { ...prev, [name]: checked };
+      }
+
+      if (type === 'file') {
+        return { ...prev, [name]: Array.from(files || []) };
+      }
+
+      return { ...prev, [name]: value };
+    });
   };
 
-  /**
-   * Submits the booking form. Currently this simply shows an alert
-   * acknowledging receipt and resets the form. Replace this logic
-   * with an API call to persist the booking request as needed.
-   */
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const validateCurrentStep = () => {
+    if (!formRef.current) return true;
+    const stepEl = formRef.current.querySelector(`[data-step="${currentStep}"]`);
+    if (!stepEl) return true;
+    // Ensure hidden conditional fields are not required when hidden
+    // We set required conditionally below, so browser validity works.
+    const inputs = stepEl.querySelectorAll('input, select, textarea');
+    for (const input of inputs) {
+      if (input.required && !input.checkValidity()) {
+        input.reportValidity();
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const goNext = () => {
+    if (!validateCurrentStep()) return;
+    setCurrentStep((s) => Math.min(6, s + 1));
+    scrollToTop();
+  };
+
+  const goPrev = () => {
+    setCurrentStep((s) => Math.max(1, s - 1));
+    scrollToTop();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(
-      'Thank you for your booking request! One of our team members will reach out shortly to confirm the details.'
-    );
+    // Validate final step before submit
+    if (!validateCurrentStep()) return;
+
+    // In a real app, post formData to backend
+    alert('Request submitted! We will contact you with an estimate.');
     setFormData(initialState);
+    setCurrentStep(1);
   };
+
+  const stepTitle = useMemo(() => {
+    switch (currentStep) {
+      case 1:
+        return 'Personal Information';
+      case 2:
+        return 'Select Industry';
+      case 3:
+        return 'Select Service';
+      case 4:
+        return 'Property Details';
+      case 5:
+        return 'Packages and Extras';
+      case 6:
+        return 'Additional Details';
+      default:
+        return '';
+    }
+  }, [currentStep]);
 
   return (
     <main>
       <section className="booking">
         <div className="booking__container">
           <h1 className="booking__title">Book Your Cleaning</h1>
-          <p className="booking__intro">
-            Fill out the form below and we’ll be in touch to confirm your
-            appointment and finalise your quote.
-          </p>
-          <form className="booking__form" onSubmit={handleSubmit}>
-            {/* Personal information */}
-            <div className="form-row">
-              <div className="form-field">
-                <label htmlFor="name">Name</label>
-                <input
-                  id="name"
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-field">
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          <p className="booking__intro">Please complete the steps below to request an estimate.</p>
+
+          <div className="stepper" aria-label="Booking steps">
+            <div className="stepper__progress">
+              <div className="stepper__bar" style={{ width: `${(currentStep - 1) * 20}%` }} />
             </div>
-            <div className="form-row">
-              <div className="form-field">
-                <label htmlFor="phone">Phone</label>
-                <input
-                  id="phone"
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-field">
-                <label htmlFor="address">Address</label>
-                <input
-                  id="address"
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            <div className="stepper__labels">
+              {[1, 2, 3, 4, 5, 6].map((n) => (
+                <div key={n} className={`stepper__label ${currentStep === n ? 'active' : ''}`}>
+                  {n}
+                </div>
+              ))}
             </div>
-            {/* Property and service selection */}
-            <div className="form-row">
-              <div className="form-field">
-                <label htmlFor="propertyType">Property Type</label>
-                <select
-                  id="propertyType"
-                  name="propertyType"
-                  value={formData.propertyType}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                    Select property type
-                  </option>
-                  <option value="House">House</option>
-                  <option value="Condo">Condo</option>
-                  <option value="Apartment">Apartment</option>
-                  <option value="Office">Office</option>
-                </select>
-              </div>
-              <div className="form-field">
-                <label htmlFor="serviceType">Service Type</label>
-                <select
-                  id="serviceType"
-                  name="serviceType"
-                  value={formData.serviceType}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                    Select service type
-                  </option>
-                  <option value="Standard Cleaning">Standard Cleaning</option>
-                  <option value="Deep Cleaning">Deep Cleaning</option>
-                  <option value="Move In/Out">Move In/Out</option>
-                  <option value="Post-Renovation">Post‑Renovation</option>
-                  <option value="Office Cleaning">Office Cleaning</option>
-                </select>
-              </div>
-            </div>
-            <div className="form-row">
-              <div className="form-field">
-                <label htmlFor="frequency">Frequency</label>
-                <select
-                  id="frequency"
-                  name="frequency"
-                  value={formData.frequency}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                    Select frequency
-                  </option>
-                  <option value="One‑Time">One‑Time</option>
-                  <option value="Weekly">Weekly</option>
-                  <option value="Bi‑Weekly">Bi‑Weekly</option>
-                  <option value="Monthly">Monthly</option>
-                </select>
-              </div>
-              <div className="form-field">
-                <label htmlFor="bedrooms">Bedrooms</label>
-                <select
-                  id="bedrooms"
-                  name="bedrooms"
-                  value={formData.bedrooms}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                    No. of bedrooms
-                  </option>
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <option key={n} value={n}>
-                      {n}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-field">
-                <label htmlFor="bathrooms">Bathrooms</label>
-                <select
-                  id="bathrooms"
-                  name="bathrooms"
-                  value={formData.bathrooms}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                    No. of bathrooms
-                  </option>
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <option key={n} value={n}>
-                      {n}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            {/* Extras */}
-            <div className="form-extras">
-              <p className="extras-title">Extras</p>
-              <div className="extras-grid">
-                {[
-                  'Inside Fridge',
-                  'Inside Oven',
-                  'Interior Windows',
-                  'Laundry',
-                  'Organising',
-                ].map((extra) => (
-                  <label key={extra}>
+          </div>
+
+          <h2 className="step-title">Step {currentStep}: {stepTitle}</h2>
+
+          <form ref={formRef} className="booking__form" onSubmit={handleSubmit}>
+            {/* Step 1: Personal Information */}
+            {currentStep === 1 && (
+              <div data-step="1" className="step-panel">
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-firstName">First Name</label>
                     <input
-                      type="checkbox"
-                      name="extras"
-                      value={extra}
-                      checked={formData.extras.includes(extra)}
-                      onChange={handleChange}
+                      id="booking-firstName"
+                      name="firstName"
+                      type="text"
+                      required
+                      value={formData.firstName}
+                      onChange={handleInputChange}
                     />
-                    {extra}
-                  </label>
-                ))}
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-lastName">Last Name</label>
+                    <input
+                      id="booking-lastName"
+                      name="lastName"
+                      type="text"
+                      required
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-company">Company (optional)</label>
+                    <input
+                      id="booking-company"
+                      name="company"
+                      type="text"
+                      value={formData.company}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-email">Email</label>
+                    <input
+                      id="booking-email"
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-phone">Phone</label>
+                    <input
+                      id="booking-phone"
+                      name="phone"
+                      type="tel"
+                      pattern="^(?:\+)?(?=(?:\D*\d){10,15}\D*$)[\d\s()\-]+$"
+                      required
+                      inputMode="tel"
+                      placeholder="e.g. 647 222 7305 or +1 647 222 7305"
+                      title="Enter 10–15 digits, optional +, spaces, dashes, or parentheses"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
               </div>
+            )}
+
+            {/* Step 2: Select Industry */}
+            {currentStep === 2 && (
+              <div data-step="2" className="step-panel">
+                <div className="form-row">
+                  <div className="form-field">
+                    <span className="field-label">Industry</span>
+                    <div className="radio-group">
+                      <label htmlFor="industry-home">
+                        <input
+                          id="industry-home"
+                          type="radio"
+                          name="industry"
+                          value="Home Cleaning"
+                          required
+                          checked={formData.industry === 'Home Cleaning'}
+                          onChange={handleInputChange}
+                        />
+                        Home Cleaning
+                      </label>
+                      <label htmlFor="industry-office">
+                        <input
+                          id="industry-office"
+                          type="radio"
+                          name="industry"
+                          value="Office Cleaning"
+                          required
+                          checked={formData.industry === 'Office Cleaning'}
+                          onChange={handleInputChange}
+                        />
+                        Office Cleaning
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-propertyType">Property Type</label>
+                    <select
+                      id="booking-propertyType"
+                      name="propertyType"
+                      required
+                      value={formData.propertyType}
+                      onChange={handleInputChange}
+                    >
+                      <option value="" disabled>
+                        Select property type
+                      </option>
+                      <option value="House">House</option>
+                      <option value="Apartment">Apartment</option>
+                      <option value="Condo">Condo</option>
+                      <option value="Townhouse">Townhouse</option>
+                      <option value="Commercial">Commercial</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Select Service */}
+            {currentStep === 3 && (
+              <div data-step="3" className="step-panel">
+                <div className="form-row">
+                  <div className="form-field">
+                    <span className="field-label">Booking Type</span>
+                    <div className="radio-group">
+                      <label htmlFor="booking-type-one-time">
+                        <input
+                          id="booking-type-one-time"
+                          type="radio"
+                          name="bookingType"
+                          value="One-Time"
+                          required
+                          checked={formData.bookingType === 'One-Time'}
+                          onChange={handleInputChange}
+                        />
+                        One-Time
+                      </label>
+                      <label htmlFor="booking-type-recurring">
+                        <input
+                          id="booking-type-recurring"
+                          type="radio"
+                          name="bookingType"
+                          value="Recurring"
+                          required
+                          checked={formData.bookingType === 'Recurring'}
+                          onChange={handleInputChange}
+                        />
+                        Recurring
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                {isRecurring && (
+                  <div className="form-row">
+                    <div className="form-field">
+                      <span className="field-label">Frequency</span>
+                      <div className="radio-group">
+                        <label htmlFor="frequency-weekly">
+                          <input
+                            id="frequency-weekly"
+                            type="radio"
+                            name="frequency"
+                            value="Weekly"
+                            required={isRecurring}
+                            checked={formData.frequency === 'Weekly'}
+                            onChange={handleInputChange}
+                          />
+                          Weekly
+                        </label>
+                        <label htmlFor="frequency-biweekly">
+                          <input
+                            id="frequency-biweekly"
+                            type="radio"
+                            name="frequency"
+                            value="Bi-Weekly"
+                            required={isRecurring}
+                            checked={formData.frequency === 'Bi-Weekly'}
+                            onChange={handleInputChange}
+                          />
+                          Bi-Weekly
+                        </label>
+                        <label htmlFor="frequency-every4weeks">
+                          <input
+                            id="frequency-every4weeks"
+                            type="radio"
+                            name="frequency"
+                            value="Every 4 Weeks"
+                            required={isRecurring}
+                            checked={formData.frequency === 'Every 4 Weeks'}
+                            onChange={handleInputChange}
+                          />
+                          Every 4 Weeks
+                        </label>
+                        <label htmlFor="frequency-other">
+                          <input
+                            id="frequency-other"
+                            type="radio"
+                            name="frequency"
+                            value="Other"
+                            required={isRecurring}
+                            checked={formData.frequency === 'Other'}
+                            onChange={handleInputChange}
+                          />
+                          Other
+                        </label>
+                      </div>
+                    </div>
+                    <div className="form-field">
+                      <label htmlFor="extra-first-time-deep-cleaning">
+                        <input
+                          id="extra-first-time-deep-cleaning"
+                          type="checkbox"
+                          name="firstTimeDeepCleaning"
+                          value="Yes"
+                          checked={!!formData.firstTimeDeepCleaning}
+                          onChange={handleInputChange}
+                        />
+                        First-time deep cleaning
+                      </label>
+                    </div>
+                  </div>
+                )}
+
+                {isOneTime && (
+                  <div className="form-row">
+                    <div className="form-field">
+                      <label htmlFor="booking-reason">Reason</label>
+                      <input
+                        id="booking-reason"
+                        name="reason"
+                        type="textarea"
+                        required={isOneTime}
+                        value={formData.reason}
+                        onChange={handleInputChange}
+                        placeholder="Tell us more about your one-time cleaning"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Step 4: Property Details */}
+            {currentStep === 4 && (
+              <div data-step="4" className="step-panel">
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-squareFootage">Square Footage</label>
+                    <input
+                      id="booking-squareFootage"
+                      name="squareFootage"
+                      type="number"
+                      required
+                      value={formData.squareFootage}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-levels">Levels</label>
+                    <input
+                      id="booking-levels"
+                      name="levels"
+                      type="number"
+                      required
+                      value={formData.levels}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-bedrooms">Bedrooms</label>
+                    <input
+                      id="booking-bedrooms"
+                      name="bedrooms"
+                      type="number"
+                      required
+                      value={formData.bedrooms}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-bathrooms">Bathrooms</label>
+                    <input
+                      id="booking-bathrooms"
+                      name="bathrooms"
+                      type="number"
+                      required
+                      value={formData.bathrooms}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-powderRooms">Powder Rooms</label>
+                    <input
+                      id="booking-powderRooms"
+                      name="powderRooms"
+                      type="number"
+                      required
+                      value={formData.powderRooms}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-kitchens">Kitchens</label>
+                    <input
+                      id="booking-kitchens"
+                      name="kitchens"
+                      type="number"
+                      required
+                      value={formData.kitchens}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-lastCleaned">Last Cleaned</label>
+                    <input
+                      id="booking-lastCleaned"
+                      name="lastCleaned"
+                      type="text"
+                      required
+                      value={formData.lastCleaned}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-people">People</label>
+                    <input
+                      id="booking-people"
+                      name="people"
+                      type="text"
+                      required
+                      value={formData.people}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-builtYear">Built Year</label>
+                    <input
+                      id="booking-builtYear"
+                      name="builtYear"
+                      type="text"
+                      required
+                      value={formData.builtYear}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-lastRenovated">Last Renovated</label>
+                    <input
+                      id="booking-lastRenovated"
+                      name="lastRenovated"
+                      type="text"
+                      required
+                      value={formData.lastRenovated}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-pets">Pets</label>
+                    <input
+                      id="booking-pets"
+                      name="pets"
+                      type="text"
+                      required
+                      value={formData.pets}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-furnished">Furnished</label>
+                    <input
+                      id="booking-furnished"
+                      name="furnished"
+                      type="text"
+                      required
+                      value={formData.furnished}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Step 5: Packages and Extras */}
+            {currentStep === 5 && (
+              <div data-step="5" className="step-panel">
+                {isRecurring && (
+                  <div className="form-row">
+                    <div className="form-field">
+                      <span className="field-label">Package</span>
+                      <div className="radio-group radio-grid">
+                        {['2.5', '3', '3.5', '4', '4.5', '5', '6', 'NA'].map((pkg) => (
+                          <label key={pkg} htmlFor={`package-${pkg}`}>
+                            <input
+                              id={`package-${pkg}`}
+                              type="radio"
+                              name="package"
+                              value={pkg}
+                              required={isRecurring}
+                              checked={formData.package === pkg}
+                              onChange={handleInputChange}
+                            />
+                            {pkg}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {isOneTime && (
+                  <>
+                    <div className="form-extras">
+                      <p className="extras-title">Extras</p>
+                      <div className="extras-grid checkbox-grid">
+                        {[
+                          { id: 'extra-baseboards', label: 'Deep clean of baseboards' },
+                          { id: 'extra-oven', label: 'Inside Oven' },
+                          { id: 'extra-behind-stove', label: 'Behind Stove' },
+                          { id: 'extra-inside-fridge', label: 'Inside Fridge' },
+                          { id: 'extra-behind-fridge', label: 'Behind Fridge' },
+                          { id: 'extra-window-blinds', label: 'Window Blinds' },
+                          { id: 'extra-wall-spot', label: 'Wall Spot Cleaning' },
+                          { id: 'extra-cabinet-fronts', label: 'Cabinet Fronts (Deep Clean)' },
+                        ].map((ex) => (
+                          <label key={ex.id} htmlFor={ex.id}>
+                            <input
+                              id={ex.id}
+                              type="checkbox"
+                              name="extras"
+                              value={ex.label}
+                              checked={formData.extras.includes(ex.label)}
+                              onChange={handleInputChange}
+                            />
+                            {ex.label}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="form-row">
+                      <div className="form-field">
+                        <label htmlFor="interiorWindows">Interior Windows</label>
+                        <select
+                          id="interiorWindows"
+                          name="interiorWindows"
+                          required={isOneTime}
+                          value={formData.interiorWindows}
+                          onChange={handleInputChange}
+                        >
+                          <option value="" disabled>
+                            Select an option
+                          </option>
+                          <option value="Basic - Shine Glass">Basic - Shine Glass</option>
+                          <option value="Deep - Scrub Frame & Shine Glass">Deep - Scrub Frame & Shine Glass</option>
+                          <option value="Not Needed">Not Needed</option>
+                        </select>
+                      </div>
+
+                      <div className="form-field">
+                        <label htmlFor="insideCabinets">Inside Empty Kitchen Cabinets</label>
+                        <select
+                          id="insideCabinets"
+                          name="insideEmptyKitchenCabinets"
+                          required={isOneTime}
+                          value={formData.insideEmptyKitchenCabinets}
+                          onChange={handleInputChange}
+                        >
+                          <option value="" disabled>
+                            Select an option
+                          </option>
+                          <option value="Basic Wipe Out">Basic Wipe Out</option>
+                          <option value="Deep Clean">Deep Clean</option>
+                          <option value="Not Needed">Not Needed</option>
+                        </select>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Step 6: Additional Details */}
+            {currentStep === 6 && (
+              <div data-step="6" className="step-panel">
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-address">Address</label>
+                    <input
+                      id="booking-address"
+                      name="address"
+                      type="text"
+                      required
+                      value={formData.address}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-city">City</label>
+                    <input
+                      id="booking-city"
+                      name="city"
+                      type="text"
+                      required
+                      value={formData.city}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-province">Province</label>
+                    <input
+                      id="booking-province"
+                      name="province"
+                      type="text"
+                      required
+                      value={formData.province}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="booking-postal">Postal Code</label>
+                    <input
+                      id="booking-postal"
+                      name="postal"
+                      type="text"
+                      required
+                      value={formData.postal}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-date">Preferred Dates</label>
+                    <input
+                      id="booking-date"
+                      name="date"
+                      type="text"
+                      required
+                      value={formData.date}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-accessMethod">Access Method</label>
+                    <select
+                      id="booking-accessMethod"
+                      name="accessMethod"
+                      required
+                      value={formData.accessMethod}
+                      onChange={handleInputChange}
+                    >
+                      <option value="" disabled>
+                        Select access method
+                      </option>
+                      <option value="I’ll be home to let you in">I’ll be home to let you in</option>
+                      <option value="I’ll provide a lockbox or keypad code">I’ll provide a lockbox or keypad code</option>
+                      <option value="Key hidden on premises">Key hidden on premises</option>
+                      <option value="Key left with neighbor or concierge">Key left with neighbor or concierge</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                {formData.accessMethod === 'Other' && (
+                  <div className="form-row">
+                    <div className="form-field">
+                      <label htmlFor="booking-accessDetails">Access Details</label>
+                      <textarea
+                        id="booking-accessDetails"
+                        name="accessDetails"
+                        rows={3}
+                        value={formData.accessDetails}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-details">Additional Details</label>
+                    <textarea
+                      id="booking-details"
+                      name="details"
+                      rows={4}
+                      required
+                      value={formData.details}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-hearAbout">How did you hear about us?</label>
+                    <select
+                      id="booking-hearAbout"
+                      name="hearAbout"
+                      required
+                      value={formData.hearAbout}
+                      onChange={handleInputChange}
+                    >
+                      <option value="" disabled>
+                        Select an option
+                      </option>
+                      <option value="Google Maps or GBP">Google Maps or GBP</option>
+                      <option value="Google Guaranteed">Google Guaranteed</option>
+                      <option value="Brochure">Brochure</option>
+                      <option value="Referral">Referral</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                {formData.hearAbout === 'Referral' && (
+                  <div className="form-row">
+                    <div className="form-field">
+                      <label htmlFor="booking-referralName">Referral Name</label>
+                      <input
+                        id="booking-referralName"
+                        name="referralName"
+                        type="text"
+                        value={formData.referralName}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="booking-images">Upload Images (optional)</label>
+                    <input
+                      id="booking-images"
+                      name="images"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Navigation Buttons */}
+            <div className="nav-buttons">
+              {currentStep > 1 && (
+                <button type="button" className="btn btn--outline" onClick={goPrev}>
+                  Previous
+                </button>
+              )}
+              {currentStep < 6 && (
+                <button type="button" className="btn" onClick={goNext}>
+                  Next
+                </button>
+              )}
+              {currentStep === 6 && (
+                <button type="submit" className="btn booking__submit">
+                  Request Estimate
+                </button>
+              )}
             </div>
-            {/* Additional notes */}
-            <div className="form-field">
-              <label htmlFor="comments">Additional Notes</label>
-              <textarea
-                id="comments"
-                name="comments"
-                rows="4"
-                value={formData.comments}
-                onChange={handleChange}
-                placeholder="Any special instructions or information you’d like to share"
-              ></textarea>
-            </div>
-            <button type="submit" className="btn booking__submit">
-              Submit Request
-            </button>
           </form>
         </div>
       </section>
