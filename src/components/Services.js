@@ -2,7 +2,7 @@ import React from 'react';
 import './Services.css';
 
 /**
- * Displays a grid of cleaning services offered by Zen Zone. Each card
+ * Displays a grid of cleaning services offered by Zen Zone Cleaning Services. Each card
  * includes an icon, service name and a short description. Feel free to
  * expand or modify the list to match the full range of offerings.
  */

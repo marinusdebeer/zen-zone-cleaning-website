@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="footer__container">
         <div className="footer__brand">
           <div className="footer__logo">
-            <span className="logo--highlight">Zen</span> Zone
+            <span className="logo--highlight">Zen</span> Zone Cleaning Services
           </div>
           <p className="footer__tagline">
             Serving Barrie, Orillia &amp; communities throughout Simcoe County.

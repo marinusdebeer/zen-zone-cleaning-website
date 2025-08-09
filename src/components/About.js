@@ -12,7 +12,7 @@ const About = () => {
     <section className="section about" id="about">
       <div className="about__wrapper">
         <div className="about__content">
-          <h2 className="section-title">About Zen Zone</h2>
+          <h2 className="section-title">About Zen Zone Cleaning Services</h2>
           <p>
             Zen Zone Cleaning Services is a locally operated, family‑owned
             cleaning company in Ontario, Canada created with one clear
@@ -39,7 +39,7 @@ const About = () => {
             Our mission extends beyond cleaning: we strive to create
             fulfilling, supportive job opportunities with competitive
             compensation and respectful working conditions for our team
-            members. At Zen Zone, the satisfaction of our clients and the
+            members. At Zen Zone Cleaning Services, the satisfaction of our clients and the
             happiness of our cleaners form the foundation of our business.
             Experience the joy of a clean, stress‑free space—one expert
             clean at a time.
