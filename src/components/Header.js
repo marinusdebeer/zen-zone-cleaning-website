@@ -12,7 +12,7 @@ const Header = () => {
     <header className="header">
       <div className="header__container">
         <div className="header__logo">
-          <span className="logo--highlight">Zen</span> Zone
+          <span className="logo--highlight">Zen</span> Zone Cleaning Services
         </div>
         <nav className="header__nav">
           <a href="#services">Services</a>

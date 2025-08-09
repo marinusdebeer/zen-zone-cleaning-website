@@ -2,7 +2,7 @@ import React from 'react';
 import './Benefits.css';
 
 /**
- * Presents a list of reasons why customers should choose Zen Zone. Each
+ * Presents a list of reasons why customers should choose Zen Zone Cleaning Services. Each
  * benefit has a small icon and a description. The icons use the same
  * colour palette to maintain cohesion across the design.
  */
