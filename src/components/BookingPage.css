@@ -1,0 +1,108 @@
+/* Booking page styling */
+
+/* The outer section provides a neutral backdrop for the booking form. */
+.booking {
+  background-color: var(--color-accent);
+  padding: 3rem 1rem;
+}
+
+/* Container holds the form and ensures it doesn’t stretch too wide on large
+   screens. A subtle box shadow and border radius match other panels on
+   the site. */
+.booking__container {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  background-color: var(--color-light);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.booking__title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-secondary);
+}
+
+.booking__intro {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-dark);
+}
+
+/* Form layout */
+.booking__form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Field wrapper for label and input/select/textarea */
+.form-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.form-field label {
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  color: var(--color-dark);
+  background-color: var(--color-light);
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+/* Extras grouping */
+.form-extras {
+  margin-bottom: 1rem;
+}
+
+.extras-title {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--color-dark);
+}
+
+.extras-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.extras-grid label {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--color-dark);
+}
+
+.extras-grid input {
+  margin-right: 0.4rem;
+}
+
+/* Submit button spacing */
+.booking__submit {
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .booking__form .form-row {
+    flex-direction: column;
+  }
+}

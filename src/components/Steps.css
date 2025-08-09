@@ -1,0 +1,44 @@
+/* Steps section styling */
+
+.steps {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.steps__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.step__icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.step__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-secondary);
+}
+
+.step__description {
+  font-size: 0.9rem;
+  color: var(--color-dark);
+  max-width: 250px;
+}

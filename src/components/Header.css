@@ -1,0 +1,61 @@
+/* Header styling */
+
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: var(--color-light);
+  border-bottom: 1px solid #eee;
+  z-index: 10;
+}
+
+.header__container {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+
+.logo--highlight {
+  color: var(--color-primary);
+}
+
+.header__nav a {
+  margin-left: 1.5rem;
+  color: var(--color-secondary);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.header__nav a:hover {
+  color: var(--color-primary);
+}
+
+/* Emphasise the Book Now link */
+.header__nav .header__book {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  margin-left: 1.5rem;
+}
+
+.header__nav .header__book:hover {
+  background-color: var(--color-primary);
+  opacity: 0.85;
+  color: var(--color-light);
+}
+
+@media (max-width: 768px) {
+  .header__nav {
+    display: none;
+  }
+}

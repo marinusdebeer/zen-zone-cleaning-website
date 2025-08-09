@@ -1,0 +1,43 @@
+/* Layout styles for page sections */
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.section {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Utility classes */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.btn:hover {
+  /* On hover, use the secondary colour to complement the primary palette */
+  background-color: var(--color-secondary);
+}
+
+.btn--outline {
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+}
