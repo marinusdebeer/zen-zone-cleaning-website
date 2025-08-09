@@ -1,7 +1,7 @@
 /* Services section styling */
 
 .services {
-  text-align: center;
+  text-align: left;
 }
 
 .services__grid {
@@ -11,6 +11,96 @@
   margin-top: 2rem;
 }
 
+/* New recurring/one-time layout */
+.services-content h2 { margin-bottom: 0.5rem; }
+.services-intro h3 { margin: 1rem 0 0.5rem; }
+.includes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.5rem 2rem;
+}
+.includes-list ul { padding-left: 1rem; }
+.includes-list li { margin: 0.25rem 0; }
+
+.services-hero-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.service-tile {
+  background: var(--color-light);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.service-tile.popular { border-color: var(--color-primary); }
+.service-icon { width: 40px; height: 40px; }
+.price { font-weight: 700; }
+
+.funnel-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0 0;
+}
+.funnel-cta p { margin: 0; }
+
+/* FAQ */
+.faq-list details {
+  border: 1px solid var(--color-accent);
+  background: var(--color-light);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+}
+.faq-list details + details { margin-top: 0.5rem; }
+.faq-list summary { cursor: pointer; font-weight: 600; }
+.faq-list p { margin-top: 0.5rem; }
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+.modal {
+  background: var(--color-light);
+  border-radius: var(--border-radius);
+  max-width: 680px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-accent);
+  padding: 0.75rem 1rem;
+}
+.modal__title { margin: 0; }
+.modal__close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.modal__body { padding: 1rem; }
+.modal__footer {
+  border-top: 1px solid var(--color-accent);
+  padding: 0.75rem 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
 .service-card {
   background-color: var(--color-accent);
   border-radius: var(--border-radius);
