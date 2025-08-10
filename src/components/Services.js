@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Services.css';
 
 /**
@@ -7,6 +7,9 @@ import './Services.css';
  * One‑time tiles have “Learn More” modals implemented with lightweight React state.
  */
 const Services = () => {
+  const location = useLocation();
+  const match = location.pathname.match(/^\/house-cleaning-services-([a-z-]+)(?:\/.*)?$/);
+  const citySlug = match ? match[1] : null;
   const [activeModal, setActiveModal] = useState(null);
 
   const oneTimeServiceContent = useMemo(
@@ -88,7 +91,7 @@ const Services = () => {
             <h3>Weekly Cleaning</h3>
             <p>Keep your home spotless with our weekly service—dusting, vacuuming, mopping, and sanitizing every corner.</p>
             <p className="price">Starting at $130/visit</p>
-            <Link to="/book?service=Weekly" className="btn" aria-label="Request estimate for Weekly Cleaning">Request Estimate</Link>
+            <Link to={'/book?service=Weekly'} className="btn" aria-label="Request estimate for Weekly Cleaning">Request Estimate</Link>
           </div>
 
           <div className="service-tile popular">
@@ -96,7 +99,7 @@ const Services = () => {
             <h3>Bi-Weekly Cleaning</h3>
             <p>A thorough clean every two weeks—ideal for keeping your space fresh without the weekly commitment.</p>
             <p className="price">Starting at $130/visit</p>
-            <Link to="/book?service=Bi-Weekly" className="btn" aria-label="Request estimate for Bi-Weekly Cleaning">Request Estimate</Link>
+            <Link to={'/book?service=Bi-Weekly'} className="btn" aria-label="Request estimate for Bi-Weekly Cleaning">Request Estimate</Link>
           </div>
 
           <div className="service-tile">
@@ -104,14 +107,14 @@ const Services = () => {
             <h3>Monthly Refresh</h3>
             <p>A deep refresh once a month, focusing on high-traffic areas to keep your home guest-ready.</p>
             <p className="price">Starting at $130/visit</p>
-            <Link to="/book?service=Every%204%20Weeks" className="btn" aria-label="Request estimate for Monthly Refresh">Request Estimate</Link>
+            <Link to={'/book?service=Every%204%20Weeks'} className="btn" aria-label="Request estimate for Monthly Refresh">Request Estimate</Link>
           </div>
 
           <div className="service-tile">
             <img src={`${process.env.PUBLIC_URL}/images/bucket.png`} alt="" aria-hidden="true" className="service-icon" />
             <h3>First-Time Deep Cleaning</h3>
             <p>One comprehensive deep clean for new recurring customers—behind appliances, baseboards, interior windows, and more.</p>
-            <Link to="/book?service=First-Time%20Deep" className="btn" aria-label="Request estimate for First-Time Deep Cleaning">Request Estimate</Link>
+            <Link to={'/book?service=First-Time%20Deep'} className="btn" aria-label="Request estimate for First-Time Deep Cleaning">Request Estimate</Link>
           </div>
         </div>
 
@@ -190,7 +193,7 @@ const Services = () => {
               ))}
             </div>
             <div className="modal__footer">
-              <Link to="/book" className="btn">Request Estimate</Link>
+              <Link to={'/book'} className="btn">Request Estimate</Link>
               <button className="btn btn--outline" onClick={() => setActiveModal(null)}>Close</button>
             </div>
           </div>

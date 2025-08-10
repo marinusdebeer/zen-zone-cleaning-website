@@ -33,7 +33,7 @@ const ConfirmationPage = () => {
 
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginTop: '1.5rem', flexWrap: 'wrap' }}>
             <Link className="btn" to="/book">Make another request</Link>
-            <a className="btn btn--outline" href="/zen-zone-cleaning-website/">Return to homepage</a>
+            <a className="btn btn--outline" href="/">Return to homepage</a>
           </div>
         </div>
       </section>

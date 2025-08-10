@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Hero.css';
 
 /**
@@ -8,6 +8,9 @@ import './Hero.css';
  * not submit data anywhere. Adjust the options to suit the business.
  */
 const Hero = ({ title, subtitle }) => {
+  const location = useLocation();
+  const match = location.pathname.match(/^\/house-cleaning-services-([a-z-]+)(?:\/.*)?$/);
+  const citySlug = match ? match[1] : null;
   return (
     <section className="hero">
       <div
@@ -26,7 +29,7 @@ const Hero = ({ title, subtitle }) => {
         </p>
 
         <div className="hero__buttons">
-          <Link to="/book" className="btn">Request Estimate</Link>
+          <Link to={'/book'} className="btn">Request Estimate</Link>
           <a href="#services" className="btn btn--outline">See Services</a>
         </div>
 

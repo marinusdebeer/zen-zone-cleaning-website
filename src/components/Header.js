@@ -14,8 +14,14 @@ const Header = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const isCityHomepagePath = (pathname) => /^\/house-cleaning-services-[a-z-]+$/.test(pathname);
+  const currentCitySlug = () => {
+    const match = location.pathname.match(/^\/house-cleaning-services-([a-z-]+)(?:\/.*)?$/);
+    return match ? match[1] : null;
+  };
+
   const handleLogoClick = () => {
-    if (location.pathname === '/') {
+    if (location.pathname === '/' || isCityHomepagePath(location.pathname)) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       navigate('/');
@@ -29,6 +35,23 @@ const Header = () => {
   }, [isMenuOpen]);
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  const handleSectionClick = (sectionId) => (event) => {
+    event.preventDefault();
+    const onHome = location.pathname === '/' || isCityHomepagePath(location.pathname);
+    if (onHome) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        try {
+          window.history.replaceState(null, '', `#${sectionId}`);
+        } catch {}
+      }
+    } else {
+      navigate(`/#${sectionId}`);
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="header">
@@ -44,12 +67,12 @@ const Header = () => {
 
         {/* Desktop navigation */}
         <nav className="header__nav">
-          <a href="#services">Services</a>
-          <a href="#about">About</a>
-          <a href="#why-us">Why Us</a>
-          <a href="#contact">Contact</a>
+          <a href="#services" onClick={handleSectionClick('services')}>Services</a>
+          <a href="#about" onClick={handleSectionClick('about')}>About</a>
+          <a href="#why-us" onClick={handleSectionClick('why-us')}>Why Us</a>
+          <a href="#contact" onClick={handleSectionClick('contact')}>Contact</a>
           <ThemeToggle size="medium" />
-          <Link to="/book" className="header__book">Request Estimate</Link>
+          <Link to={'/book'} className="header__book">Request Estimate</Link>
         </nav>
 
         {/* Mobile actions: theme toggle + hamburger */}
@@ -76,11 +99,11 @@ const Header = () => {
         aria-label="Site navigation"
       >
         <div className="mobile-menu__content">
-          <a href="#services" onClick={closeMenu}>Services</a>
-          <a href="#about" onClick={closeMenu}>About</a>
-          <a href="#why-us" onClick={closeMenu}>Why Us</a>
-          <a href="#contact" onClick={closeMenu}>Contact</a>
-          <Link to="/book" className="btn mobile-menu__cta" onClick={closeMenu}>Request Estimate</Link>
+          <a href="#services" onClick={handleSectionClick('services')}>Services</a>
+          <a href="#about" onClick={handleSectionClick('about')}>About</a>
+          <a href="#why-us" onClick={handleSectionClick('why-us')}>Why Us</a>
+          <a href="#contact" onClick={handleSectionClick('contact')}>Contact</a>
+          <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>Request Estimate</Link>
         </div>
       </div>
       {isMenuOpen && <div className="menu-backdrop" onClick={closeMenu} aria-hidden="true" />}
