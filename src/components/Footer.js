@@ -18,13 +18,7 @@ const Footer = () => {
           <span className="dot" aria-hidden>·</span>
           <a href="mailto:admin@zenzonecleaning.ca">admin@zenzonecleaning.ca</a>
         </div>
-        <nav className="footer__areas-inline" aria-label="Service Areas">
-          <a href="/house-cleaning-services-barrie">Barrie</a>
-          <span className="dot" aria-hidden>·</span>
-          <a href="/house-cleaning-services-orillia">Orillia</a>
-          <span className="dot" aria-hidden>·</span>
-          <a href="/house-cleaning-services-innisfil">Innisfil</a>
-        </nav>
+
       </div>
       <div className="footer__bottom" />
     </footer>
