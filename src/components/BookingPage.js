@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState, useEffect } from 'react';
 import './BookingPage.css';
 
 /**
@@ -9,6 +9,26 @@ import './BookingPage.css';
 const BookingPage = () => {
   const formRef = useRef(null);
   const [currentStep, setCurrentStep] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Clear validation highlights when the step changes
+  useEffect(() => {
+    if (!formRef.current) return;
+    const highlighted = formRef.current.querySelectorAll('.step-panel.show-validation');
+    highlighted.forEach((el) => el.classList.remove('show-validation'));
+  }, [currentStep]);
 
   const initialState = {
     // Step 1: Personal Information
@@ -95,20 +115,42 @@ const BookingPage = () => {
     });
   };
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
   const validateCurrentStep = () => {
     if (!formRef.current) return true;
     const stepEl = formRef.current.querySelector(`[data-step="${currentStep}"]`);
     if (!stepEl) return true;
-    // Ensure hidden conditional fields are not required when hidden
-    // We set required conditionally below, so browser validity works.
+    
     const inputs = stepEl.querySelectorAll('input, select, textarea');
+    let firstInvalidInput = null;
+    
     for (const input of inputs) {
       if (input.required && !input.checkValidity()) {
-        input.reportValidity();
-        return false;
+        if (!firstInvalidInput) {
+          firstInvalidInput = input;
+          input.reportValidity();
+        }
       }
+    }
+    
+    if (firstInvalidInput) {
+      stepEl.classList.add('show-validation');
+
+      if (isMobile) {
+        setTimeout(() => {
+          firstInvalidInput.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center',
+            inline: 'nearest'
+          });
+          firstInvalidInput.style.borderColor = 'var(--color-error, #dc2626)';
+          firstInvalidInput.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
+          setTimeout(() => {
+            firstInvalidInput.style.borderColor = '';
+            firstInvalidInput.style.boxShadow = '';
+          }, 3000);
+        }, 100);
+      }
+      return false;
     }
     return true;
   };
@@ -122,6 +164,24 @@ const BookingPage = () => {
   const goPrev = () => {
     setCurrentStep((s) => Math.max(1, s - 1));
     scrollToTop();
+  };
+
+  // Enhanced mobile scroll behavior
+  const scrollToTop = () => {
+    if (isMobile) {
+      // Smooth scroll to top on mobile with offset for better UX
+      const headerOffset = 80;
+      const elementPosition = document.body.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({ 
+        top: offsetPosition, 
+        behavior: 'smooth' 
+      });
+    } else {
+      // Instant scroll on desktop
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -156,6 +216,9 @@ const BookingPage = () => {
 
   const stepShortLabels = ['Info', 'Industry', 'Service', 'Property', 'Packages', 'Details'];
 
+  // Calculate progress percentage (show progress on first step too)
+  const progressPercentage = (currentStep / 6) * 100;
+
   return (
     <main>
       <section className="booking">
@@ -163,21 +226,35 @@ const BookingPage = () => {
           <h1 className="booking__title">Book Your Cleaning</h1>
           <p className="booking__intro">Please complete the steps below to request an estimate.</p>
 
-          <div className="stepper" aria-label="Booking steps">
-            <div className="stepper__progress">
-              <div className="stepper__bar" style={{ width: `${(currentStep - 1) * 20}%` }} />
+          {/* Enhanced Mobile progress indicator */}
+          {isMobile && (
+            <div className="mobile-progress">
+              <div className="mobile-progress__text">
+                Step {currentStep} of 6: {stepTitle}
+              </div>
+              <div className="mobile-progress__bar">
+                <div 
+                  className="mobile-progress__fill" 
+                  style={{ width: `${progressPercentage}%` }}
+                />
+              </div>
             </div>
-            <div className="stepper__labels">
-              {[1, 2, 3, 4, 5, 6].map((n, idx) => (
-                <div key={n} className={`stepper__label ${currentStep === n ? 'active' : ''}`} aria-current={currentStep === n ? 'step' : undefined}>
-                  <span className="stepper__num">{n}</span>
-                  <span className="stepper__text">{stepShortLabels[idx]}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          )}
 
-          <h2 className="step-title">Step {currentStep}: {stepTitle}</h2>
+          {/* Desktop-only stepper progress */}
+          {!isMobile && (
+            <div className="stepper" aria-label="Booking steps">
+              <div className="stepper__header">
+                <span className="stepper__current-textline">Step {currentStep} of 6: {stepTitle}</span>
+              </div>
+              <div className="stepper__progress">
+                <div className="stepper__bar" style={{ width: `${progressPercentage}%` }} />
+              </div>
+            </div>
+          )}
+
+          {/* Remove duplicate desktop title; the header above now shows it with progress */}
+          {/* {!isMobile && <h2 className="step-title">Step {currentStep}: {stepTitle}</h2>} */}
 
           <form ref={formRef} className="booking__form" onSubmit={handleSubmit}>
             {/* Step 1: Personal Information */}
@@ -193,6 +270,7 @@ const BookingPage = () => {
                       required
                       value={formData.firstName}
                       onChange={handleInputChange}
+                      autoComplete="given-name"
                     />
                   </div>
                   <div className="form-field">
@@ -204,6 +282,7 @@ const BookingPage = () => {
                       required
                       value={formData.lastName}
                       onChange={handleInputChange}
+                      autoComplete="family-name"
                     />
                   </div>
                 </div>
@@ -217,6 +296,7 @@ const BookingPage = () => {
                       type="text"
                       value={formData.company}
                       onChange={handleInputChange}
+                      autoComplete="organization"
                     />
                   </div>
                 </div>
@@ -231,6 +311,8 @@ const BookingPage = () => {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
+                      autoComplete="email"
+                      inputMode="email"
                     />
                   </div>
                   <div className="form-field">
@@ -246,6 +328,7 @@ const BookingPage = () => {
                       title="Enter 10–15 digits, optional +, spaces, dashes, or parentheses"
                       value={formData.phone}
                       onChange={handleInputChange}
+                      autoComplete="tel"
                     />
                   </div>
                 </div>
@@ -317,7 +400,7 @@ const BookingPage = () => {
                 <div className="form-row">
                   <div className="form-field">
                     <span className="field-label">Booking Type</span>
-                    <div className="radio-group">
+                    <div className="radio-group booking-type">
                       <label htmlFor="booking-type-one-time">
                         <input
                           id="booking-type-one-time"
@@ -347,88 +430,93 @@ const BookingPage = () => {
                 </div>
 
                 {isRecurring && (
-                  <div className="form-row">
-                    <div className="form-field">
-                      <span className="field-label">Frequency</span>
-                      <div className="radio-group">
-                        <label htmlFor="frequency-weekly">
+                  <>
+                    <div className="form-row">
+                      <div className="form-field">
+                        <span className="field-label">Frequency</span>
+                        <div className="radio-group radio-grid">
+                          <label htmlFor="frequency-weekly">
+                            <input
+                              id="frequency-weekly"
+                              type="radio"
+                              name="frequency"
+                              value="Weekly"
+                              required={isRecurring}
+                              checked={formData.frequency === 'Weekly'}
+                              onChange={handleInputChange}
+                            />
+                            Weekly
+                          </label>
+                          <label htmlFor="frequency-biweekly">
+                            <input
+                              id="frequency-biweekly"
+                              type="radio"
+                              name="frequency"
+                              value="Bi-Weekly"
+                              required={isRecurring}
+                              checked={formData.frequency === 'Bi-Weekly'}
+                              onChange={handleInputChange}
+                            />
+                            Bi-Weekly
+                          </label>
+                          <label htmlFor="frequency-every4weeks">
+                            <input
+                              id="frequency-every4weeks"
+                              type="radio"
+                              name="frequency"
+                              value="Every 4 Weeks"
+                              required={isRecurring}
+                              checked={formData.frequency === 'Every 4 Weeks'}
+                              onChange={handleInputChange}
+                            />
+                            Every 4 Weeks
+                          </label>
+                          <label htmlFor="frequency-other">
+                            <input
+                              id="frequency-other"
+                              type="radio"
+                              name="frequency"
+                              value="Other"
+                              required={isRecurring}
+                              checked={formData.frequency === 'Other'}
+                              onChange={handleInputChange}
+                            />
+                            Other
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="form-row">
+                      <div className="form-field">
+                        <label htmlFor="extra-first-time-deep-cleaning" className="checkbox-card">
                           <input
-                            id="frequency-weekly"
-                            type="radio"
-                            name="frequency"
-                            value="Weekly"
-                            required={isRecurring}
-                            checked={formData.frequency === 'Weekly'}
+                            id="extra-first-time-deep-cleaning"
+                            type="checkbox"
+                            name="firstTimeDeepCleaning"
+                            value="Yes"
+                            checked={!!formData.firstTimeDeepCleaning}
                             onChange={handleInputChange}
                           />
-                          Weekly
-                        </label>
-                        <label htmlFor="frequency-biweekly">
-                          <input
-                            id="frequency-biweekly"
-                            type="radio"
-                            name="frequency"
-                            value="Bi-Weekly"
-                            required={isRecurring}
-                            checked={formData.frequency === 'Bi-Weekly'}
-                            onChange={handleInputChange}
-                          />
-                          Bi-Weekly
-                        </label>
-                        <label htmlFor="frequency-every4weeks">
-                          <input
-                            id="frequency-every4weeks"
-                            type="radio"
-                            name="frequency"
-                            value="Every 4 Weeks"
-                            required={isRecurring}
-                            checked={formData.frequency === 'Every 4 Weeks'}
-                            onChange={handleInputChange}
-                          />
-                          Every 4 Weeks
-                        </label>
-                        <label htmlFor="frequency-other">
-                          <input
-                            id="frequency-other"
-                            type="radio"
-                            name="frequency"
-                            value="Other"
-                            required={isRecurring}
-                            checked={formData.frequency === 'Other'}
-                            onChange={handleInputChange}
-                          />
-                          Other
+                          First-time deep cleaning
                         </label>
                       </div>
                     </div>
-                    <div className="form-field">
-                      <label htmlFor="extra-first-time-deep-cleaning">
-                        <input
-                          id="extra-first-time-deep-cleaning"
-                          type="checkbox"
-                          name="firstTimeDeepCleaning"
-                          value="Yes"
-                          checked={!!formData.firstTimeDeepCleaning}
-                          onChange={handleInputChange}
-                        />
-                        First-time deep cleaning
-                      </label>
-                    </div>
-                  </div>
+                  </>
                 )}
 
                 {isOneTime && (
                   <div className="form-row">
                     <div className="form-field">
                       <label htmlFor="booking-reason">Reason</label>
-                      <input
+                      <textarea
                         id="booking-reason"
                         name="reason"
-                        type="textarea"
                         required={isOneTime}
                         value={formData.reason}
                         onChange={handleInputChange}
                         placeholder="Tell us more about your one-time cleaning"
+                        rows={3}
                       />
                     </div>
                   </div>
@@ -747,6 +835,7 @@ const BookingPage = () => {
                       placeholder="49 High St Suite 300, Barrie, ON L4N 5J4, Canada"
                       value={formData.address}
                       onChange={handleInputChange}
+                      autoComplete="street-address"
                     />
                   </div>
                 </div>
@@ -761,6 +850,7 @@ const BookingPage = () => {
                       required
                       value={formData.city}
                       onChange={handleInputChange}
+                      autoComplete="address-level2"
                     />
                   </div>
                   <div className="form-field">
@@ -771,6 +861,7 @@ const BookingPage = () => {
                       required
                       value={formData.province}
                       onChange={handleInputChange}
+                      autoComplete="address-level1"
                     >
                       <option value="" disabled>Select province</option>
                       <option value="ON">Ontario</option>
@@ -800,6 +891,7 @@ const BookingPage = () => {
                       title="Enter a valid Canadian postal code (e.g., L4M 1A1)"
                       value={formData.postal}
                       onChange={handleInputChange}
+                      autoComplete="postal-code"
                     />
                   </div>
                 </div>
@@ -832,8 +924,8 @@ const BookingPage = () => {
                       <option value="" disabled>
                         Select access method
                       </option>
-                      <option value="I’ll be home to let you in">I’ll be home to let you in</option>
-                      <option value="I’ll provide a lockbox or keypad code">I’ll provide a lockbox or keypad code</option>
+                      <option value="I'll be home to let you in">I'll be home to let you in</option>
+                      <option value="I'll provide a lockbox or keypad code">I'll provide a lockbox or keypad code</option>
                       <option value="Key hidden on premises">Key hidden on premises</option>
                       <option value="Key left with neighbor or concierge">Key left with neighbor or concierge</option>
                       <option value="Other">Other</option>
@@ -866,6 +958,7 @@ const BookingPage = () => {
                       required
                       value={formData.details}
                       onChange={handleInputChange}
+                      placeholder="Any additional information or special requests..."
                     />
                   </div>
                 </div>
@@ -925,11 +1018,15 @@ const BookingPage = () => {
 
             {/* Navigation Buttons */}
             <div className="nav-buttons">
-              {currentStep > 1 && (
-                <button type="button" className="btn btn--outline" onClick={goPrev}>
-                  Previous
-                </button>
-              )}
+              <button
+                type="button"
+                className="btn btn--outline"
+                onClick={goPrev}
+                disabled={currentStep === 1}
+                aria-disabled={currentStep === 1}
+              >
+                Previous
+              </button>
               {currentStep < 6 && (
                 <button type="button" className="btn" onClick={goNext}>
                   Next

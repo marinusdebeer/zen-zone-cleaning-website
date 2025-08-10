@@ -6,7 +6,7 @@
   padding: 120px 1rem 3rem; /* add space for fixed header */
 }
 
-/* Container holds the form and ensures it doesn’t stretch too wide on large
+/* Container holds the form and ensures it doesn't stretch too wide on large
    screens. A subtle box shadow and border radius match other panels on
    the site. */
 .booking__container {
@@ -31,78 +31,141 @@
   color: var(--color-text);
 }
 
-/* Stepper */
-.stepper {
-  margin-bottom: 1rem;
+/* Enhanced Mobile progress indicator */
+.mobile-progress {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-background) 100%);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px var(--color-shadow);
 }
 
-.stepper__progress {
-  height: 6px;
+.mobile-progress__text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mobile-progress__bar {
+  height: 12px;
   background-color: var(--color-accent);
   border-radius: 999px;
   overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Force solid color for progress bars (override any earlier gradients) */
+.mobile-progress__fill { background: var(--color-primary) !important; }
+.stepper__bar { background: var(--color-primary) !important; }
+
+/* Mobile step navigation hint */
+.mobile-progress__hint {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.hint-text {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Enhanced Stepper */
+.stepper {
+  margin-bottom: 1.5rem;
+}
+
+/* Center the desktop stepper */
+.stepper {
+  max-width: 720px;
+  margin: 0 auto 1.5rem;
+}
+
+.stepper__progress {
+  height: 8px;
+  background-color: var(--color-accent);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .stepper__bar {
-  height: 6px;
-  background-color: var(--color-primary);
+  height: 8px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
   width: 0%;
   transition: width var(--transition-fast);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.stepper__labels {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.stepper__label {
+/* Simplified current step indicator */
+.stepper__current {
   text-align: center;
-  padding: 0.35rem 0.5rem;
+  margin-top: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-background) 100%);
+  border: 2px solid var(--color-border);
   border-radius: var(--border-radius);
-  background-color: var(--color-accent);
-  color: var(--color-text);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.stepper__current-step {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
-  font-weight: 600;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.stepper__label .stepper__num {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  width: 1.5rem;
-  height: 1.5rem;
+.stepper__current-num {
+  background: var(--color-primary);
+  color: var(--color-secondary);
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px var(--color-shadow);
 }
 
-.stepper__label.active {
-  background-color: var(--color-primary);
-  color: var(--color-secondary);
+.stepper__current-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  opacity: 0.8;
 }
 
-.stepper__label.active .stepper__num {
-  background: var(--color-secondary);
+.stepper__current-title {
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--color-primary);
-  border-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
 }
 
 .step-title {
-  margin: 1rem 0 0.75rem;
+  margin: 1.5rem 0 1rem;
+  font-size: 1.5rem;
+  color: var(--color-text);
+  text-align: center;
+  font-weight: 700;
 }
 
 /* Form layout */
 .booking__form .form-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Field wrapper for label and input/select/textarea */
@@ -114,32 +177,35 @@
 }
 
 .form-field label {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
   color: var(--color-text);
+  font-size: 0.95rem;
 }
 
 .form-field input,
 .form-field select,
 .form-field textarea {
-  padding: 0.6rem 0.8rem;
-  border: 1px solid var(--color-border);
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--color-border);
   border-radius: var(--border-radius);
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-text);
   background-color: var(--color-background);
-  min-height: 42px;
+  min-height: 48px;
+  transition: all var(--transition-fast);
 }
 
 .form-field textarea {
   resize: vertical;
+  min-height: 100px;
 }
 
 /* Help text under inputs if needed */
 .help-text {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--color-text-secondary);
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 /* Focus states */
@@ -148,43 +214,53 @@
 .form-field textarea:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-alpha);
+  transform: translateY(-1px);
 }
 
 /* Improve radios/checkboxes */
 input[type="radio"],
 input[type="checkbox"] {
   accent-color: var(--color-primary);
+  transform: scale(1.2);
 }
 
-/* Card-like radio/checkbox labels */
+/* Enhanced radio/checkbox labels */
 .radio-group label,
 .checkbox-grid label,
 .extras-grid label {
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--color-border);
-  padding: 0.55rem 0.85rem;
+  border: 2px solid var(--color-border);
+  padding: 1rem 1.25rem;
   border-radius: var(--border-radius);
   background-color: var(--color-surface);
   cursor: pointer;
-  gap: 0.6rem;
+  gap: 0.75rem;
   font-weight: 600;
+  transition: all var(--transition-fast);
+  min-height: 52px;
+  position: relative;
+  overflow: hidden;
 }
 
 .radio-group label:hover,
 .checkbox-grid label:hover,
 .extras-grid label:hover {
   border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--color-shadow);
 }
 
 /* Highlight checked option */
 .radio-group label:has(input:checked),
 .checkbox-grid label:has(input:checked),
 .extras-grid label:has(input:checked) {
-  background-color: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-surface) 100%);
   color: var(--color-text);
   border-color: var(--color-primary);
+  box-shadow: 0 4px 16px var(--color-shadow);
+  transform: translateY(-2px);
 }
 
 /* Improve select dropdown visuals */
@@ -192,24 +268,32 @@ input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 14px;
-  padding-right: 2rem;
+  background-position: right 1rem center;
+  background-size: 16px;
+  padding-right: 2.5rem;
 }
 
 /* Improve select arrow visibility in dark mode */
 [data-theme="dark"] .form-field select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23cccccc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23cccccc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
-/* Step panels */
+/* Enhanced Step panels */
 .step-panel {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   border-radius: var(--border-radius);
-  padding: 1rem;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px var(--color-shadow);
+  transition: all var(--transition-fast);
+}
+
+.step-panel:hover {
+  box-shadow: 0 4px 16px var(--color-shadow);
+  transform: translateY(-1px);
 }
 
 /* Groups */
@@ -217,30 +301,32 @@ input[type="checkbox"] {
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1rem;
+  gap: 1rem 1.5rem;
 }
 
 .radio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.5rem 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
 }
 
 .checkbox-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.5rem 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
 }
 
 /* Extras grouping */
 .form-extras {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .extras-title {
-  font-weight: 600;
-  margin-bottom: 0.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
   color: var(--color-text);
+  font-size: 1.1rem;
+  text-align: center;
 }
 
 .extras-grid {
@@ -252,28 +338,601 @@ input[type="checkbox"] {
 .extras-grid label {
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--color-text);
+  min-height: 52px;
+  flex: 1;
+  min-width: 200px;
 }
 
 .extras-grid input {
-  margin-right: 0.4rem;
+  margin-right: 0.5rem;
 }
 
 /* Submit button spacing */
 .booking__submit {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .nav-buttons {
   display: flex;
   gap: 0.75rem;
-  justify-content: flex-end;
-  margin-top: 1rem;
+  justify-content: flex-end; /* cluster buttons together */
+  margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
+.nav-buttons .btn {
+  min-width: 140px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+}
+
+.nav-buttons .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--color-shadow);
+}
+
+/* Neutralize default invalid highlight unless explicitly shown */
+.form-field input:invalid,
+.form-field select:invalid,
+.form-field textarea:invalid {
+  box-shadow: none;
+  border-color: var(--color-border);
+}
+
+/* Form validation and error states - only when attempting to proceed */
+.step-panel.show-validation .form-field input:invalid,
+.step-panel.show-validation .form-field select:invalid,
+.step-panel.show-validation .form-field textarea:invalid {
+  border-color: var(--color-error, #dc2626);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+}
+
+.step-panel.show-validation .form-field input:invalid:focus,
+.step-panel.show-validation .form-field select:invalid:focus,
+.step-panel.show-validation .form-field textarea:invalid:focus {
+  border-color: var(--color-error, #dc2626);
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2);
+}
+
+/* Mobile-specific error styling - only when attempting to proceed */
 @media (max-width: 768px) {
+  .step-panel.show-validation .form-field input:invalid,
+  .step-panel.show-validation .form-field select:invalid,
+  .step-panel.show-validation .form-field textarea:invalid {
+    border-width: 2px;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+  }
+  
+  .step-panel.show-validation .form-field input:invalid:focus,
+  .step-panel.show-validation .form-field select:invalid:focus,
+  .step-panel.show-validation .form-field textarea:invalid:focus {
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.25);
+  }
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  .booking {
+    padding: 80px 0.5rem 2rem;
+  }
+
+  .booking__container {
+    padding: 1.5rem 1rem;
+    margin: 0 0.5rem;
+    border-radius: var(--border-radius);
+  }
+
+  .booking__title {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+
+  .booking__intro {
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  /* Enhanced Mobile progress indicator */
+  .mobile-progress {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-width: 3px;
+  }
+
+  .mobile-progress__text {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .mobile-progress__bar {
+    height: 10px;
+  }
+
+  /* Enhanced Mobile stepper */
+  .stepper__current {
+    margin-top: 1rem;
+    padding: 1.25rem;
+    border-width: 1px;
+  }
+
+  .stepper__current-step {
+    margin-bottom: 0.5rem;
+  }
+
+  .stepper__current-num {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+  }
+
+  .stepper__current-text {
+    font-size: 1rem;
+  }
+
+  .stepper__current-title {
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+    text-align: center;
+    margin: 1.5rem 0 1rem;
+  }
+
+  /* Enhanced Mobile form */
   .booking__form .form-row {
     flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
+
+  .form-field {
+    min-width: 100%;
+  }
+
+  .form-field label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    padding: 1rem 0.875rem;
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: 52px; /* Larger touch targets on mobile */
+    border-width: 2px;
+  }
+
+  .form-field textarea {
+    min-height: 120px;
+  }
+
+  /* Enhanced Mobile step panels */
+  .step-panel {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-width: 1px;
+  }
+
+  /* Enhanced Mobile radio/checkbox */
+  .radio-group,
+  .checkbox-group {
+    gap: 0.75rem;
+  }
+
+  .radio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .checkbox-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .radio-group label,
+  .checkbox-grid label,
+  .extras-grid label {
+    padding: 1rem 0.875rem;
+    min-height: 52px;
+    font-size: 0.9rem;
+    justify-content: center;
+    text-align: center;
+    border-width: 1px;
+  }
+
+  .extras-grid {
+    gap: 0.75rem;
+  }
+
+  .extras-grid label {
+    min-height: 52px;
+    justify-content: flex-start;
+    text-align: left;
+    flex: 1;
+    min-width: 100%;
+  }
+
+  /* Enhanced Mobile navigation */
+  .nav-buttons {
+    flex-direction: row; /* side-by-side on mobile */
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    justify-content: stretch;
+  }
+
+  .nav-buttons .btn {
+    width: auto;
+    min-width: 0;
+    flex: 1 1 0; /* equal width buttons */
+    padding: 1.1rem 1rem;
+    font-size: 1.05rem;
+    justify-content: center;
+    min-height: 56px;
+  }
+
+  /* If there is only one button, let it span full width */
+  .nav-buttons:has(.btn:first-child:last-child) .btn {
+    flex: 1 0 100%;
+  }
+
+  /* Mobile extras title */
+  .extras-title {
+    text-align: center;
+    font-size: 1rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .booking__container {
+    padding: 1rem 0.75rem;
+    margin: 0 0.25rem;
+  }
+
+  .stepper__labels {
+    gap: 0.25rem;
+  }
+
+  .stepper__label {
+    padding: 0.3rem 0.15rem;
+  }
+
+  .stepper__label .stepper__num {
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.7rem;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    padding: 0.875rem 0.75rem;
+    font-size: 16px;
+  }
+
+  .radio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mobile-progress {
+    padding: 0.875rem;
+  }
+
+  .mobile-progress__text {
+    font-size: 0.85rem;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .stepper__labels {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.4rem;
+  }
+
+  .stepper__label .stepper__text {
+    display: block; /* Show text labels in landscape */
+    font-size: 0.6rem;
+  }
+
+  .booking__form .form-row {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .form-field {
+    min-width: calc(50% - 0.5rem);
+  }
+
+  .mobile-progress {
+    padding: 0.75rem;
+  }
+}
+
+/* Enhanced mobile touch targets */
+@media (max-width: 768px) {
+  /* Improve mobile form field spacing */
+  .form-field {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Better mobile button sizing */
+  .nav-buttons .btn {
+    min-height: 56px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Mobile step panel improvements */
+  .step-panel {
+    margin-bottom: 1rem;
+    border-radius: calc(var(--border-radius) + 2px);
+  }
+  
+  /* Mobile progress bar enhancements */
+  .mobile-progress__bar {
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .mobile-progress__fill {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Small mobile optimizations */
+@media (max-width: 480px) {
+  .stepper__current {
+    margin-top: 0.75rem;
+    padding: 1rem;
+  }
+
+  .stepper__current-num {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.1rem;
+  }
+
+  .stepper__current-text {
+    font-size: 0.9rem;
+  }
+
+  .stepper__current-title {
+    font-size: 1rem;
+  }
+
+  .mobile-progress {
+    margin-bottom: 1.25rem;
+  }
+
+  .mobile-progress__text {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+}
+
+/* Landscape mobile improvements */
+@media (max-width: 768px) and (orientation: landscape) {
+  .stepper__current {
+    margin-top: 0.75rem;
+    padding: 1rem;
+  }
+
+  .stepper__current-num {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.1rem;
+  }
+
+  .stepper__current-text {
+    font-size: 0.9rem;
+  }
+
+  .stepper__current-title {
+    font-size: 1rem;
+  }
+
+  .mobile-progress {
+    padding: 0.75rem;
+  }
+
+  .mobile-progress__text {
+    font-size: 0.85rem;
+  }
+}
+
+/* Add CSS custom properties for alpha colors if not defined */
+:root {
+  --color-primary-alpha: rgba(59, 130, 246, 0.1);
+  --color-error: #dc2626;
+}
+
+[data-theme="dark"] {
+  --color-primary-alpha: rgba(59, 130, 246, 0.2);
+  --color-error: #ef4444;
+}
+
+/* Mobile progress card controls */
+.mobile-progress__controls {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.mobile-progress__back {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.mobile-progress__back:hover:not([disabled]) {
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.mobile-progress__back[disabled],
+.mobile-progress__back[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Hide stepper entirely on mobile */
+@media (max-width: 768px) {
+  .stepper { display: none; }
+}
+
+.stepper__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Center the desktop stepper */
+.stepper__header {
+  justify-content: center;
+  text-align: center;
+}
+
+.stepper__current-textline {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Center the desktop stepper */
+.stepper__current-textline {
+  text-align: center;
+}
+
+/* Step 3 layout improvements */
+.step-panel[data-step="3"] .radio-group.booking-type {
+  justify-content: center;
+  gap: 1rem 1.5rem;
+}
+
+.step-panel[data-step="3"] .radio-group.booking-type label {
+  min-width: 180px;
+  justify-content: center;
+}
+
+.step-panel[data-step="3"] .radio-grid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+/* Checkbox card styling for first-time deep cleaning */
+.checkbox-card {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  background-color: var(--color-surface);
+  cursor: pointer;
+  gap: 0.6rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  min-height: 48px;
+  user-select: none;
+}
+
+.checkbox-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.checkbox-card:has(input:checked) {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+/* Mobile tweaks for Step 3 */
+@media (max-width: 768px) {
+  .step-panel[data-step="3"] .radio-group.booking-type label {
+    min-width: 140px;
+  }
+
+  .step-panel[data-step="3"] .radio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .checkbox-card {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.1);
+}
+
+/* Small-screen radio layout: make single-column radios stretch full width */
+@media (max-width: 768px) {
+  /* For non-grid radio groups, stack vertically and stretch */
+  .radio-group:not(.radio-grid) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .radio-group:not(.radio-grid) label {
+    width: 100%;
+  }
+
+  /* For grid radio groups, fill the grid cell width */
+  .radio-grid label {
+    width: 100%;
+  }
+
+  /* Booking type radios: ensure full width cards when stacked */
+  .radio-group.booking-type label {
+    width: 100%;
+  }
+}
+
+/* Ensure tracks and fills render correctly */
+.mobile-progress__bar,
+.stepper__progress {
+  position: relative;
+}
+
+.mobile-progress__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  display: block;
+}
+
+.stepper__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  display: block;
 }
