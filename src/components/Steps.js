@@ -12,20 +12,17 @@ const Steps = () => {
     {
       icon: `${process.env.PUBLIC_URL}/images/house.png`,
       title: 'Book Online',
-      description:
-        'Choose your service, date and time in a few clicks using our easy online form.',
+      description: 'Choose your service, date and time in a few clicks using our easy online form.',
     },
     {
       icon: `${process.env.PUBLIC_URL}/images/broom.png`,
       title: 'We Clean',
-      description:
-        'Our background‑checked professionals arrive on time with all supplies needed.',
+      description: 'Our background‑checked professionals arrive on time with all supplies needed.',
     },
     {
       icon: `${process.env.PUBLIC_URL}/images/bucket.png`,
       title: 'You Relax',
-      description:
-        'Enjoy your sparkling home and spend your time on what matters most to you.',
+      description: 'Enjoy your sparkling home and spend your time on what matters most to you.',
     },
   ];
 

@@ -22,15 +22,21 @@ const Hero = ({ title, subtitle }) => {
       <div className="hero__overlay"></div>
       <div className="hero__content">
         <h1 className="hero__title">{title || 'House Cleaning Services'}</h1>
-        <h2 className="hero__subtitle">{subtitle || 'Serving Barrie, Orillia, and greater Simcoe County'}</h2>
+        <h2 className="hero__subtitle">
+          {subtitle || 'Serving Barrie, Orillia, and greater Simcoe County'}
+        </h2>
         <p className="hero__subtitle">
-          Family‑owned, reliable, and background‑checked professionals. Enjoy a spotless
-          home and more free time—without lifting a finger.
+          Family‑owned, reliable, and background‑checked professionals. Enjoy a spotless home and
+          more free time—without lifting a finger.
         </p>
 
         <div className="hero__buttons">
-          <Link to={'/book'} className="btn">Request Estimate</Link>
-          <a href="#services" className="btn btn--outline">See Services</a>
+          <Link to={'/book'} className="btn">
+            Request Estimate
+          </Link>
+          <a href="#services" className="btn btn--outline">
+            See Services
+          </a>
         </div>
 
         <ul className="hero__trust" aria-label="reasons to trust Zen Zone Cleaning">

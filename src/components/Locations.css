@@ -34,7 +34,11 @@
   overflow: hidden;
   text-decoration: none;
   color: var(--color-text);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .location-card:hover {
@@ -72,5 +76,3 @@
   font-weight: 600;
   color: var(--color-primary);
 }
-
-

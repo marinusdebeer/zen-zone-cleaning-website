@@ -28,7 +28,9 @@ const Header = () => {
   // Prevent body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isMenuOpen]);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -54,23 +56,35 @@ const Header = () => {
     <header className="header">
       <div className="header__container">
         <div className="header__logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
-          <img 
-            src={`${process.env.PUBLIC_URL}/images/logo.png`} 
-            alt="Zen Zone Cleaning Services" 
+          <img
+            src={`${process.env.PUBLIC_URL}/images/logo.png`}
+            alt="Zen Zone Cleaning Services"
             className="header__logo-image"
           />
           <span className="header__logo-text">Zen Zone Cleaning Services</span>
-          <span className="header__flag" role="img" aria-label="Canada">🇨🇦</span>
+          <span className="header__flag" role="img" aria-label="Canada">
+            🇨🇦
+          </span>
         </div>
 
         {/* Desktop navigation */}
         <nav className="header__nav">
-          <a href="#services" onClick={handleSectionClick('services')}>Services</a>
-          <a href="#about" onClick={handleSectionClick('about')}>About</a>
-          <a href="#why-us" onClick={handleSectionClick('why-us')}>Why Us</a>
-          <a href="#contact" onClick={handleSectionClick('contact')}>Contact</a>
+          <a href="#services" onClick={handleSectionClick('services')}>
+            Services
+          </a>
+          <a href="#about" onClick={handleSectionClick('about')}>
+            About
+          </a>
+          <a href="#why-us" onClick={handleSectionClick('why-us')}>
+            Why Us
+          </a>
+          <a href="#contact" onClick={handleSectionClick('contact')}>
+            Contact
+          </a>
           <ThemeToggle size="medium" />
-          <Link to={'/book'} className="header__book">Request Estimate</Link>
+          <Link to={'/book'} className="header__book">
+            Request Estimate
+          </Link>
         </nav>
 
         {/* Mobile actions: theme toggle + hamburger */}
@@ -97,11 +111,21 @@ const Header = () => {
         aria-label="Site navigation"
       >
         <div className="mobile-menu__content">
-          <a href="#services" onClick={handleSectionClick('services')}>Services</a>
-          <a href="#about" onClick={handleSectionClick('about')}>About</a>
-          <a href="#why-us" onClick={handleSectionClick('why-us')}>Why Us</a>
-          <a href="#contact" onClick={handleSectionClick('contact')}>Contact</a>
-          <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>Request Estimate</Link>
+          <a href="#services" onClick={handleSectionClick('services')}>
+            Services
+          </a>
+          <a href="#about" onClick={handleSectionClick('about')}>
+            About
+          </a>
+          <a href="#why-us" onClick={handleSectionClick('why-us')}>
+            Why Us
+          </a>
+          <a href="#contact" onClick={handleSectionClick('contact')}>
+            Contact
+          </a>
+          <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>
+            Request Estimate
+          </Link>
         </div>
       </div>
       {isMenuOpen && <div className="menu-backdrop" onClick={closeMenu} aria-hidden="true" />}

@@ -1,10 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Zen Zone Cleaning Services</title>
-    <meta name="description" content="Zen Zone Cleaning — trusted house cleaning in Simcoe County. Request your free estimate." />
+    <meta
+      name="description"
+      content="Zen Zone Cleaning — trusted house cleaning in Simcoe County. Request your free estimate."
+    />
     <link rel="canonical" href="https://zenzonecleaning.com/" />
     <link rel="icon" href="%PUBLIC_URL%/images/logo.png" />
     <meta name="theme-color" content="#0ea5e9" />
@@ -12,7 +15,10 @@
     <meta property="og:site_name" content="Zen Zone Cleaning" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Zen Zone Cleaning Services" />
-    <meta property="og:description" content="Trusted house cleaning in Barrie, Orillia, and Innisfil." />
+    <meta
+      property="og:description"
+      content="Trusted house cleaning in Barrie, Orillia, and Innisfil."
+    />
     <meta property="og:image" content="https://zenzonecleaning.com/images/hero.png" />
     <meta property="og:url" content="https://zenzonecleaning.com/" />
 
@@ -22,14 +28,16 @@
       (function () {
         try {
           var saved = localStorage.getItem('theme');
-          var isDark = saved ? saved === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var isDark = saved
+            ? saved === 'dark'
+            : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
           document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
         } catch (e) {}
       })();
     </script>
     <script type="text/javascript">
       /* SPA GitHub Pages redirect decoder using history.replaceState (no reload) */
-      (function() {
+      (function () {
         var l = window.location;
         if (!l.search) return;
         var params = new URLSearchParams(l.search);

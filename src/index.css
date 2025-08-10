@@ -14,22 +14,22 @@
   --color-border: #e0e0e0; /* light border color */
   --color-shadow: rgba(0, 0, 0, 0.1); /* subtle shadow */
   --color-overlay: rgba(0, 0, 0, 0.1); /* overlay color */
-  
+
   /* Button and interactive states */
   --color-primary-hover: #3a4e3f; /* slightly lighter/darker variant for hover */
   --color-on-primary: #ffffff; /* text color on primary backgrounds */
-  
+
   /* Layout variables */
   --max-content-width: 1200px;
   --border-radius: 6px;
   --transition-fast: 0.2s ease-in-out;
   --transition-medium: 0.3s ease-in-out;
-  
+
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Dark theme colors */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --color-primary: #4a7c59; /* lighter green for dark mode */
   --color-secondary: #ffffff; /* keep white for text on primary */
   --color-accent: #2d2d2d; /* dark gray */
@@ -62,7 +62,9 @@ body {
   color: var(--color-text);
   background-color: var(--color-background);
   line-height: 1.6;
-  transition: background-color var(--transition-medium), color var(--transition-medium);
+  transition:
+    background-color var(--transition-medium),
+    color var(--transition-medium);
 }
 
 a {

@@ -1,11 +1,14 @@
 /* App component styles */
 
-.App, .app-shell {
+.App,
+.app-shell {
   text-align: center;
   min-height: 100vh;
   background-color: var(--color-background);
   color: var(--color-text);
-  transition: background-color var(--transition-medium), color var(--transition-medium);
+  transition:
+    background-color var(--transition-medium),
+    color var(--transition-medium);
 }
 
 /* Sticky footer layout: header + content (flex:1) + footer */
@@ -135,26 +138,42 @@
   text-align: center;
 }
 
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+.mb-2 {
+  margin-bottom: 1rem;
+}
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+.mb-4 {
+  margin-bottom: 2rem;
+}
 
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
+.mt-1 {
+  margin-top: 0.5rem;
+}
+.mt-2 {
+  margin-top: 1rem;
+}
+.mt-3 {
+  margin-top: 1.5rem;
+}
+.mt-4 {
+  margin-top: 2rem;
+}
 
 /* Responsive design */
 @media (max-width: 768px) {
   .section {
     padding: 3rem 1rem;
   }
-  
+
   .section__title {
     font-size: 2rem;
   }
-  
+
   .section__subtitle {
     font-size: 1.1rem;
   }

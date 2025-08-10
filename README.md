@@ -18,27 +18,33 @@ A modern, responsive website for Zen Zone Cleaning Services built with React.
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (version 14 or higher)
 - npm or yarn
 
 ### Installation
+
 1. Clone the repository
+
 ```bash
 git clone https://github.com/marinusdebeer/zen-zone-cleaning-website.git
 cd zen-zone-cleaning-website
 ```
 
 2. Install dependencies
+
 ```bash
 npm install
 ```
 
 3. Start development server
+
 ```bash
 npm start
 ```
 
 4. Build for production
+
 ```bash
 npm run build
 ```

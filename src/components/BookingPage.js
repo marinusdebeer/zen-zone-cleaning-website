@@ -20,10 +20,10 @@ const BookingPage = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -180,10 +180,10 @@ const BookingPage = () => {
     if (!formRef.current) return true;
     const stepEl = formRef.current.querySelector(`[data-step="${currentStep}"]`);
     if (!stepEl) return true;
-    
+
     const inputs = stepEl.querySelectorAll('input, select, textarea');
     let firstInvalidInput = null;
-    
+
     for (const input of inputs) {
       if (input.required && !input.checkValidity()) {
         if (!firstInvalidInput) {
@@ -192,16 +192,16 @@ const BookingPage = () => {
         }
       }
     }
-    
+
     if (firstInvalidInput) {
       stepEl.classList.add('show-validation');
 
       if (isMobile) {
         setTimeout(() => {
-          firstInvalidInput.scrollIntoView({ 
-            behavior: 'smooth', 
+          firstInvalidInput.scrollIntoView({
+            behavior: 'smooth',
             block: 'center',
-            inline: 'nearest'
+            inline: 'nearest',
           });
           firstInvalidInput.style.borderColor = 'var(--color-error, #dc2626)';
           firstInvalidInput.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
@@ -234,10 +234,10 @@ const BookingPage = () => {
       const headerOffset = 80;
       const elementPosition = document.body.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
-      window.scrollTo({ 
-        top: offsetPosition, 
-        behavior: 'smooth' 
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
       });
     } else {
       // Instant scroll on desktop
@@ -312,8 +312,8 @@ const BookingPage = () => {
                 Step {currentStep} of 6: {stepTitle}
               </div>
               <div className="mobile-progress__bar">
-                <div 
-                  className="mobile-progress__fill" 
+                <div
+                  className="mobile-progress__fill"
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
@@ -324,7 +324,9 @@ const BookingPage = () => {
           {!isMobile && (
             <div className="stepper" aria-label="Booking steps">
               <div className="stepper__header">
-                <span className="stepper__current-textline">Step {currentStep} of 6: {stepTitle}</span>
+                <span className="stepper__current-textline">
+                  Step {currentStep} of 6: {stepTitle}
+                </span>
               </div>
               <div className="stepper__progress">
                 <div className="stepper__bar" style={{ width: `${progressPercentage}%` }} />
@@ -711,7 +713,9 @@ const BookingPage = () => {
                       value={formData.lastCleaned}
                       onChange={handleInputChange}
                     >
-                      <option value="" disabled>Select a timeframe</option>
+                      <option value="" disabled>
+                        Select a timeframe
+                      </option>
                       <option value="Within 1 week">Within 1 week</option>
                       <option value="1–4 weeks">1–4 weeks</option>
                       <option value="1–3 months">1–3 months</option>
@@ -776,7 +780,9 @@ const BookingPage = () => {
                       value={formData.pets}
                       onChange={handleInputChange}
                     >
-                      <option value="" disabled>Select an option</option>
+                      <option value="" disabled>
+                        Select an option
+                      </option>
                       <option value="None">None</option>
                       <option value="Dog(s)">Dog(s)</option>
                       <option value="Cat(s)">Cat(s)</option>
@@ -792,7 +798,9 @@ const BookingPage = () => {
                       value={formData.furnished}
                       onChange={handleInputChange}
                     >
-                      <option value="" disabled>Select an option</option>
+                      <option value="" disabled>
+                        Select an option
+                      </option>
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                     </select>
@@ -872,7 +880,9 @@ const BookingPage = () => {
                             Select an option
                           </option>
                           <option value="Basic - Shine Glass">Basic - Shine Glass</option>
-                          <option value="Deep - Scrub Frame & Shine Glass">Deep - Scrub Frame & Shine Glass</option>
+                          <option value="Deep - Scrub Frame & Shine Glass">
+                            Deep - Scrub Frame & Shine Glass
+                          </option>
                           <option value="Not Needed">Not Needed</option>
                         </select>
                       </div>
@@ -942,7 +952,9 @@ const BookingPage = () => {
                       onChange={handleInputChange}
                       autoComplete="address-level1"
                     >
-                      <option value="" disabled>Select province</option>
+                      <option value="" disabled>
+                        Select province
+                      </option>
                       <option value="ON">Ontario</option>
                       <option value="BC">British Columbia</option>
                       <option value="AB">Alberta</option>
@@ -1003,9 +1015,13 @@ const BookingPage = () => {
                         Select access method
                       </option>
                       <option value="I'll be home to let you in">I'll be home to let you in</option>
-                      <option value="I'll provide a lockbox or keypad code">I'll provide a lockbox or keypad code</option>
+                      <option value="I'll provide a lockbox or keypad code">
+                        I'll provide a lockbox or keypad code
+                      </option>
                       <option value="Key hidden on premises">Key hidden on premises</option>
-                      <option value="Key left with neighbor or concierge">Key left with neighbor or concierge</option>
+                      <option value="Key left with neighbor or concierge">
+                        Key left with neighbor or concierge
+                      </option>
                       <option value="Other">Other</option>
                     </select>
                   </div>
@@ -1111,7 +1127,12 @@ const BookingPage = () => {
                 </button>
               )}
               {currentStep === 6 && (
-                <button type="submit" className="btn booking__submit" disabled={isSubmitting} aria-disabled={isSubmitting}>
+                <button
+                  type="submit"
+                  className="btn booking__submit"
+                  disabled={isSubmitting}
+                  aria-disabled={isSubmitting}
+                >
                   {isSubmitting ? 'Sending…' : 'Request Estimate'}
                 </button>
               )}

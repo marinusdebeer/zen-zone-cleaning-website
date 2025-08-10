@@ -87,105 +87,242 @@ const Services = () => {
 
         <div className="services-hero-tiles">
           <div className="service-tile">
-            <img src={`${process.env.PUBLIC_URL}/images/broom.png`} alt="" aria-hidden="true" className="service-icon" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/broom.png`}
+              alt=""
+              aria-hidden="true"
+              className="service-icon"
+            />
             <h3>Weekly Cleaning</h3>
-            <p>Keep your home spotless with our weekly service—dusting, vacuuming, mopping, and sanitizing every corner.</p>
+            <p>
+              Keep your home spotless with our weekly service—dusting, vacuuming, mopping, and
+              sanitizing every corner.
+            </p>
             <p className="price">Starting at $130/visit</p>
-            <Link to={'/book?service=Weekly'} className="btn" aria-label="Request estimate for Weekly Cleaning">Request Estimate</Link>
+            <Link
+              to={'/book?service=Weekly'}
+              className="btn"
+              aria-label="Request estimate for Weekly Cleaning"
+            >
+              Request Estimate
+            </Link>
           </div>
 
           <div className="service-tile popular">
-            <img src={`${process.env.PUBLIC_URL}/images/house.png`} alt="" aria-hidden="true" className="service-icon" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/house.png`}
+              alt=""
+              aria-hidden="true"
+              className="service-icon"
+            />
             <h3>Bi-Weekly Cleaning</h3>
-            <p>A thorough clean every two weeks—ideal for keeping your space fresh without the weekly commitment.</p>
+            <p>
+              A thorough clean every two weeks—ideal for keeping your space fresh without the weekly
+              commitment.
+            </p>
             <p className="price">Starting at $130/visit</p>
-            <Link to={'/book?service=Bi-Weekly'} className="btn" aria-label="Request estimate for Bi-Weekly Cleaning">Request Estimate</Link>
+            <Link
+              to={'/book?service=Bi-Weekly'}
+              className="btn"
+              aria-label="Request estimate for Bi-Weekly Cleaning"
+            >
+              Request Estimate
+            </Link>
           </div>
 
           <div className="service-tile">
-            <img src={`${process.env.PUBLIC_URL}/images/box.png`} alt="" aria-hidden="true" className="service-icon" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/box.png`}
+              alt=""
+              aria-hidden="true"
+              className="service-icon"
+            />
             <h3>Monthly Refresh</h3>
-            <p>A deep refresh once a month, focusing on high-traffic areas to keep your home guest-ready.</p>
+            <p>
+              A deep refresh once a month, focusing on high-traffic areas to keep your home
+              guest-ready.
+            </p>
             <p className="price">Starting at $130/visit</p>
-            <Link to={'/book?service=Every%204%20Weeks'} className="btn" aria-label="Request estimate for Monthly Refresh">Request Estimate</Link>
+            <Link
+              to={'/book?service=Every%204%20Weeks'}
+              className="btn"
+              aria-label="Request estimate for Monthly Refresh"
+            >
+              Request Estimate
+            </Link>
           </div>
 
           <div className="service-tile">
-            <img src={`${process.env.PUBLIC_URL}/images/bucket.png`} alt="" aria-hidden="true" className="service-icon" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/bucket.png`}
+              alt=""
+              aria-hidden="true"
+              className="service-icon"
+            />
             <h3>First-Time Deep Cleaning</h3>
-            <p>One comprehensive deep clean for new recurring customers—behind appliances, baseboards, interior windows, and more.</p>
-            <Link to={'/book?service=First-Time%20Deep'} className="btn" aria-label="Request estimate for First-Time Deep Cleaning">Request Estimate</Link>
+            <p>
+              One comprehensive deep clean for new recurring customers—behind appliances,
+              baseboards, interior windows, and more.
+            </p>
+            <Link
+              to={'/book?service=First-Time%20Deep'}
+              className="btn"
+              aria-label="Request estimate for First-Time Deep Cleaning"
+            >
+              Request Estimate
+            </Link>
           </div>
         </div>
 
         <section className="faq" id="faq" aria-labelledby="faq-heading">
-          <h2 id="faq-heading" className="section-title">Frequently Asked Questions</h2>
+          <h2 id="faq-heading" className="section-title">
+            Frequently Asked Questions
+          </h2>
           <div className="faq-list">
             <details>
               <summary>What if I need to reschedule?</summary>
-              <p>You can reschedule up to 12 hours before your cleaning via your client portal or by calling us. We’ll find a new slot that fits your needs.</p>
+              <p>
+                You can reschedule up to 12 hours before your cleaning via your client portal or by
+                calling us. We’ll find a new slot that fits your needs.
+              </p>
             </details>
             <details>
               <summary>Do I get the same cleaner every time?</summary>
-              <p>Whenever possible, yes! We aim to send the same team to build familiarity with your home and your preferences.</p>
+              <p>
+                Whenever possible, yes! We aim to send the same team to build familiarity with your
+                home and your preferences.
+              </p>
             </details>
             <details>
               <summary>What if I’m not happy with the clean?</summary>
-              <p>Your satisfaction is guaranteed. If anything was missed, let us know within 24 hours and we’ll return to make it right—free of charge.</p>
+              <p>
+                Your satisfaction is guaranteed. If anything was missed, let us know within 24 hours
+                and we’ll return to make it right—free of charge.
+              </p>
             </details>
             <details>
               <summary>How do I pay for my recurring plan?</summary>
-              <p>After each cleaning, we'll send you an invoice that you can pay by e‑transfer or credit card. You can also set up automatic payments.</p>
+              <p>
+                After each cleaning, we'll send you an invoice that you can pay by e‑transfer or
+                credit card. You can also set up automatic payments.
+              </p>
             </details>
           </div>
         </section>
 
-        <h2 className="section-title" style={{ marginTop: '2rem' }}>One‑Time Cleaning Services</h2>
+        <h2 className="section-title" style={{ marginTop: '2rem' }}>
+          One‑Time Cleaning Services
+        </h2>
         <div className="services-hero-tiles">
           <div className="service-tile">
             <h3>Deep Cleaning</h3>
-            <p className="truncate">Our Deep Cleaning Service is designed to give your home a fresh start by tackling both the visible and hidden dirt. We thoroughly clean all common areas…</p>
-            <button className="btn btn--outline" onClick={() => setActiveModal('DeepCleaning')} aria-label="Learn more about Deep Cleaning">Learn More</button>
+            <p className="truncate">
+              Our Deep Cleaning Service is designed to give your home a fresh start by tackling both
+              the visible and hidden dirt. We thoroughly clean all common areas…
+            </p>
+            <button
+              className="btn btn--outline"
+              onClick={() => setActiveModal('DeepCleaning')}
+              aria-label="Learn more about Deep Cleaning"
+            >
+              Learn More
+            </button>
           </div>
 
           <div className="service-tile">
             <h3>Standard Cleaning</h3>
-            <p className="truncate">Our Standard Cleaning Service ensures a thorough cleaning of all common areas, including bedrooms, kitchens, and bathrooms. We wipe and dust surfaces…</p>
-            <button className="btn btn--outline" onClick={() => setActiveModal('StandardCleaning')} aria-label="Learn more about Standard Cleaning">Learn More</button>
+            <p className="truncate">
+              Our Standard Cleaning Service ensures a thorough cleaning of all common areas,
+              including bedrooms, kitchens, and bathrooms. We wipe and dust surfaces…
+            </p>
+            <button
+              className="btn btn--outline"
+              onClick={() => setActiveModal('StandardCleaning')}
+              aria-label="Learn more about Standard Cleaning"
+            >
+              Learn More
+            </button>
           </div>
 
           <div className="service-tile">
             <h3>Post-Construction Cleaning</h3>
-            <p className="truncate">Our Post-Construction Cleaning Service handles the mess left behind after construction or renovation projects. We ensure your property is spotless…</p>
-            <button className="btn btn--outline" onClick={() => setActiveModal('PostConstructionCleaning')} aria-label="Learn more about Post-Construction Cleaning">Learn More</button>
+            <p className="truncate">
+              Our Post-Construction Cleaning Service handles the mess left behind after construction
+              or renovation projects. We ensure your property is spotless…
+            </p>
+            <button
+              className="btn btn--outline"
+              onClick={() => setActiveModal('PostConstructionCleaning')}
+              aria-label="Learn more about Post-Construction Cleaning"
+            >
+              Learn More
+            </button>
           </div>
 
           <div className="service-tile">
             <h3>Standard Moving Cleaning</h3>
-            <p className="truncate">Our Move-In/Out Standard Cleaning Service is perfect for homes that need a general refresh during a move. We focus on cleaning all common areas…</p>
-            <button className="btn btn--outline" onClick={() => setActiveModal('MoveInCleaning')} aria-label="Learn more about Standard Moving Cleaning">Learn More</button>
+            <p className="truncate">
+              Our Move-In/Out Standard Cleaning Service is perfect for homes that need a general
+              refresh during a move. We focus on cleaning all common areas…
+            </p>
+            <button
+              className="btn btn--outline"
+              onClick={() => setActiveModal('MoveInCleaning')}
+              aria-label="Learn more about Standard Moving Cleaning"
+            >
+              Learn More
+            </button>
           </div>
 
           <div className="service-tile">
             <h3>Deep Moving Cleaning</h3>
-            <p className="truncate">Our Move-In/Out Deep Cleaning Service provides a comprehensive, detailed clean ensuring every corner of your home is spotless…</p>
-            <button className="btn btn--outline" onClick={() => setActiveModal('MoveOutCleaning')} aria-label="Learn more about Deep Moving Cleaning">Learn More</button>
+            <p className="truncate">
+              Our Move-In/Out Deep Cleaning Service provides a comprehensive, detailed clean
+              ensuring every corner of your home is spotless…
+            </p>
+            <button
+              className="btn btn--outline"
+              onClick={() => setActiveModal('MoveOutCleaning')}
+              aria-label="Learn more about Deep Moving Cleaning"
+            >
+              Learn More
+            </button>
           </div>
 
           <div className="service-tile">
             <h3>Office Cleaning</h3>
-            <p className="truncate">Boost productivity and maintain a professional image with our comprehensive office cleaning services…</p>
-            <button className="btn btn--outline" onClick={() => setActiveModal('OfficeCleaning')} aria-label="Learn more about Office Cleaning">Learn More</button>
+            <p className="truncate">
+              Boost productivity and maintain a professional image with our comprehensive office
+              cleaning services…
+            </p>
+            <button
+              className="btn btn--outline"
+              onClick={() => setActiveModal('OfficeCleaning')}
+              aria-label="Learn more about Office Cleaning"
+            >
+              Learn More
+            </button>
           </div>
         </div>
       </div>
 
       {activeModal && (
         <div className="modal-backdrop" onClick={() => setActiveModal(null)}>
-          <div className="modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="modal"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="modal__header">
               <h3 className="modal__title">{oneTimeServiceContent[activeModal].title}</h3>
-              <button className="modal__close" aria-label="Close" onClick={() => setActiveModal(null)}>×</button>
+              <button
+                className="modal__close"
+                aria-label="Close"
+                onClick={() => setActiveModal(null)}
+              >
+                ×
+              </button>
             </div>
             <div className="modal__body">
               {oneTimeServiceContent[activeModal].paragraphs.map((p, i) => (
@@ -193,8 +330,12 @@ const Services = () => {
               ))}
             </div>
             <div className="modal__footer">
-              <Link to={'/book'} className="btn">Request Estimate</Link>
-              <button className="btn btn--outline" onClick={() => setActiveModal(null)}>Close</button>
+              <Link to={'/book'} className="btn">
+                Request Estimate
+              </Link>
+              <button className="btn btn--outline" onClick={() => setActiveModal(null)}>
+                Close
+              </button>
             </div>
           </div>
         </div>

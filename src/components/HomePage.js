@@ -53,15 +53,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
-        dayOfWeek: [
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday',
-          'Sunday',
-        ],
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         opens: '08:00',
         closes: '20:00',
       },
@@ -77,8 +69,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         name: 'What if I need to reschedule?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text:
-            'You can reschedule up to 12 hours before your cleaning via your client portal or by calling us. We’ll find a new slot that fits your needs.',
+          text: 'You can reschedule up to 12 hours before your cleaning via your client portal or by calling us. We’ll find a new slot that fits your needs.',
         },
       },
       {
@@ -94,8 +85,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         name: 'What if I’m not happy with the clean?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text:
-            'Your satisfaction is guaranteed. If anything was missed, let us know within 24 hours and we’ll return to make it right—free of charge.',
+          text: 'Your satisfaction is guaranteed. If anything was missed, let us know within 24 hours and we’ll return to make it right—free of charge.',
         },
       },
       {
@@ -103,8 +93,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         name: 'How do I pay for my recurring plan?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text:
-            'After each cleaning, we\'ll send you an invoice that you can pay by e‑transfer or credit card. You can also set up automatic payments.',
+          text: "After each cleaning, we'll send you an invoice that you can pay by e‑transfer or credit card. You can also set up automatic payments.",
         },
       },
     ],
@@ -112,14 +101,19 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
 
   return (
     <main>
-      <SEO title={title} description={description} path={location.pathname} jsonLd={[localBusinessLd, faqLd]} />
+      <SEO
+        title={title}
+        description={description}
+        path={location.pathname}
+        jsonLd={[localBusinessLd, faqLd]}
+      />
       <Hero title={heroTitle} subtitle={heroSubtitle} />
       {cityName && (
         <section className="section" aria-label={`House Cleaning in ${cityName}`}>
           <h2>House Cleaning in {cityName}</h2>
           <p>
-            Professional recurring and one‑time cleaning services across {cityName}. Background‑checked cleaners,
-            supplies included, flexible scheduling. Open daily 8am–8pm.
+            Professional recurring and one‑time cleaning services across {cityName}.
+            Background‑checked cleaners, supplies included, flexible scheduling. Open daily 8am–8pm.
           </p>
         </section>
       )}

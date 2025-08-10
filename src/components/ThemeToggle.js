@@ -10,7 +10,7 @@ const ThemeToggle = ({ className = '', size = 'medium' }) => {
   const { isDarkMode, toggleTheme } = useTheme();
 
   return (
-    <button 
+    <button
       className={`theme-toggle theme-toggle--${size} ${className}`}
       onClick={toggleTheme}
       aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
