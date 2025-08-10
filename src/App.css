@@ -1,11 +1,21 @@
 /* App component styles */
 
-.App {
+.App, .app-shell {
   text-align: center;
   min-height: 100vh;
   background-color: var(--color-background);
   color: var(--color-text);
   transition: background-color var(--transition-medium), color var(--transition-medium);
+}
+
+/* Sticky footer layout: header + content (flex:1) + footer */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  flex: 1 0 auto;
 }
 
 /* Global button styles */

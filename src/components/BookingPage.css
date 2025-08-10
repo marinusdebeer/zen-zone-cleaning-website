@@ -882,11 +882,9 @@ input[type="checkbox"] {
   }
 }
 
-.btn[disabled],
-.btn[aria-disabled="true"] {
+.btn[disabled], .btn[aria-disabled="true"] {
   opacity: 0.6;
   cursor: not-allowed;
-  filter: grayscale(0.1);
 }
 
 /* Small-screen radio layout: make single-column radios stretch full width */

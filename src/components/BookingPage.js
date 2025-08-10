@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './BookingPage.css';
 
 /**
@@ -8,6 +9,8 @@ import './BookingPage.css';
  */
 const BookingPage = () => {
   const formRef = useRef(null);
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -21,6 +24,63 @@ const BookingPage = () => {
     window.addEventListener('resize', checkMobile);
     
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Prefill flag (?prefill=1) to auto-populate all fields for testing
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const prefill = params.get('prefill');
+    if (!prefill) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      // Step 1
+      firstName: 'Test',
+      lastName: 'User',
+      company: 'Zen Zone Demo',
+      email: 'marinusdebeer@gmail.com',
+      phone: '6472227305',
+      // Step 2
+      industry: 'Home Cleaning',
+      propertyType: 'House',
+      // Step 3
+      bookingType: 'Recurring',
+      frequency: 'Weekly',
+      reason: '',
+      firstTimeDeepCleaning: 'Yes',
+      // Step 4
+      squareFootage: '1800',
+      levels: '2',
+      bedrooms: '3',
+      bathrooms: '2',
+      powderRooms: '1',
+      kitchens: '1',
+      lastCleaned: '1–4 weeks',
+      people: '3',
+      builtYear: '2005',
+      lastRenovated: '2020',
+      pets: 'Dog(s)',
+      furnished: 'Yes',
+      // Step 5
+      package: '4',
+      extras: [],
+      interiorWindows: 'Basic - Shine Glass',
+      insideEmptyKitchenCabinets: 'Not Needed',
+      // Step 6
+      address: '49 High St Suite 300',
+      city: 'Barrie',
+      province: 'ON',
+      postal: 'L4N 5J4',
+      date: 'Next Tue afternoon',
+      accessMethod: "I'll be home to let you in",
+      accessDetails: '',
+      details: 'Please ring the bell. Gate code 1234 if needed.',
+      hearAbout: 'Google Maps or GBP',
+      referralName: '',
+    }));
+
+    // Jump to final step for quick submission
+    setCurrentStep(6);
   }, []);
 
   // Clear validation highlights when the step changes
@@ -184,15 +244,28 @@ const BookingPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate final step before submit
     if (!validateCurrentStep()) return;
-
-    // In a real app, post formData to backend
-    alert('Request submitted! We will contact you with an estimate.');
-    setFormData(initialState);
-    setCurrentStep(1);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      // capture a few details for the confirmation page before resetting state
+      const confirmEmail = formData.email;
+      const confirmName = formData.firstName;
+      if (window.Email && window.Email.sendBookingRequest) {
+        await window.Email.sendBookingRequest(formData);
+      }
+      // reset and navigate to confirmation
+      setFormData(initialState);
+      setCurrentStep(1);
+      navigate('/confirmation', { state: { email: confirmEmail, firstName: confirmName } });
+    } catch (err) {
+      console.error('Submission failed:', err);
+      alert('Sorry, something went wrong sending your request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const stepTitle = useMemo(() => {
@@ -324,7 +397,7 @@ const BookingPage = () => {
                       pattern="^(?:\+)?(?=(?:\D*\d){10,15}\D*$)[\d\s()\-]+$"
                       required
                       inputMode="tel"
-                      placeholder="e.g. 647 222 7305 or +1 647 222 7305"
+                      placeholder=""
                       title="Enter 10–15 digits, optional +, spaces, dashes, or parentheses"
                       value={formData.phone}
                       onChange={handleInputChange}
@@ -886,9 +959,8 @@ const BookingPage = () => {
                       name="postal"
                       type="text"
                       required
-                      placeholder="e.g. L4M 1A1"
-                      pattern="^[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d$"
-                      title="Enter a valid Canadian postal code (e.g., L4M 1A1)"
+                      placeholder="e.g. L4M 1A1 or 12345"
+                      maxLength={10}
                       value={formData.postal}
                       onChange={handleInputChange}
                       autoComplete="postal-code"
@@ -1033,8 +1105,8 @@ const BookingPage = () => {
                 </button>
               )}
               {currentStep === 6 && (
-                <button type="submit" className="btn booking__submit">
-                  Request Estimate
+                <button type="submit" className="btn booking__submit" disabled={isSubmitting} aria-disabled={isSubmitting}>
+                  {isSubmitting ? 'Sending…' : 'Request Estimate'}
                 </button>
               )}
             </div>

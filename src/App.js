@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import BookingPage from './components/BookingPage';
+import ConfirmationPage from './components/ConfirmationPage';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import './App.css';
@@ -16,12 +17,17 @@ import './App.css';
 function App() {
   return (
     <ThemeProvider>
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/book" element={<BookingPage />} />
-      </Routes>
-      <Footer />
+      <div className="app-shell">
+        <Header />
+        <div className="app-content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/book" element={<BookingPage />} />
+            <Route path="/confirmation" element={<ConfirmationPage />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 }
