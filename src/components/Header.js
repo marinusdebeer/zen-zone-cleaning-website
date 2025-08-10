@@ -6,8 +6,8 @@ import './Header.css';
 /**
  * Header component renders the top navigation bar for the site.
  * Desktop shows inline navigation. On mobile, a hamburger opens a
- * slide‑out menu that contains all nav links, the theme toggle and
- * the primary CTA button.
+ * slide‑out menu that contains nav links and the primary CTA button.
+ * The theme toggle is shown inline next to the hamburger on mobile.
  */
 const Header = () => {
   const navigate = useNavigate();
@@ -52,16 +52,19 @@ const Header = () => {
           <Link to="/book" className="header__book">Request Estimate</Link>
         </nav>
 
-        {/* Mobile hamburger toggle */}
-        <button
-          className="header__menu-toggle"
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setIsMenuOpen((v) => !v)}
-        >
-          <span className="menu-icon" />
-        </button>
+        {/* Mobile actions: theme toggle + hamburger */}
+        <div className="header__actions">
+          <ThemeToggle size="medium" />
+          <button
+            className="header__menu-toggle"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setIsMenuOpen((v) => !v)}
+          >
+            <span className="menu-icon" />
+          </button>
+        </div>
       </div>
 
       {/* Mobile slide-out menu */}
@@ -77,7 +80,6 @@ const Header = () => {
           <a href="/zen-zone-cleaning-website/#about" onClick={closeMenu}>About</a>
           <a href="/zen-zone-cleaning-website/#why-us" onClick={closeMenu}>Why Us</a>
           <a href="/zen-zone-cleaning-website/#contact" onClick={closeMenu}>Contact</a>
-          <ThemeToggle size="medium" />
           <Link to="/book" className="btn mobile-menu__cta" onClick={closeMenu}>Request Estimate</Link>
         </div>
       </div>

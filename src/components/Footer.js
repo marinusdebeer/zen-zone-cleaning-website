@@ -42,14 +42,19 @@ const Footer = () => {
         <div className="footer__contact">
           <h4>Contact</h4>
           <p>
-            Phone:{' '}
+            Phone{' '} 
             <a href="tel:+1-705-242-5462">705‑242‑5462</a>
           </p>
           <p>
-            Email:{' '}
+            Email{' '} 
             <a href="mailto:admin@zenzonecleaning.ca">admin@zenzonecleaning.ca</a>
           </p>
-          <p>Simcoe County, Ontario</p>
+          <p>
+            Address{' '}
+            <a href="https://maps.google.com/?q=49+High+St+Suite+300,+Barrie,+ON+L4N+5J4,+Canada" target="_blank" rel="noreferrer">
+              49 High St Suite 300, Barrie, ON L4N 5J4, Canada
+            </a>
+          </p>
         </div>
       </div>
       <div className="footer__bottom">

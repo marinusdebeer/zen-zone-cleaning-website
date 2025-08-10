@@ -744,6 +744,7 @@ const BookingPage = () => {
                       name="address"
                       type="text"
                       required
+                      placeholder="49 High St Suite 300, Barrie, ON L4N 5J4, Canada"
                       value={formData.address}
                       onChange={handleInputChange}
                     />
