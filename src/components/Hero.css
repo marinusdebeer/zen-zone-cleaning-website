@@ -133,7 +133,7 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .hero {
-    padding: 100px 1rem 1rem;
+    padding: 60px 1rem 1rem; /* reduced top padding on mobile */
   }
   
   .hero__title {

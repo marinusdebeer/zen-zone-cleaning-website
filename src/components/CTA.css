@@ -2,10 +2,12 @@
 
 .cta {
   text-align: center;
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-hover); /* slightly different from footer */
   color: var(--color-secondary);
   padding: 3rem 1rem;
   border-radius: var(--border-radius);
+  margin-bottom: 2rem; /* space before footer */
+  box-shadow: 0 6px 16px var(--color-shadow);
 }
 
 .cta__title {
