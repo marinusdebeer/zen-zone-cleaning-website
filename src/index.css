@@ -1,16 +1,51 @@
 /* Global styles and CSS variables */
 
 :root {
-  /* Brand colours - dark green, white, and black only */
+  /* Light theme colors */
   --color-primary: #2e3d2f; /* dark green */
   --color-secondary: #ffffff; /* white */
   --color-accent: #f8f8f8; /* very light gray (almost white) */
   --color-dark: #000000; /* black */
   --color-light: #ffffff; /* white */
+  --color-text: #333333; /* dark gray for text */
+  --color-text-secondary: #666666; /* medium gray for secondary text */
+  --color-background: #ffffff; /* white background */
+  --color-surface: #f8f8f8; /* light surface color */
+  --color-border: #e0e0e0; /* light border color */
+  --color-shadow: rgba(0, 0, 0, 0.1); /* subtle shadow */
+  --color-overlay: rgba(0, 0, 0, 0.5); /* overlay color */
+  
+  /* Button and interactive states */
+  --color-primary-hover: #3a4e3f; /* slightly lighter/darker variant for hover */
+  --color-on-primary: #ffffff; /* text color on primary backgrounds */
+  
+  /* Layout variables */
   --max-content-width: 1200px;
   --border-radius: 6px;
   --transition-fast: 0.2s ease-in-out;
+  --transition-medium: 0.3s ease-in-out;
+  
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Dark theme colors */
+[data-theme="dark"] {
+  --color-primary: #4a7c59; /* lighter green for dark mode */
+  --color-secondary: #ffffff; /* keep white for text on primary */
+  --color-accent: #2d2d2d; /* dark gray */
+  --color-dark: #ffffff; /* white text on dark background */
+  --color-light: #1a1a1a; /* dark background */
+  --color-text: #ffffff; /* white text */
+  --color-text-secondary: #cccccc; /* light gray for secondary text */
+  --color-background: #121212; /* very dark background */
+  --color-surface: #1e1e1e; /* dark surface color */
+  --color-border: #404040; /* dark border color */
+  --color-shadow: rgba(0, 0, 0, 0.3); /* stronger shadow for dark mode */
+  --color-overlay: rgba(0, 0, 0, 0.7); /* stronger overlay for dark mode */
+
+  /* Button and interactive states */
+  --color-primary-hover: #5b8d67;
+  --color-on-primary: #ffffff;
 }
 
 * {
@@ -19,10 +54,15 @@
   box-sizing: border-box;
 }
 
+html {
+  transition: background-color var(--transition-medium);
+}
+
 body {
-  color: var(--color-dark);
-  background-color: var(--color-light);
+  color: var(--color-text);
+  background-color: var(--color-background);
   line-height: 1.6;
+  transition: background-color var(--transition-medium), color var(--transition-medium);
 }
 
 a {

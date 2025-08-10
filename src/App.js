@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import BookingPage from './components/BookingPage';
 import { Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './contexts/ThemeContext';
 import './App.css';
 
 /**
@@ -14,14 +15,14 @@ import './App.css';
  */
 function App() {
   return (
-    <>
+    <ThemeProvider>
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/book" element={<BookingPage />} />
       </Routes>
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }
 

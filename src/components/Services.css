@@ -4,6 +4,12 @@
   text-align: left;
 }
 
+/* Improve main section title inside Services */
+.services .section-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 .services__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -13,30 +19,64 @@
 
 /* New recurring/one-time layout */
 .services-content h2 { margin-bottom: 0.5rem; }
-.services-intro h3 { margin: 1rem 0 0.5rem; }
+
+/* Improve the includes block */
+.services-intro {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 1rem 1.25rem;
+  margin: 0.5rem 0 1rem;
+}
+.services-intro h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
 .includes-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 0.5rem 2rem;
 }
-.includes-list ul { padding-left: 1rem; }
-.includes-list li { margin: 0.25rem 0; }
+.includes-list ul { padding-left: 0; margin: 0; }
+.includes-list li {
+  margin: 0.25rem 0;
+  position: relative;
+  padding-left: 1.25rem;
+  color: var(--color-text);
+}
+.includes-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+}
 
+/* Service tiles grid - equal height cards */
 .services-hero-tiles {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
+  align-items: stretch; /* stretch grid items */
+  grid-auto-rows: 1fr; /* equal height rows */
 }
 .service-tile {
-  background: var(--color-light);
-  border: 1px solid var(--color-accent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  height: 100%; /* fill grid track */
 }
+.service-tile h3 { margin: 0.25rem 0 0.25rem; }
+.service-tile p { margin: 0; }
+.service-tile .price { font-weight: 700; }
+.service-tile .btn { margin-top: auto; }
 .service-tile.popular { border-color: var(--color-primary); }
 .service-icon { width: 40px; height: 40px; }
 .price { font-weight: 700; }
@@ -51,8 +91,8 @@
 
 /* FAQ */
 .faq-list details {
-  border: 1px solid var(--color-accent);
-  background: var(--color-light);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   padding: 0.75rem 1rem;
   border-radius: var(--border-radius);
 }
@@ -64,7 +104,7 @@
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--color-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,17 +112,17 @@
   z-index: 1000;
 }
 .modal {
-  background: var(--color-light);
+  background: var(--color-surface);
   border-radius: var(--border-radius);
   max-width: 680px;
   width: 100%;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px var(--color-shadow);
 }
 .modal__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
   padding: 0.75rem 1rem;
 }
 .modal__title { margin: 0; }
@@ -95,7 +135,7 @@
 }
 .modal__body { padding: 1rem; }
 .modal__footer {
-  border-top: 1px solid var(--color-accent);
+  border-top: 1px solid var(--color-border);
   padding: 0.75rem 1rem;
   display: flex;
   gap: 0.5rem;
@@ -106,13 +146,13 @@
   border-radius: var(--border-radius);
   padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px var(--color-shadow);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .service-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--color-shadow);
 }
 
 .service-card__icon {
@@ -129,5 +169,5 @@
 
 .service-card__description {
   font-size: 0.9rem;
-  color: var(--color-dark);
+  color: var(--color-text);
 }

@@ -154,6 +154,8 @@ const BookingPage = () => {
     }
   }, [currentStep]);
 
+  const stepShortLabels = ['Info', 'Industry', 'Service', 'Property', 'Packages', 'Details'];
+
   return (
     <main>
       <section className="booking">
@@ -166,9 +168,10 @@ const BookingPage = () => {
               <div className="stepper__bar" style={{ width: `${(currentStep - 1) * 20}%` }} />
             </div>
             <div className="stepper__labels">
-              {[1, 2, 3, 4, 5, 6].map((n) => (
-                <div key={n} className={`stepper__label ${currentStep === n ? 'active' : ''}`}>
-                  {n}
+              {[1, 2, 3, 4, 5, 6].map((n, idx) => (
+                <div key={n} className={`stepper__label ${currentStep === n ? 'active' : ''}`} aria-current={currentStep === n ? 'step' : undefined}>
+                  <span className="stepper__num">{n}</span>
+                  <span className="stepper__text">{stepShortLabels[idx]}</span>
                 </div>
               ))}
             </div>
@@ -444,6 +447,10 @@ const BookingPage = () => {
                       name="squareFootage"
                       type="number"
                       required
+                      inputMode="numeric"
+                      min="0"
+                      step="1"
+                      placeholder="e.g. 1800"
                       value={formData.squareFootage}
                       onChange={handleInputChange}
                     />
@@ -455,6 +462,10 @@ const BookingPage = () => {
                       name="levels"
                       type="number"
                       required
+                      inputMode="numeric"
+                      min="1"
+                      step="1"
+                      placeholder="e.g. 2"
                       value={formData.levels}
                       onChange={handleInputChange}
                     />
@@ -469,6 +480,9 @@ const BookingPage = () => {
                       name="bedrooms"
                       type="number"
                       required
+                      inputMode="numeric"
+                      min="0"
+                      step="1"
                       value={formData.bedrooms}
                       onChange={handleInputChange}
                     />
@@ -480,6 +494,9 @@ const BookingPage = () => {
                       name="bathrooms"
                       type="number"
                       required
+                      inputMode="numeric"
+                      min="0"
+                      step="1"
                       value={formData.bathrooms}
                       onChange={handleInputChange}
                     />
@@ -494,6 +511,9 @@ const BookingPage = () => {
                       name="powderRooms"
                       type="number"
                       required
+                      inputMode="numeric"
+                      min="0"
+                      step="1"
                       value={formData.powderRooms}
                       onChange={handleInputChange}
                     />
@@ -505,6 +525,9 @@ const BookingPage = () => {
                       name="kitchens"
                       type="number"
                       required
+                      inputMode="numeric"
+                      min="0"
+                      step="1"
                       value={formData.kitchens}
                       onChange={handleInputChange}
                     />
@@ -514,22 +537,31 @@ const BookingPage = () => {
                 <div className="form-row">
                   <div className="form-field">
                     <label htmlFor="booking-lastCleaned">Last Cleaned</label>
-                    <input
+                    <select
                       id="booking-lastCleaned"
                       name="lastCleaned"
-                      type="text"
                       required
                       value={formData.lastCleaned}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="" disabled>Select a timeframe</option>
+                      <option value="Within 1 week">Within 1 week</option>
+                      <option value="1–4 weeks">1–4 weeks</option>
+                      <option value="1–3 months">1–3 months</option>
+                      <option value="3+ months">3+ months</option>
+                    </select>
                   </div>
                   <div className="form-field">
                     <label htmlFor="booking-people">People</label>
                     <input
                       id="booking-people"
                       name="people"
-                      type="text"
+                      type="number"
                       required
+                      inputMode="numeric"
+                      min="1"
+                      step="1"
+                      placeholder="e.g. 3"
                       value={formData.people}
                       onChange={handleInputChange}
                     />
@@ -542,8 +574,13 @@ const BookingPage = () => {
                     <input
                       id="booking-builtYear"
                       name="builtYear"
-                      type="text"
+                      type="number"
                       required
+                      inputMode="numeric"
+                      min="1900"
+                      max={new Date().getFullYear()}
+                      step="1"
+                      placeholder="e.g. 2005"
                       value={formData.builtYear}
                       onChange={handleInputChange}
                     />
@@ -555,6 +592,7 @@ const BookingPage = () => {
                       name="lastRenovated"
                       type="text"
                       required
+                      placeholder="e.g. 2020 or N/A"
                       value={formData.lastRenovated}
                       onChange={handleInputChange}
                     />
@@ -564,25 +602,33 @@ const BookingPage = () => {
                 <div className="form-row">
                   <div className="form-field">
                     <label htmlFor="booking-pets">Pets</label>
-                    <input
+                    <select
                       id="booking-pets"
                       name="pets"
-                      type="text"
                       required
                       value={formData.pets}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="" disabled>Select an option</option>
+                      <option value="None">None</option>
+                      <option value="Dog(s)">Dog(s)</option>
+                      <option value="Cat(s)">Cat(s)</option>
+                      <option value="Other">Other</option>
+                    </select>
                   </div>
                   <div className="form-field">
                     <label htmlFor="booking-furnished">Furnished</label>
-                    <input
+                    <select
                       id="booking-furnished"
                       name="furnished"
-                      type="text"
                       required
                       value={formData.furnished}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="" disabled>Select an option</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -718,14 +764,28 @@ const BookingPage = () => {
                   </div>
                   <div className="form-field">
                     <label htmlFor="booking-province">Province</label>
-                    <input
+                    <select
                       id="booking-province"
                       name="province"
-                      type="text"
                       required
                       value={formData.province}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="" disabled>Select province</option>
+                      <option value="ON">Ontario</option>
+                      <option value="BC">British Columbia</option>
+                      <option value="AB">Alberta</option>
+                      <option value="SK">Saskatchewan</option>
+                      <option value="MB">Manitoba</option>
+                      <option value="QC">Quebec</option>
+                      <option value="NB">New Brunswick</option>
+                      <option value="NS">Nova Scotia</option>
+                      <option value="PE">Prince Edward Island</option>
+                      <option value="NL">Newfoundland and Labrador</option>
+                      <option value="YT">Yukon</option>
+                      <option value="NT">Northwest Territories</option>
+                      <option value="NU">Nunavut</option>
+                    </select>
                   </div>
                   <div className="form-field">
                     <label htmlFor="booking-postal">Postal Code</label>
@@ -734,6 +794,9 @@ const BookingPage = () => {
                       name="postal"
                       type="text"
                       required
+                      placeholder="e.g. L4M 1A1"
+                      pattern="^[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d$"
+                      title="Enter a valid Canadian postal code (e.g., L4M 1A1)"
                       value={formData.postal}
                       onChange={handleInputChange}
                     />
@@ -748,6 +811,7 @@ const BookingPage = () => {
                       name="date"
                       type="text"
                       required
+                      placeholder="e.g., Next Tue afternoon or any weekday mornings"
                       value={formData.date}
                       onChange={handleInputChange}
                     />

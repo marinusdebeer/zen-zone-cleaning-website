@@ -30,7 +30,7 @@ const Steps = () => {
   ];
 
   return (
-    <section className="section steps" id="how-it-works">
+    <section className="section section--alt steps" id="how-it-works">
       <h2 className="section-title">How It Works</h2>
       <div className="steps__grid">
         {steps.map((step, idx) => (

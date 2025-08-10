@@ -3,7 +3,7 @@
 /* The outer section provides a neutral backdrop for the booking form. */
 .booking {
   background-color: var(--color-accent);
-  padding: 3rem 1rem;
+  padding: 120px 1rem 3rem; /* add space for fixed header */
 }
 
 /* Container holds the form and ensures it doesn’t stretch too wide on large
@@ -12,10 +12,10 @@
 .booking__container {
   max-width: var(--max-content-width);
   margin: 0 auto;
-  background-color: var(--color-light);
+  background-color: var(--color-surface);
   border-radius: var(--border-radius);
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px var(--color-shadow);
 }
 
 .booking__title {
@@ -28,7 +28,7 @@
 .booking__intro {
   font-size: 1rem;
   margin-bottom: 1.5rem;
-  color: var(--color-dark);
+  color: var(--color-text);
 }
 
 /* Stepper */
@@ -59,19 +59,42 @@
 
 .stepper__label {
   text-align: center;
-  padding: 0.25rem 0;
+  padding: 0.35rem 0.5rem;
   border-radius: var(--border-radius);
   background-color: var(--color-accent);
-  color: var(--color-dark);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+.stepper__label .stepper__num {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
 }
 
 .stepper__label.active {
   background-color: var(--color-primary);
-  color: var(--color-light);
+  color: var(--color-secondary);
+}
+
+.stepper__label.active .stepper__num {
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  border-color: transparent;
 }
 
 .step-title {
-  margin: 1rem 0 0.5rem;
+  margin: 1rem 0 0.75rem;
 }
 
 /* Form layout */
@@ -93,23 +116,30 @@
 .form-field label {
   margin-bottom: 0.3rem;
   font-weight: 600;
-  color: var(--color-dark);
+  color: var(--color-text);
 }
 
 .form-field input,
 .form-field select,
 .form-field textarea {
   padding: 0.6rem 0.8rem;
-  border: 1px solid var(--color-accent);
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   font-size: 0.9rem;
-  color: var(--color-dark);
-  background-color: var(--color-light);
+  color: var(--color-text);
+  background-color: var(--color-background);
   min-height: 42px;
 }
 
 .form-field textarea {
   resize: vertical;
+}
+
+/* Help text under inputs if needed */
+.help-text {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.25rem;
 }
 
 /* Focus states */
@@ -118,7 +148,7 @@
 .form-field textarea:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(46, 61, 47, 0.15);
+  box-shadow: 0 0 0 3px var(--color-primary);
 }
 
 /* Improve radios/checkboxes */
@@ -133,10 +163,10 @@ input[type="checkbox"] {
 .extras-grid label {
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--color-accent);
+  border: 1px solid var(--color-border);
   padding: 0.55rem 0.85rem;
   border-radius: var(--border-radius);
-  background-color: var(--color-light);
+  background-color: var(--color-surface);
   cursor: pointer;
   gap: 0.6rem;
   font-weight: 600;
@@ -153,7 +183,7 @@ input[type="checkbox"] {
 .checkbox-grid label:has(input:checked),
 .extras-grid label:has(input:checked) {
   background-color: var(--color-accent);
-  color: var(--color-dark);
+  color: var(--color-text);
   border-color: var(--color-primary);
 }
 
@@ -169,10 +199,15 @@ input[type="checkbox"] {
   padding-right: 2rem;
 }
 
+/* Improve select arrow visibility in dark mode */
+[data-theme="dark"] .form-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23cccccc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
 /* Step panels */
 .step-panel {
-  background: var(--color-light);
-  border: 1px solid var(--color-accent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: 1rem;
 }
@@ -205,7 +240,7 @@ input[type="checkbox"] {
 .extras-title {
   font-weight: 600;
   margin-bottom: 0.3rem;
-  color: var(--color-dark);
+  color: var(--color-text);
 }
 
 .extras-grid {
@@ -218,7 +253,7 @@ input[type="checkbox"] {
   display: flex;
   align-items: center;
   font-size: 0.9rem;
-  color: var(--color-dark);
+  color: var(--color-text);
 }
 
 .extras-grid input {

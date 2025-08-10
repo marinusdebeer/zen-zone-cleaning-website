@@ -14,7 +14,7 @@
 .about__content p {
   margin-bottom: 1rem;
   font-size: 0.95rem;
-  color: var(--color-dark);
+  color: var(--color-text);
 }
 
 .about__image-wrapper {
@@ -27,5 +27,5 @@
   max-width: 100%;
   height: auto;
   border-radius: var(--border-radius);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px var(--color-shadow);
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
 import './Header.css';
 
 /**
@@ -25,13 +26,19 @@ const Header = () => {
     <header className="header">
       <div className="header__container">
         <div className="header__logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
-          <span className="logo--highlight">Zen</span> Zone Cleaning Services
+          <img 
+            src={`${process.env.PUBLIC_URL}/images/logo.png`} 
+            alt="Zen Zone Cleaning Services" 
+            className="header__logo-image"
+          />
+          <span className="header__logo-text">Zen Zone Cleaning Services</span>
         </div>
         <nav className="header__nav">
-          <a href="#services">Services</a>
-          <a href="#about">About</a>
-          <a href="#why-us">Why Us</a>
-          <a href="#contact">Contact</a>
+          <a href="/zen-zone-cleaning-website/#services">Services</a>
+          <a href="/zen-zone-cleaning-website/#about">About</a>
+          <a href="/zen-zone-cleaning-website/#why-us">Why Us</a>
+          <a href="/zen-zone-cleaning-website/#contact">Contact</a>
+          <ThemeToggle size="medium" />
           {/* Use Link for internal routing to avoid full page reloads */}
           <Link to="/book" className="header__book">Book Now</Link>
         </nav>

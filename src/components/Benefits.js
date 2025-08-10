@@ -40,12 +40,13 @@ const Benefits = () => {
     },
   ];
   return (
-    <section className="section benefits" id="why-us">
+    <section className="section section--alt benefits" id="why-us">
       <h2 className="section-title">Why Choose Us</h2>
+      <p className="section__subtitle">Reliable service, vetted pros, and flexible scheduling—backed by our satisfaction guarantee.</p>
       <div className="benefits__grid">
         {benefits.map((benefit, idx) => (
           <div key={idx} className="benefit-card">
-            <div className="benefit-card__icon">{benefit.icon}</div>
+            <div className="benefit-card__icon" aria-hidden="true">{benefit.icon}</div>
             <h3 className="benefit-card__title">{benefit.title}</h3>
             <p className="benefit-card__description">{benefit.description}</p>
           </div>

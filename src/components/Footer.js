@@ -12,7 +12,11 @@ const Footer = () => {
       <div className="footer__container">
         <div className="footer__brand">
           <div className="footer__logo">
-            <span className="logo--highlight">Zen</span> Zone Cleaning Services
+            <img 
+              src={`${process.env.PUBLIC_URL}/images/logo.png`} 
+              alt="Zen Zone Cleaning Services" 
+              className="footer__logo-image"
+            />
           </div>
           <p className="footer__tagline">
             Serving Barrie, Orillia &amp; communities throughout Simcoe County.
@@ -22,16 +26,16 @@ const Footer = () => {
           <h4>Quick Links</h4>
           <ul>
             <li>
-              <a href="#services">Services</a>
+              <a href="/zen-zone-cleaning-website/#services">Services</a>
             </li>
             <li>
-              <a href="#about">About</a>
+              <a href="/zen-zone-cleaning-website/#about">About</a>
             </li>
             <li>
-              <a href="#why-us">Why Us</a>
+              <a href="/zen-zone-cleaning-website/#why-us">Why Us</a>
             </li>
             <li>
-              <a href="#contact">Contact</a>
+              <a href="/zen-zone-cleaning-website/#contact">Contact</a>
             </li>
           </ul>
         </div>

@@ -3,7 +3,7 @@
 .cta {
   text-align: center;
   background-color: var(--color-primary);
-  color: var(--color-light);
+  color: var(--color-secondary);
   padding: 3rem 1rem;
   border-radius: var(--border-radius);
 }
@@ -22,6 +22,6 @@
 }
 
 .cta .btn {
-  background-color: var(--color-light);
+  background-color: var(--color-secondary);
   color: var(--color-primary);
 }

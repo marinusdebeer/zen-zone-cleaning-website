@@ -115,11 +115,6 @@ const Services = () => {
           </div>
         </div>
 
-        <div className="funnel-cta">
-          <p>Ready to keep your home sparkling?</p>
-          <Link to="/book" className="btn btn--outline">Start Your Plan</Link>
-        </div>
-
         <section className="faq" id="faq" aria-labelledby="faq-heading">
           <h2 id="faq-heading" className="section-title">Frequently Asked Questions</h2>
           <div className="faq-list">
