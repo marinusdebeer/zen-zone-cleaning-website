@@ -1,13 +1,20 @@
 /* Footer styling */
 
 .footer {
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
-  border-top: 1px solid var(--color-border);
-  transition: background-color var(--transition-medium), color var(--transition-medium), border-color var(--transition-medium);
+  transition: background-color var(--transition-medium), color var(--transition-medium);
   line-height: 1.5;
+}
+
+.footer a {
+  color: var(--color-on-primary);
+}
+
+.footer a:hover {
+  opacity: 0.9;
 }
 
 .footer__container {
@@ -29,7 +36,7 @@
   text-align: center;
 }
 
-.dot { opacity: 0.6; }
+.dot { color: rgba(255, 255, 255, 0.7); }
 
 .footer__logo {
   margin-bottom: 0.5rem;
@@ -70,12 +77,12 @@
 }
 
 .footer__areas a {
-  color: var(--color-text);
+  color: var(--color-on-primary);
   transition: color var(--transition-fast);
 }
 
 .footer__areas a:hover {
-  color: var(--color-primary);
+  opacity: 0.9;
 }
 
 /* Inline areas row */
@@ -88,21 +95,17 @@
 }
 
 .footer__areas-inline a {
-  color: var(--color-text);
+  color: var(--color-on-primary);
 }
 
-.footer__areas-inline a:hover {
-  color: var(--color-primary);
-}
+.footer__areas-inline a:hover { opacity: 0.9; }
 
 .footer__contact a {
-  color: var(--color-text);
+  color: var(--color-on-primary);
   transition: color var(--transition-fast);
 }
 
-.footer__contact a:hover {
-  color: var(--color-primary);
-}
+.footer__contact a:hover { opacity: 0.9; }
 
 .contact-list {
   display: grid;
