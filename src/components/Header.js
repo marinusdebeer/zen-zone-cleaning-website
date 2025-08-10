@@ -21,11 +21,8 @@ const Header = () => {
   };
 
   const handleLogoClick = () => {
-    if (location.pathname === '/' || isCityHomepagePath(location.pathname)) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      navigate('/');
-    }
+    navigate('/');
+    setIsMenuOpen(false);
   };
 
   // Prevent body scroll when menu is open

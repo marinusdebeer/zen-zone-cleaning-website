@@ -4,7 +4,7 @@ import Steps from './Steps';
 import Services from './Services';
 import About from './About';
 import Benefits from './Benefits';
-import CTA from './CTA';
+import Locations from './Locations';
 
 /**
  * The home page aggregates the core sections of the public site. It exists so
@@ -15,11 +15,11 @@ const HomePage = ({ heroTitle, heroSubtitle, ctaTitle, ctaSubtitle }) => {
   return (
     <main>
       <Hero title={heroTitle} subtitle={heroSubtitle} />
+      <Locations />
       <Steps />
       <Services />
       <About />
       <Benefits />
-      <CTA title={ctaTitle} subtitle={ctaSubtitle} />
     </main>
   );
 };
