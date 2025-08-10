@@ -4,19 +4,20 @@
     <meta charset="utf-8">
     <title>Redirecting…</title>
     <script type="text/javascript">
-      /*
-       * SPA GitHub Pages redirect script
-       * Source: https://github.com/rafgraph/spa-github-pages
-       * This preserves the path when a direct link/refresh hits 404 on GitHub Pages
-       */
+      /* SPA GitHub Pages redirect script with path normalization */
       (function() {
         var pathSegmentsToKeep = 1; // keep '/zen-zone-cleaning-website'
         var l = window.location;
-        var newUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?p=' +
-          l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/') +
-          (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-          l.hash;
+        var normalizedPath = l.pathname.replace(/\/+/g, '/');
+        var parts = normalizedPath.slice(1).split('/');
+        var keep = parts.slice(0, pathSegmentsToKeep).join('/');
+        var rest = parts.slice(pathSegmentsToKeep).join('/');
+        // drop leading/trailing slashes and collapse multiples
+        rest = rest.replace(/^\/+|\/+$/g, '').replace(/\/+/g, '/');
+        var base = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/' + keep;
+        base = base.replace(/\/+$/g, '');
+        var search = l.search ? ('&q=' + l.search.slice(1).replace(/&/g, '~and~')) : '';
+        var newUrl = base + '/?p=' + encodeURIComponent(rest) + search + l.hash;
         l.replace(newUrl);
       })();
     </script>
