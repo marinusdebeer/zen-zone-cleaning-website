@@ -15,23 +15,18 @@
       })();
     </script>
     <script type="text/javascript">
-      /* SPA GitHub Pages redirect decoder with path normalization */
+      /* SPA GitHub Pages redirect decoder using history.replaceState (no reload) */
       (function() {
         var l = window.location;
-        if (l.search) {
-          var q = {};
-          l.search.slice(1).split('&').forEach(function(v) {
-            var a = v.split('='); q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
-          });
-          if (q.p !== undefined) {
-            var p = decodeURIComponent(q.p || '');
-            p = p.replace(/^\/+|\/+$/g, '').replace(/\/+/g, '/');
-            var newPath = l.pathname.replace(/\/index\.html$/, '').replace(/\/+$/g, '');
-            var newUrl = newPath + (p ? '/' + p : '') + l.hash;
-            // Clean up the URL by removing the query parameter
-            l.replace(newUrl);
-          }
-        }
+        if (!l.search) return;
+        var params = new URLSearchParams(l.search);
+        if (!params.has('p')) return;
+        var p = decodeURIComponent(params.get('p') || '');
+        p = p.replace(/^\/+|\/+$/g, '').replace(/\/+/g, '/');
+        var newPath = l.pathname.replace(/\/index\.html$/, '').replace(/\/+$/g, '');
+        var newUrl = newPath + (p ? '/' + p : '') + l.hash;
+        // Update the address bar without triggering a network request
+        window.history.replaceState(null, '', newUrl);
       })();
     </script>
     <!-- EmailJS CDN -->
