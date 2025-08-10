@@ -26,16 +26,25 @@ const Footer = () => {
           <h4>Quick Links</h4>
           <ul>
             <li>
-              <a href="/zen-zone-cleaning-website/#services">Services</a>
+              <a href="#services">Services</a>
             </li>
             <li>
-              <a href="/zen-zone-cleaning-website/#about">About</a>
+              <a href="#about">About</a>
             </li>
             <li>
-              <a href="/zen-zone-cleaning-website/#why-us">Why Us</a>
+              <a href="#why-us">Why Us</a>
             </li>
             <li>
-              <a href="/zen-zone-cleaning-website/#contact">Contact</a>
+              <a href="#contact">Contact</a>
+            </li>
+            <li>
+              <a href="/house-cleaning-services-barrie">Cleaning in Barrie</a>
+            </li>
+            <li>
+              <a href="/house-cleaning-services-orillia">Cleaning in Orillia</a>
+            </li>
+            <li>
+              <a href="/house-cleaning-services-innisfil">Cleaning in Innisfil</a>
             </li>
           </ul>
         </div>

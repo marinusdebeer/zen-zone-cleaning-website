@@ -22,6 +22,39 @@ function App() {
         <div className="app-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route
+              path="/house-cleaning-services-barrie"
+              element={
+                <HomePage
+                  heroTitle="House Cleaning Services in Barrie"
+                  heroSubtitle="Trusted local cleaners serving Barrie homes"
+                  ctaTitle="Need a Reliable Cleaner in Barrie?"
+                  ctaSubtitle="Professional, background‑checked cleaners. We proudly serve Barrie and nearby areas."
+                />
+              }
+            />
+            <Route
+              path="/house-cleaning-services-orillia"
+              element={
+                <HomePage
+                  heroTitle="House Cleaning Services in Orillia"
+                  heroSubtitle="Friendly, dependable cleaners serving Orillia"
+                  ctaTitle="Looking for Cleaning Help in Orillia?"
+                  ctaSubtitle="Book trusted local cleaners. We serve Orillia and surrounding communities."
+                />
+              }
+            />
+            <Route
+              path="/house-cleaning-services-innisfil"
+              element={
+                <HomePage
+                  heroTitle="House Cleaning Services in Innisfil"
+                  heroSubtitle="Top‑rated cleaners serving Innisfil households"
+                  ctaTitle="Your Innisfil Home, Expertly Cleaned"
+                  ctaSubtitle="Flexible scheduling and vetted pros. We serve Innisfil and nearby neighborhoods."
+                />
+              }
+            />
             <Route path="/book" element={<BookingPage />} />
             <Route path="/confirmation" element={<ConfirmationPage />} />
           </Routes>

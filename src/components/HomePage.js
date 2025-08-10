@@ -11,14 +11,15 @@ import CTA from './CTA';
  * that React Router can swap between the home and booking pages without
  * repeating layout code in App.js.
  */
-const HomePage = () => {
+const HomePage = ({ heroTitle, heroSubtitle, ctaTitle, ctaSubtitle }) => {
   return (
     <main>
-      <Hero />
+      <Hero title={heroTitle} subtitle={heroSubtitle} />
       <Steps />
       <Services />
       <About />
       <Benefits />
+      <CTA title={ctaTitle} subtitle={ctaSubtitle} />
     </main>
   );
 };

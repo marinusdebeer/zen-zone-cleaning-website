@@ -7,7 +7,7 @@ import './Hero.css';
  * simple quote form. The form is for demonstration purposes only and does
  * not submit data anywhere. Adjust the options to suit the business.
  */
-const Hero = () => {
+const Hero = ({ title, subtitle }) => {
   return (
     <section className="hero">
       <div
@@ -18,8 +18,8 @@ const Hero = () => {
       ></div>
       <div className="hero__overlay"></div>
       <div className="hero__content">
-        <h1 className="hero__title">House Cleaning Services</h1>
-        <h2 className="hero__subtitle">Serving Barrie, Orillia, and greater Simcoe County</h2>
+        <h1 className="hero__title">{title || 'House Cleaning Services'}</h1>
+        <h2 className="hero__subtitle">{subtitle || 'Serving Barrie, Orillia, and greater Simcoe County'}</h2>
         <p className="hero__subtitle">
           Family‑owned, reliable, and background‑checked professionals. Enjoy a spotless
           home and more free time—without lifting a finger.

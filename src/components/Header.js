@@ -44,10 +44,10 @@ const Header = () => {
 
         {/* Desktop navigation */}
         <nav className="header__nav">
-          <a href="/zen-zone-cleaning-website/#services">Services</a>
-          <a href="/zen-zone-cleaning-website/#about">About</a>
-          <a href="/zen-zone-cleaning-website/#why-us">Why Us</a>
-          <a href="/zen-zone-cleaning-website/#contact">Contact</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#why-us">Why Us</a>
+          <a href="#contact">Contact</a>
           <ThemeToggle size="medium" />
           <Link to="/book" className="header__book">Request Estimate</Link>
         </nav>
@@ -76,10 +76,10 @@ const Header = () => {
         aria-label="Site navigation"
       >
         <div className="mobile-menu__content">
-          <a href="/zen-zone-cleaning-website/#services" onClick={closeMenu}>Services</a>
-          <a href="/zen-zone-cleaning-website/#about" onClick={closeMenu}>About</a>
-          <a href="/zen-zone-cleaning-website/#why-us" onClick={closeMenu}>Why Us</a>
-          <a href="/zen-zone-cleaning-website/#contact" onClick={closeMenu}>Contact</a>
+          <a href="#services" onClick={closeMenu}>Services</a>
+          <a href="#about" onClick={closeMenu}>About</a>
+          <a href="#why-us" onClick={closeMenu}>Why Us</a>
+          <a href="#contact" onClick={closeMenu}>Contact</a>
           <Link to="/book" className="btn mobile-menu__cta" onClick={closeMenu}>Request Estimate</Link>
         </div>
       </div>
