@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import SEO from './SEO';
 
 const ConfirmationPage = () => {
   const { state } = useLocation();
@@ -15,6 +16,12 @@ const ConfirmationPage = () => {
 
   return (
     <main>
+      <SEO
+        title="Request Received | Zen Zone Cleaning"
+        description="Thanks for your request. Our team will be in touch shortly with your estimate. We’re open daily 8am–8pm."
+        path="/confirmation"
+        robots="noindex,follow"
+      />
       <section className="booking">
         <div className="booking__container" style={{ textAlign: 'center' }}>
           <h1 className="booking__title">{firstName} — Request Received</h1>

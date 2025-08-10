@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
+import SEO from './SEO';
 import { useNavigate } from 'react-router-dom';
 import './BookingPage.css';
 
@@ -294,6 +295,11 @@ const BookingPage = () => {
 
   return (
     <main>
+      <SEO
+        title="Request an Estimate | Zen Zone Cleaning"
+        description="Request your free house cleaning estimate. Open daily 8am–8pm. Serving Barrie, Orillia, Innisfil and surrounding areas."
+        path="/book"
+      />
       <section className="booking">
         <div className="booking__container">
           <h1 className="booking__title">Book Your Cleaning</h1>

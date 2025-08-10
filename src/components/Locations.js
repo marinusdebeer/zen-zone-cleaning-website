@@ -44,7 +44,7 @@ const Locations = () => {
             aria-label={`House cleaning services in ${area.name}`}
           >
             <div className="location-card__media">
-              <img src={area.image} alt="" aria-hidden="true" />
+              <img src={area.image} alt={`${area.name} house cleaning services`} />
             </div>
             <div className="location-card__body">
               <h3 className="location-card__title">{area.name}</h3>

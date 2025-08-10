@@ -6,6 +6,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1"
   },
@@ -30,6 +31,20 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "gh-pages": "^6.3.0",
+    "react-snap": "^1.23.0"
+  },
+  "reactSnap": {
+    "inlineCss": true,
+    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
+    "crawl": false,
+    "skipThirdPartyRequests": true,
+    "include": [
+      "/",
+      "/house-cleaning-services-barrie",
+      "/house-cleaning-services-orillia",
+      "/house-cleaning-services-innisfil",
+      "/book"
+    ]
   }
 }
