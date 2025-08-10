@@ -37,6 +37,11 @@
   position: relative;
   z-index: 3;
   max-width: var(--max-content-width);
+  color: var(--color-text); /* dark text in light mode */
+}
+
+/* In dark mode, use light text */
+[data-theme="dark"] .hero__content {
   color: var(--color-secondary);
 }
 
@@ -82,25 +87,31 @@
 
 .hero__buttons .btn:first-child {
   background-color: var(--color-primary);
-  color: var(--color-secondary);
+  color: var(--color-on-primary);
 }
 
 .hero__buttons .btn:first-child:hover {
-  background-color: var(--color-accent);
-  color: var(--color-primary);
+  background-color: var(--color-primary-hover);
+  color: var(--color-on-primary);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px var(--color-shadow);
 }
 
+/* Outline button adapts to theme */
 .hero__buttons .btn--outline {
   background-color: transparent;
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+[data-theme="dark"] .hero__buttons .btn--outline {
   color: var(--color-secondary);
   border-color: var(--color-secondary);
 }
 
 .hero__buttons .btn--outline:hover {
-  background-color: var(--color-secondary);
-  color: var(--color-primary);
+  background-color: var(--color-text);
+  color: var(--color-background);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px var(--color-shadow);
 }
@@ -133,7 +144,7 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .hero {
-    padding: 60px 1rem 1rem; /* reduced top padding on mobile */
+    padding: 60px 1rem 1rem;
   }
   
   .hero__title {

@@ -19,7 +19,6 @@ const HomePage = () => {
       <Services />
       <About />
       <Benefits />
-      <CTA />
     </main>
   );
 };

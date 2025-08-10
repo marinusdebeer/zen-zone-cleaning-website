@@ -13,7 +13,7 @@
   --color-surface: #f8f8f8; /* light surface color */
   --color-border: #e0e0e0; /* light border color */
   --color-shadow: rgba(0, 0, 0, 0.1); /* subtle shadow */
-  --color-overlay: rgba(0, 0, 0, 0.5); /* overlay color */
+  --color-overlay: rgba(0, 0, 0, 0.1); /* overlay color */
   
   /* Button and interactive states */
   --color-primary-hover: #3a4e3f; /* slightly lighter/darker variant for hover */
@@ -41,7 +41,7 @@
   --color-surface: #1e1e1e; /* dark surface color */
   --color-border: #404040; /* dark border color */
   --color-shadow: rgba(0, 0, 0, 0.3); /* stronger shadow for dark mode */
-  --color-overlay: rgba(0, 0, 0, 0.7); /* stronger overlay for dark mode */
+  --color-overlay: rgba(0, 0, 0, 0.5); /* stronger overlay for dark mode */
 
   /* Button and interactive states */
   --color-primary-hover: #5b8d67;
