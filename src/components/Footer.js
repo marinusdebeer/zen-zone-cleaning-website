@@ -16,7 +16,7 @@ const Footer = () => {
           <span className="dot" aria-hidden>·</span>
           <a href="tel:+1-705-242-5462" aria-label="Call 705 242 5462">705‑242‑5462</a>
           <span className="dot" aria-hidden>·</span>
-          <a href="mailto:admin@zenzonecleaning.ca">admin@zenzonecleaning.ca</a>
+          <a href="mailto:admin@zenzonecleaning.ca">admin@zenzonecleaning.com</a>
         </div>
 
       </div>
