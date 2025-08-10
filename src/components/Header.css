@@ -48,6 +48,12 @@
   white-space: nowrap;
 }
 
+.header__flag {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-left: 0.25rem;
+}
+
 .header__logo:hover .header__logo-text {
   color: var(--color-primary);
 }
@@ -227,6 +233,7 @@
   .header__logo-text {
     display: none; /* Hide text on mobile to save space */
   }
+  .header__flag { display: none; }
 }
 
 /* Responsive: show hamburger and hide desktop nav on small screens */

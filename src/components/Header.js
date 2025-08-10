@@ -60,6 +60,7 @@ const Header = () => {
             className="header__logo-image"
           />
           <span className="header__logo-text">Zen Zone Cleaning Services</span>
+          <span className="header__flag" role="img" aria-label="Canada">🇨🇦</span>
         </div>
 
         {/* Desktop navigation */}
