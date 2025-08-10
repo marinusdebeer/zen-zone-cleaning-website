@@ -16,10 +16,10 @@ const HomePage = ({ heroTitle, heroSubtitle, ctaTitle, ctaSubtitle }) => {
     <main>
       <Hero title={heroTitle} subtitle={heroSubtitle} />
       <Locations />
-      <Steps />
       <Services />
       <About />
       <Benefits />
+      <Steps />
     </main>
   );
 };
