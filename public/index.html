@@ -24,7 +24,15 @@
         var p = decodeURIComponent(params.get('p') || '');
         p = p.replace(/^\/+|\/+$/g, '').replace(/\/+/g, '/');
         var newPath = l.pathname.replace(/\/index\.html$/, '').replace(/\/+$/g, '');
-        var newUrl = newPath + (p ? '/' + p : '') + l.hash;
+        var searchRestore = '';
+        if (params.has('q')) {
+          try {
+            var raw = params.get('q') || '';
+            var restored = raw.replace(/~and~/g, '&');
+            if (restored) searchRestore = '?' + restored;
+          } catch (e) {}
+        }
+        var newUrl = newPath + (p ? '/' + p : '') + searchRestore + l.hash;
         // Update the address bar without triggering a network request
         window.history.replaceState(null, '', newUrl);
       })();
