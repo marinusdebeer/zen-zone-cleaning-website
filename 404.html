@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Redirecting…</title>
     <script type="text/javascript">
       /* SPA GitHub Pages redirect script with path normalization */
-      (function() {
+      (function () {
         var pathSegmentsToKeep = 0; // custom domain: keep root only
         var l = window.location;
         var normalizedPath = l.pathname.replace(/\/+/g, '/');
@@ -16,7 +16,7 @@
         rest = rest.replace(/^\/+|\/+$/g, '').replace(/\/+/g, '/');
         var base = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/' + keep;
         base = base.replace(/\/+$/g, '');
-        var search = l.search ? ('&q=' + l.search.slice(1).replace(/&/g, '~and~')) : '';
+        var search = l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '';
         var newUrl = base + '/?p=' + encodeURIComponent(rest) + search + l.hash;
         l.replace(newUrl);
       })();
