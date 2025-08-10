@@ -363,12 +363,22 @@ input[type="checkbox"] {
 }
 
 .nav-buttons .btn {
-  min-width: 140px;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  min-width: 120px;
+  padding: 0 1.25rem;
+  font-size: 1rem;
+  line-height: 1.2;
   font-weight: 600;
   border-radius: var(--border-radius);
   transition: all var(--transition-fast);
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure submit button aligns with Previous on step 6 */
+.nav-buttons .booking__submit {
+  margin-top: 0;
 }
 
 .nav-buttons .btn:hover {
@@ -573,10 +583,11 @@ input[type="checkbox"] {
     width: auto;
     min-width: 0;
     flex: 1 1 0; /* equal width buttons */
-    padding: 1.1rem 1rem;
-    font-size: 1.05rem;
+    padding: 0.75rem 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.2;
     justify-content: center;
-    min-height: 56px;
+    min-height: 44px;
   }
 
   /* If there is only one button, let it span full width */
