@@ -289,12 +289,18 @@ const BookingPage = () => {
           if (key === 'images') return undefined;
           return val;
         };
+        const events = [];
         Object.entries(formData).forEach(([key, val]) => {
           const out = serializeValue(key, val);
-          if (typeof out !== 'undefined') window.Tracking.queue(key, out);
+          if (typeof out !== 'undefined') events.push({ fieldId: key, value: out });
         });
-        // avoid custom fields that may not exist in sheet
-        window.Tracking.flush && window.Tracking.flush();
+        // send in one batch to ensure same-row write
+        if (events.length && window.Tracking.flush) {
+          // temporarily replace queue, flush, then restore
+          const prevQueue = window.Tracking._q || [];
+          window.Tracking._q = events; // internal use
+          try { window.Tracking.flush(); } finally { window.Tracking._q = prevQueue; }
+        }
       }
     } catch (e) {}
     setCurrentStep((s) => {
@@ -334,26 +340,27 @@ const BookingPage = () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
     try {
-      // fire a submission event and flush immediately
+      // Build one batch with snapshot + submitClicked and flush in a single request
       try {
         if (window.Tracking) {
-          // fire via beacon with minimal payload to avoid blocking
-          window.Tracking.trackSubmitted && window.Tracking.trackSubmitted();
-          // also queue current snapshot then flush as a backup
-          if (window.Tracking.queue) {
-            const serializeValue = (key, val) => {
-              if (key === 'extras') return Array.isArray(val) ? val.join(' | ') : val;
-              if (key === 'images') return undefined;
-              return val;
-            };
-            Object.entries(formData).forEach(([key, val]) => {
-              const out = serializeValue(key, val);
-              if (typeof out !== 'undefined') window.Tracking.queue(key, out);
-            });
-            // match Apps Script sheet column name
-            window.Tracking.queue('submitClicked', 'Submitted');
+          const serializeValue = (key, val) => {
+            if (key === 'extras') return Array.isArray(val) ? val.join(' | ') : val;
+            if (key === 'images') return undefined;
+            return val;
+          };
+          const events = [];
+          Object.entries(formData).forEach(([key, val]) => {
+            const out = serializeValue(key, val);
+            if (typeof out !== 'undefined') events.push({ fieldId: key, value: out });
+          });
+          events.push({ fieldId: 'submitClicked', value: 'Submitted' });
+          const prevBatch = window.Tracking._q || [];
+          window.Tracking._q = events;
+          try {
+            window.Tracking.flush && window.Tracking.flush();
+          } finally {
+            window.Tracking._q = prevBatch;
           }
-          window.Tracking.flush && window.Tracking.flush();
         }
       } catch (e) {}
       // capture a few details for the confirmation page before resetting state
