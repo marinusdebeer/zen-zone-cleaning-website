@@ -16,9 +16,10 @@
 }
 
 .header__container {
-  max-width: var(--max-content-width);
-  margin: 0 auto;
-  padding: 1rem 2rem;
+  max-width: none; /* stretch across the entire screen */
+  width: 100%;
+  margin: 0;
+  padding: 0.75rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,7 +69,9 @@
 .header__nav {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
+  flex: 1 1 auto; /* let nav take remaining width so items are fully visible */
+  justify-content: center;
 }
 
 .header__nav a {
@@ -271,9 +274,26 @@
 }
 
 .header__actions {
-  display: none;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  margin-left: auto; /* push actions (inc. theme) to far right */
+}
+.header__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+.header__phone:hover {
+  color: var(--color-primary);
+}
+.phone-icon {
+  font-size: 1.1rem;
+}
+.phone-text {
+  display: inline;
 }
 
 .mobile-menu__cta {
@@ -347,6 +367,9 @@
   .header__actions {
     display: inline-flex;
     margin-left: auto;
+  }
+  .phone-text {
+    display: none; /* only icon on mobile */
   }
   .header__menu-toggle {
     display: inline-flex;

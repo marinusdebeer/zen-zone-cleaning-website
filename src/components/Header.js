@@ -68,7 +68,10 @@ const Header = () => {
         </div>
 
         {/* Desktop navigation */}
-        <nav className="header__nav">
+        <nav className="header__nav" aria-label="Primary">
+          <a href="#locations" onClick={handleSectionClick('locations')}>
+            Locations
+          </a>
           <a href="#services" onClick={handleSectionClick('services')}>
             Services
           </a>
@@ -78,17 +81,20 @@ const Header = () => {
           <a href="#why-us" onClick={handleSectionClick('why-us')}>
             Why Us
           </a>
-          <a href="#contact" onClick={handleSectionClick('contact')}>
-            Contact
+          <Link to={'/gallery'}>Gallery</Link>
+        </nav>
+
+        {/* Right side actions (desktop and mobile): phone, theme toggle, CTA, burger */}
+        <div className="header__actions">
+          <a href="tel:+17052425462" className="header__phone" aria-label="Call 705-242-5462">
+            <span className="phone-icon" aria-hidden="true">
+              📞
+            </span>
+            <span className="phone-text">705‑242‑5462</span>
           </a>
-          <ThemeToggle size="medium" />
           <Link to={'/book'} className="header__book">
             Request Estimate
           </Link>
-        </nav>
-
-        {/* Mobile actions: theme toggle + hamburger */}
-        <div className="header__actions">
           <ThemeToggle size="medium" />
           <button
             className="header__menu-toggle"
@@ -100,6 +106,8 @@ const Header = () => {
             <span className="menu-icon" />
           </button>
         </div>
+
+        {/* end header__actions */}
       </div>
 
       {/* Mobile slide-out menu */}
@@ -116,6 +124,9 @@ const Header = () => {
             <span className="menu-icon" />
           </button>
           <div className="mobile-menu__content">
+            <a href="#locations" onClick={handleSectionClick('locations')}>
+              Locations
+            </a>
             <a href="#services" onClick={handleSectionClick('services')}>
               Services
             </a>
@@ -125,8 +136,11 @@ const Header = () => {
             <a href="#why-us" onClick={handleSectionClick('why-us')}>
               Why Us
             </a>
-            <a href="#contact" onClick={handleSectionClick('contact')}>
-              Contact
+            <Link to={'/gallery'} onClick={closeMenu}>
+              Gallery
+            </Link>
+            <a href="tel:+17052425462" onClick={closeMenu}>
+              Call 705‑242‑5462
             </a>
             <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>
               Request Estimate

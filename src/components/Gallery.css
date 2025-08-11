@@ -1,0 +1,201 @@
+.gallery__header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Masonry layout using CSS columns for a fluid feel */
+.gallery__grid {
+  column-count: 4;
+  column-gap: 8px;
+}
+
+/* Compact variant: slightly smaller tiles */
+.gallery.gallery--compact .gallery__grid {
+  gap: 8px;
+}
+.gallery.gallery--compact .gallery__tile--square {
+  aspect-ratio: 1 / 1.05;
+}
+.gallery.gallery--compact .gallery__tile--wide {
+  aspect-ratio: 16 / 10;
+}
+.gallery.gallery--compact .gallery__tile--tall {
+  aspect-ratio: 3 / 4.4;
+}
+
+.gallery__cta {
+  text-align: center;
+  margin-top: 1.25rem;
+}
+/* Full-width variant */
+.gallery.gallery--full {
+  width: 100%;
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 90px; /* clear sticky header */
+  padding-bottom: 2rem;
+}
+.gallery.gallery--full .gallery__grid {
+  padding: 0 12px;
+}
+
+.gallery__tile {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 8px 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transform: translateZ(0);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+  /* Ensure each item starts at the top of its column and never breaks across columns */
+  vertical-align: top;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.gallery__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Use natural image dimensions in masonry; keep slight aspect hints for consistency */
+.gallery__tile--square {
+  aspect-ratio: 1 / 1;
+}
+.gallery__tile--wide {
+  aspect-ratio: 16 / 10;
+}
+.gallery__tile--tall {
+  aspect-ratio: 3 / 4;
+}
+
+/* Hover effect: lift and enlarge slightly */
+.gallery__tile:hover {
+  transform: scale(1.03);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+  z-index: 2;
+}
+
+/* Uniform strip mode: equal-sized tiles in a simple grid */
+.gallery--strip .gallery__grid {
+  column-count: initial;
+  column-gap: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.gallery--strip .gallery__tile {
+  margin: 0;
+}
+.gallery--strip .gallery__tile--uniform {
+  aspect-ratio: 4 / 3;
+}
+@media (max-width: 1100px) {
+  .gallery--strip .gallery__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .gallery--strip .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* captions removed */
+
+.gallery__tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+  z-index: 1;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: grid;
+  place-items: center;
+  z-index: 1100;
+}
+
+.lightbox__figure {
+  max-width: 90vw;
+  max-height: 80vh;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+}
+
+.lightbox__figure img {
+  max-width: 100%;
+  max-height: 72vh;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox__figure figcaption {
+  color: #fff;
+  font-weight: 600;
+}
+
+.lightbox__close {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  font-size: 28px;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lightbox__nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 44px;
+  line-height: 1;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lightbox__nav--prev {
+  left: 16px;
+}
+.lightbox__nav--next {
+  right: 16px;
+}
+
+@media (max-width: 900px) {
+  .gallery__grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery__grid {
+    column-count: 2;
+    column-gap: 6px;
+  }
+}

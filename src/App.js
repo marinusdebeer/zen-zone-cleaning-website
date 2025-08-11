@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import BookingPage from './components/BookingPage';
 import ConfirmationPage from './components/ConfirmationPage';
+import FullGalleryPage from './components/FullGalleryPage';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ScrollToTop from './components/ScrollToTop';
@@ -103,6 +104,7 @@ function App() {
                 />
               }
             />
+            <Route path="/gallery" element={<FullGalleryPage />} />
             <Route path="/book" element={<BookingPage />} />
             <Route path="/confirmation" element={<ConfirmationPage />} />
           </Routes>

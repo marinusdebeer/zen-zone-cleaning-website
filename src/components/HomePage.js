@@ -8,6 +8,7 @@ import About from './About';
 import Benefits from './Benefits';
 import Locations from './Locations';
 import Reviews from './Reviews';
+import Gallery from './Gallery';
 import { getReviewsSummary } from './reviewsData';
 
 /**
@@ -358,6 +359,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         </section>
       )}
       <Locations />
+      <Gallery limit={8} fullWidth strip />
       <Services />
       <Reviews />
       <About />
