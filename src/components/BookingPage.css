@@ -10,7 +10,7 @@
    screens. A subtle box shadow and border radius match other panels on
    the site. */
 .booking__container {
-  max-width: var(--max-content-width);
+  max-width: 70%;
   margin: 0 auto;
   background-color: var(--color-surface);
   border-radius: var(--border-radius);

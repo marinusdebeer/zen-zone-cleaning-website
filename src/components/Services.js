@@ -286,6 +286,30 @@ const Services = () => {
                 credit card. You can also set up automatic payments.
               </p>
             </details>
+            <details>
+              <summary>What supplies do you bring?</summary>
+              <p>
+                Our teams bring professional-grade supplies and equipment. If you prefer we use your products (e.g., specialty stone cleaners), just leave them out with a note.
+              </p>
+            </details>
+            <details>
+              <summary>Do I need to be home during the cleaning?</summary>
+              <p>
+                No. Many customers provide entry instructions and return to a sparkling home. If you will be home, that works too—we’re flexible either way.
+              </p>
+            </details>
+            <details>
+              <summary>Are pets okay during the clean?</summary>
+              <p>
+                Absolutely. Please let us know any special instructions. For anxious pets, we recommend a quiet space while we work.
+              </p>
+            </details>
+            <details>
+              <summary>What’s your cancellation policy?</summary>
+              <p>
+                You can cancel or reschedule up to 12 hours before the appointment with no fee. Late cancellations may incur a small charge to cover scheduling costs.
+              </p>
+            </details>
           </div>
         </section>
 
