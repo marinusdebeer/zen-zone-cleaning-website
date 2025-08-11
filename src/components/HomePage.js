@@ -223,6 +223,130 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
               </div>
             </div>
           )}
+
+          {citySlug === 'essa' && (
+            <div className="city-details">
+              <h3>Reliable Cleaning Services in Essa (Angus, Baxter, Thornton)</h3>
+              <p>
+                From Angus and CFB Borden to Baxter and Thornton, our team delivers dependable
+                cleaning tailored to the unique rhythm of these fast‑growing commuter towns. We’re
+                experienced supporting military families and busy households with flexible, reliable
+                scheduling.
+              </p>
+              <div className="city-features">
+                <div className="city-feature">
+                  <h4>🏠 Essa Communities We Serve</h4>
+                  <ul>
+                    <li>Angus & CFB Borden</li>
+                    <li>Baxter & rural Essa</li>
+                    <li>Thornton & surrounding hamlets</li>
+                    <li>Nottawasaga & County Road corridors</li>
+                  </ul>
+                </div>
+                <div className="city-feature">
+                  <h4>🌟 Essa‑Specific Benefits</h4>
+                  <ul>
+                    <li>Flexible plans around training and deployments</li>
+                    <li>Quick access to Barrie & commuter schedules</li>
+                    <li>Trusted by military and civilian families alike</li>
+                    <li>Respect for base area protocols and privacy</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {citySlug === 'springwater' && (
+            <div className="city-details">
+              <h3>Premium Cleaning for Springwater (Midhurst, Elmvale)</h3>
+              <p>
+                We care for Springwater’s beautiful homes with meticulous attention to detail. From
+                family houses in Midhurst to character properties in Elmvale, we tailor our cleans
+                to higher‑end finishes and larger floor plans.
+              </p>
+              <div className="city-features">
+                <div className="city-feature">
+                  <h4>🏠 Springwater Areas We Cover</h4>
+                  <ul>
+                    <li>Midhurst & Forest Hill areas</li>
+                    <li>Elmvale & surrounding concessions</li>
+                    <li>Minesing & Anten Mills</li>
+                    <li>Snow Valley & Vespra</li>
+                  </ul>
+                </div>
+                <div className="city-feature">
+                  <h4>🌟 Springwater‑Focused Care</h4>
+                  <ul>
+                    <li>Expert care for premium finishes and fixtures</li>
+                    <li>Detailed attention for larger homes</li>
+                    <li>Flexible scheduling for busy families</li>
+                    <li>Seasonal adjustments for rural roads and access</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {citySlug === 'oro-medonte' && (
+            <div className="city-details">
+              <h3>Trusted Cleaning Across Oro‑Medonte</h3>
+              <p>
+                From Horseshoe Valley to Shanty Bay and Hawkestone, we serve year‑round and seasonal
+                homes across Oro‑Medonte. Our team adapts to cottage and estate‑style properties
+                with careful attention to materials and access.
+              </p>
+              <div className="city-features">
+                <div className="city-feature">
+                  <h4>🏠 Oro‑Medonte Communities We Serve</h4>
+                  <ul>
+                    <li>Horseshoe Valley & ski areas</li>
+                    <li>Shanty Bay & Ridge Road</li>
+                    <li>Hawkestone & Lake Simcoe shoreline</li>
+                    <li>Warminster & rural concessions</li>
+                  </ul>
+                </div>
+                <div className="city-feature">
+                  <h4>🌟 Oro‑Medonte‑Specific Benefits</h4>
+                  <ul>
+                    <li>Care for seasonal and luxury properties</li>
+                    <li>Attention to wood, stone, and specialty finishes</li>
+                    <li>Coordinated access for gated or cottage roads</li>
+                    <li>Reliable service in all seasons</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {citySlug === 'severn' && (
+            <div className="city-details">
+              <h3>Dependable Cleaning in Severn (Coldwater, Washago)</h3>
+              <p>
+                We support Severn’s mix of residential and cottage properties—from Coldwater to
+                Washago—with dependable cleaning that fits weekend and full‑time living schedules.
+              </p>
+              <div className="city-features">
+                <div className="city-feature">
+                  <h4>🏠 Severn Areas We Cover</h4>
+                  <ul>
+                    <li>Coldwater & Matchedash Bay area</li>
+                    <li>Washago & Severn Bridge</li>
+                    <li>Port Severn & Georgian Bay access</li>
+                    <li>Rural Severn concessions</li>
+                  </ul>
+                </div>
+                <div className="city-feature">
+                  <h4>🌟 Severn‑Focused Service</h4>
+                  <ul>
+                    <li>Options for cottages and full‑time residences</li>
+                    <li>Seasonal scheduling for weekend stays</li>
+                    <li>Care for mixed rural and waterfront properties</li>
+                    <li>Trusted local team familiar with the area</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
       )}
       <Locations />

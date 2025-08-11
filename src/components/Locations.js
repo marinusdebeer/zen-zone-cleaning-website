@@ -33,6 +33,30 @@ const Locations = () => {
       blurb: 'Top‑rated cleaning services for Innisfil households.',
       image: `${process.env.PUBLIC_URL}/images/broom.png`,
     },
+    {
+      name: 'Essa',
+      slug: 'essa',
+      blurb: 'Reliable cleaning for Angus, Baxter, and Thornton (including CFB Borden).',
+      image: `${process.env.PUBLIC_URL}/images/building.png`,
+    },
+    {
+      name: 'Springwater',
+      slug: 'springwater',
+      blurb: 'Premium house cleaning for Midhurst, Elmvale, and surrounding areas.',
+      image: `${process.env.PUBLIC_URL}/images/house.png`,
+    },
+    {
+      name: 'Oro‑Medonte',
+      slug: 'oro-medonte',
+      blurb: 'Trusted cleaners for Horseshoe Valley, Shanty Bay, and Hawkestone.',
+      image: `${process.env.PUBLIC_URL}/images/broom.png`,
+    },
+    {
+      name: 'Severn',
+      slug: 'severn',
+      blurb: 'Dependable cleaning for Coldwater, Washago, and cottage properties.',
+      image: `${process.env.PUBLIC_URL}/images/box.png`,
+    },
   ];
 
   return (

@@ -100,6 +100,45 @@ const Services = () => {
           </div>
         )}
 
+        {citySlug === 'essa' && (
+          <div className="city-service-info">
+            <p>
+              <strong>Essa (Angus, Baxter, Thornton):</strong> We offer flexible scheduling that
+              fits commuter and military family life. Whether you're in Angus near CFB Borden or in
+              Baxter and Thornton, our reliable recurring plans keep your home consistently clean.
+            </p>
+          </div>
+        )}
+
+        {citySlug === 'springwater' && (
+          <div className="city-service-info">
+            <p>
+              <strong>Springwater residents:</strong> Tailored recurring plans for larger homes and
+              premium finishes in Midhurst, Elmvale, and surrounding communities—meticulous care,
+              consistent schedules, and trusted local teams.
+            </p>
+          </div>
+        )}
+
+        {citySlug === 'oro-medonte' && (
+          <div className="city-service-info">
+            <p>
+              <strong>Oro‑Medonte homeowners:</strong> Dependable cleaning for year‑round residences
+              and seasonal cottages. We respect specialty materials and coordinate access for
+              properties in Horseshoe Valley, Shanty Bay, and Hawkestone.
+            </p>
+          </div>
+        )}
+
+        {citySlug === 'severn' && (
+          <div className="city-service-info">
+            <p>
+              <strong>Severn clients:</strong> Flexible recurring plans for cottages and residential
+              homes across Coldwater, Washago, and beyond—adapted to weekend and full‑time living.
+            </p>
+          </div>
+        )}
+
         <div className="services-intro">
           <h3>What our recurring cleaning plans include</h3>
           <div className="includes-list">

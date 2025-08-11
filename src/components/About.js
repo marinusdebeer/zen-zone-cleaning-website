@@ -89,6 +89,52 @@ const About = () => {
                   </p>
                 </>
               )}
+
+              {citySlug === 'essa' && (
+                <>
+                  <h3>Serving Essa with Reliability</h3>
+                  <p>
+                    Essa’s communities—Angus, Baxter, and Thornton—combine small‑town warmth with
+                    commuter convenience. We understand military family schedules near CFB Borden
+                    and the needs of busy professionals. Our team delivers dependable, respectful
+                    service you can count on.
+                  </p>
+                </>
+              )}
+
+              {citySlug === 'springwater' && (
+                <>
+                  <h3>Committed to Springwater Excellence</h3>
+                  <p>
+                    In Springwater, we care for beautiful properties that deserve meticulous
+                    attention. From Midhurst to Elmvale, we tailor our approach to premium finishes
+                    and larger spaces—always with professionalism and care.
+                  </p>
+                </>
+              )}
+
+              {citySlug === 'oro-medonte' && (
+                <>
+                  <h3>Proudly Supporting Oro‑Medonte</h3>
+                  <p>
+                    Oro‑Medonte’s combination of luxury homes and seasonal properties requires a
+                    thoughtful, reliable cleaning partner. We respect specialty materials and adapt
+                    to unique access and seasonal rhythms across Horseshoe Valley, Shanty Bay, and
+                    Hawkestone.
+                  </p>
+                </>
+              )}
+
+              {citySlug === 'severn' && (
+                <>
+                  <h3>Trusted Across Severn</h3>
+                  <p>
+                    From Coldwater to Washago, Severn blends residential and cottage life. We
+                    provide consistent, flexible service that supports both weekend getaways and
+                    full‑time living.
+                  </p>
+                </>
+              )}
             </div>
           )}
         </div>
