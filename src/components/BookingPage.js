@@ -13,6 +13,7 @@ const BookingPage = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const [maxCompletedStep, setMaxCompletedStep] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if device is mobile
@@ -26,6 +27,9 @@ const BookingPage = () => {
 
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Feature flag: temporarily disable emails
+  const ENABLE_EMAILS = false;
 
   // Prefill flag (?prefill=1) to auto-populate all fields for testing
   useEffect(() => {
@@ -82,6 +86,7 @@ const BookingPage = () => {
 
     // Jump to final step for quick submission
     setCurrentStep(6);
+    setMaxCompletedStep(6);
   }, []);
 
   // Clear validation highlights when the step changes
@@ -154,25 +159,75 @@ const BookingPage = () => {
 
     setFormData((prev) => {
       if (type === 'checkbox' && name === 'extras') {
-        const isSelected = prev.extras.includes(value);
-        const updated = isSelected
-          ? prev.extras.filter((v) => v !== value)
-          : [...prev.extras, value];
-        return { ...prev, extras: updated };
+        const wasSelected = prev.extras.includes(value);
+        const nowSelected = !wasSelected;
+        const updatedExtras = nowSelected
+          ? [...prev.extras, value]
+          : prev.extras.filter((v) => v !== value);
+        try {
+          if (window.Tracking) {
+            // granular toggle event per extra
+            window.Tracking.queue && window.Tracking.queue(`extra:${value}`, nowSelected);
+            window.Tracking.sendDataDebounced &&
+              window.Tracking.sendDataDebounced(`extra:${value}`, nowSelected);
+            // snapshot of all extras as a stable string
+            const snapshot = updatedExtras.join(' | ');
+            window.Tracking.queue && window.Tracking.queue('extras', snapshot);
+            window.Tracking.sendDataDebounced &&
+              window.Tracking.sendDataDebounced('extras', snapshot);
+          }
+        } catch (e) {}
+        return { ...prev, extras: updatedExtras };
       }
 
       if (type === 'checkbox') {
+        const nextVal = name === 'firstTimeDeepCleaning' ? (checked ? 'Yes' : '') : checked;
+        try {
+          if (window.Tracking && window.Tracking.queue) {
+            window.Tracking.queue(name, nextVal);
+          }
+        } catch (e) {}
         if (name === 'firstTimeDeepCleaning') {
-          return { ...prev, [name]: checked ? 'Yes' : '' };
+          return { ...prev, [name]: nextVal };
         }
-        return { ...prev, [name]: checked };
+        return { ...prev, [name]: nextVal };
       }
 
       if (type === 'file') {
         return { ...prev, [name]: Array.from(files || []) };
       }
 
-      return { ...prev, [name]: value };
+      const updated = { ...prev, [name]: value };
+      try {
+        // Queue all changes for batch flush
+        if (window.Tracking && window.Tracking.queue) {
+          window.Tracking.queue(name, value);
+        }
+        // Debounce immediate PII fields
+        if (['firstName', 'lastName'].includes(name)) {
+          const fullName = `${name === 'firstName' ? value : updated.firstName} ${
+            name === 'lastName' ? value : updated.lastName
+          }`.trim();
+          if (window.Tracking && window.Tracking.sendDataDebounced) {
+            if (fullName) {
+              window.Tracking.sendDataDebounced('name', fullName);
+            }
+            if (name === 'firstName') {
+              window.Tracking.sendDataDebounced('firstName', value);
+            }
+            if (name === 'lastName') {
+              window.Tracking.sendDataDebounced('lastName', value);
+            }
+          }
+        }
+        if (name === 'email' && window.Tracking && window.Tracking.sendDataDebounced) {
+          window.Tracking.sendDataDebounced('email', value);
+        }
+        if (name === 'phone' && window.Tracking && window.Tracking.sendDataDebounced) {
+          window.Tracking.sendDataDebounced('phone', value);
+        }
+      } catch (e) {}
+      return updated;
     });
   };
 
@@ -218,7 +273,28 @@ const BookingPage = () => {
 
   const goNext = () => {
     if (!validateCurrentStep()) return;
-    setCurrentStep((s) => Math.min(6, s + 1));
+    // Batch-track all fields when proceeding to the next step
+    try {
+      if (window.Tracking && window.Tracking.queue) {
+        const serializeValue = (key, val) => {
+          if (key === 'extras') return Array.isArray(val) ? val.join(' | ') : val;
+          // skip images in step snapshot to avoid clobbering server 'images' link
+          if (key === 'images') return undefined;
+          return val;
+        };
+        Object.entries(formData).forEach(([key, val]) => {
+          const out = serializeValue(key, val);
+          if (typeof out !== 'undefined') window.Tracking.queue(key, out);
+        });
+        // avoid custom fields that may not exist in sheet
+        window.Tracking.flush && window.Tracking.flush();
+      }
+    } catch (e) {}
+    setCurrentStep((s) => {
+      const next = Math.min(6, s + 1);
+      setMaxCompletedStep((m) => Math.max(m, next));
+      return next;
+    });
     scrollToTop();
   };
 
@@ -251,10 +327,44 @@ const BookingPage = () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
     try {
+      // fire a submission event and flush immediately
+      try {
+        if (window.Tracking) {
+          // fire via beacon with minimal payload to avoid blocking
+          window.Tracking.trackSubmitted && window.Tracking.trackSubmitted();
+          // also queue current snapshot then flush as a backup
+          if (window.Tracking.queue) {
+            const serializeValue = (key, val) => {
+              if (key === 'extras') return Array.isArray(val) ? val.join(' | ') : val;
+              if (key === 'images') return undefined;
+              return val;
+            };
+            Object.entries(formData).forEach(([key, val]) => {
+              const out = serializeValue(key, val);
+              if (typeof out !== 'undefined') window.Tracking.queue(key, out);
+            });
+            // match Apps Script sheet column name
+            window.Tracking.queue('submitClicked', 'Submitted');
+          }
+          window.Tracking.flush && window.Tracking.flush();
+        }
+      } catch (e) {}
       // capture a few details for the confirmation page before resetting state
       const confirmEmail = formData.email;
       const confirmName = formData.firstName;
-      if (window.Email && window.Email.sendBookingRequest) {
+      // Upload images and track archive link even if emails are disabled
+      try {
+        if (formData.images && formData.images.length && window.Email && window.Email.uploadAllImages) {
+          const result = await window.Email.uploadAllImages(formData.images, formData);
+          if (result && result.folder && window.Tracking && window.Tracking.sendData) {
+            const archiveLink = `https://prod.zenzonecleaning.ca/images/archive/${result.folder}`;
+            window.Tracking.sendData('images', archiveLink);
+          }
+        }
+      } catch (e) {
+        console.error('Image upload or tracking failed:', e);
+      }
+      if (ENABLE_EMAILS && window.Email && window.Email.sendBookingRequest) {
         await window.Email.sendBookingRequest(formData);
       }
       // reset and navigate to confirmation
@@ -293,6 +403,23 @@ const BookingPage = () => {
   // Calculate progress percentage (show progress on first step too)
   const progressPercentage = (currentStep / 6) * 100;
 
+  // Flush queued events on visibility change/unload to avoid data loss
+  useEffect(() => {
+    const flushHandler = () => {
+      try {
+        window.Tracking && window.Tracking.flush && window.Tracking.flush();
+      } catch (e) {}
+    };
+    window.addEventListener('visibilitychange', flushHandler);
+    window.addEventListener('pagehide', flushHandler);
+    window.addEventListener('beforeunload', flushHandler);
+    return () => {
+      window.removeEventListener('visibilitychange', flushHandler);
+      window.removeEventListener('pagehide', flushHandler);
+      window.removeEventListener('beforeunload', flushHandler);
+    };
+  }, []);
+
   return (
     <main>
       <SEO
@@ -327,6 +454,56 @@ const BookingPage = () => {
                 <span className="stepper__current-textline">
                   Step {currentStep} of 6: {stepTitle}
                 </span>
+              </div>
+              <div className="stepper__labels" role="tablist" aria-label="Steps">
+                {stepShortLabels.map((label, idx) => {
+                  const stepNum = idx + 1;
+                  const isActive = stepNum === currentStep;
+                  const isClickable = stepNum <= maxCompletedStep;
+                  const className = [
+                    'stepper__label',
+                    isActive ? 'stepper__label--active' : '',
+                    isClickable ? 'stepper__label--done' : 'stepper__label--disabled',
+                  ]
+                    .filter(Boolean)
+                    .join(' ');
+                  const handleJump = () => {
+                    if (!isClickable) return;
+                    // If jumping forward, batch-track snapshot before changing step
+                    if (stepNum > currentStep) {
+                      try {
+                        if (window.Tracking && window.Tracking.queue) {
+                          const serializeValue = (key, val) => {
+                            if (key === 'extras') return Array.isArray(val) ? val.join(' | ') : val;
+                            if (key === 'images') return undefined;
+                            return val;
+                          };
+                          Object.entries(formData).forEach(([key, val]) => {
+                            const out = serializeValue(key, val);
+                            if (typeof out !== 'undefined') window.Tracking.queue(key, out);
+                          });
+                          window.Tracking.flush && window.Tracking.flush();
+                        }
+                      } catch (e) {}
+                    }
+                    setCurrentStep(stepNum);
+                    scrollToTop();
+                  };
+                  return (
+                    <button
+                      key={label}
+                      type="button"
+                      className={className}
+                      onClick={handleJump}
+                      aria-current={isActive ? 'step' : undefined}
+                      aria-disabled={!isClickable}
+                      role="tab"
+                    >
+                      <span className="stepper__num" aria-hidden="true">{stepNum}</span>
+                      <span className="stepper__text">{label}</span>
+                    </button>
+                  );
+                })}
               </div>
               <div className="stepper__progress">
                 <div className="stepper__bar" style={{ width: `${progressPercentage}%` }} />

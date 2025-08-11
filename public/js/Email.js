@@ -277,7 +277,7 @@
       });
     }
 
-    return { sendBookingRequest };
+    return { sendBookingRequest, uploadAllImages };
   })();
 
   global.Email = Email;

@@ -90,6 +90,13 @@
 .service-tile .btn {
   margin-top: auto;
 }
+
+/* Larger font size for Learn More buttons */
+.service-tile .btn--outline {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
 .service-tile.popular {
   border-color: var(--color-primary);
 }

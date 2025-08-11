@@ -53,7 +53,7 @@ const Header = () => {
             alt="Zen Zone Cleaning Services"
             className="header__logo-image"
           />
-          <span className="header__logo-text">Zen Zone Cleaning Services</span>
+          <span className="header__logo-text">Zen Zone Cleaning</span>
           <span className="header__flag" role="img" aria-label="Canada">
             🇨🇦
           </span>

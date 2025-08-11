@@ -412,9 +412,6 @@ const Services = () => {
               <Link to={'/book'} className="btn">
                 Request Estimate
               </Link>
-              <button className="btn btn--outline" onClick={() => setActiveModal(null)}>
-                Close
-              </button>
             </div>
           </div>
         </div>

@@ -99,6 +99,62 @@
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Clickable labels for desktop stepper */
+.stepper__labels {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  margin: 0.75rem 0 0.75rem;
+}
+
+.stepper__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: not-allowed;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.stepper__label--done {
+  cursor: pointer;
+}
+
+.stepper__label--done:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.stepper__label--active {
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.stepper__num {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.stepper__text {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .stepper__bar {
   height: 8px;
   background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);

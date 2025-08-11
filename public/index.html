@@ -58,6 +58,10 @@
         window.history.replaceState(null, '', newUrl);
       })();
     </script>
+    <!-- Utilities (debounce, user/session/utm init) -->
+    <script src="%PUBLIC_URL%/js/Utilities.js"></script>
+    <!-- Tracking helper (exposes window.Tracking) -->
+    <script src="%PUBLIC_URL%/js/Tracking.js"></script>
     <!-- EmailJS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <!-- Email helper (exposes window.Email) -->

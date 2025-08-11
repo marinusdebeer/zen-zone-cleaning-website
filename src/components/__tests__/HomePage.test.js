@@ -7,7 +7,9 @@ import HomePage from '../HomePage';
 const renderWithRouter = (ui) =>
   render(
     <HelmetProvider>
-      <BrowserRouter>{ui}</BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        {ui}
+      </BrowserRouter>
     </HelmetProvider>
   );
 
