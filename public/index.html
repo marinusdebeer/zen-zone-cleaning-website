@@ -28,9 +28,7 @@
       (function () {
         try {
           var saved = localStorage.getItem('theme');
-          var isDark = saved
-            ? saved === 'dark'
-            : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = saved ? saved === 'dark' : false; // default light
           document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
         } catch (e) {}
       })();

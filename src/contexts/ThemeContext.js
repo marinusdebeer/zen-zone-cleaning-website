@@ -12,13 +12,12 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check localStorage for saved preference, default to light mode
+    // Check localStorage for saved preference; otherwise default to light mode
     const saved = localStorage.getItem('theme');
     if (saved) {
       return saved === 'dark';
     }
-    // Check system preference as fallback
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return false; // Default: light mode
   });
 
   const toggleTheme = () => {

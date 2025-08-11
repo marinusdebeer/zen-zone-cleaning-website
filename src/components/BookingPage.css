@@ -137,6 +137,22 @@
   box-shadow: 0 2px 8px var(--color-shadow);
 }
 
+/* Visually distinguish steps that are not completed yet */
+.stepper__label--disabled {
+  background: var(--color-background);
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+  opacity: 0.85;
+}
+.stepper__label--disabled .stepper__num {
+  background: var(--color-border);
+  color: var(--color-text-secondary);
+}
+.stepper__label--done .stepper__num {
+  background: var(--color-primary);
+  color: var(--color-secondary);
+}
+
 .stepper__num {
   width: 1.5rem;
   height: 1.5rem;
