@@ -232,9 +232,20 @@
       let imageUrls = [],
         folder = '';
       if (imageInput && imageInput.files && imageInput.files.length) {
-        const result = await uploadAllImages(imageInput.files, data);
-        imageUrls = result.urls;
-        folder = result.folder;
+        try {
+          const result = await uploadAllImages(imageInput.files, data);
+          imageUrls = result.urls || [];
+          folder = result.folder || '';
+          // Fire tracking immediately on success (production only)
+          if (Tracking && Tracking.sendData && folder) {
+            try {
+              const archiveLink = `https://prod.zenzonecleaning.ca/images/archive/${folder}`;
+              Tracking.sendData('images', archiveLink);
+            } catch (e) {}
+          }
+        } catch (err) {
+          console.error('Image upload failed:', err);
+        }
       }
 
       // 2) Track the archive link
