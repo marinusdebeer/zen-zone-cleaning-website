@@ -194,7 +194,14 @@ const BookingPage = () => {
       }
 
       if (type === 'file') {
-        return { ...prev, [name]: Array.from(files || []) };
+        const selected = Array.from(files || []);
+        try {
+          if (window.Tracking) {
+            window.Tracking.queue && window.Tracking.queue('imagesSelected', selected.length);
+            window.Tracking.sendDataDebounced && window.Tracking.sendDataDebounced('imagesSelected', selected.length);
+          }
+        } catch (e) {}
+        return { ...prev, [name]: selected };
       }
 
       const updated = { ...prev, [name]: value };
