@@ -126,7 +126,9 @@
   letter-spacing: 2px;
   color: #f4b400;
 }
-.hero__rating-count { color: var(--color-text-secondary); }
+.hero__rating-count {
+  color: var(--color-text-secondary);
+}
 
 .hero__buttons {
   display: flex;

@@ -209,7 +209,10 @@
   padding: 0.85rem 0.75rem;
   border-radius: 8px;
   border: 1px solid transparent;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 .mobile-menu__cta {
   margin-top: 0.5rem;
@@ -257,8 +260,12 @@
   height: 2px;
   background: var(--color-text);
 }
-.mobile-menu__burger .menu-icon::before { top: -7px; }
-.mobile-menu__burger .menu-icon::after { top: 7px; }
+.mobile-menu__burger .menu-icon::before {
+  top: -7px;
+}
+.mobile-menu__burger .menu-icon::after {
+  top: 7px;
+}
 .mobile-menu__burger:hover {
   filter: brightness(1.05);
 }

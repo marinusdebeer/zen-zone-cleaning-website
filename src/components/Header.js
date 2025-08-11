@@ -112,29 +112,25 @@ const Header = () => {
         onClick={closeMenu}
       >
         <div className="mobile-menu__panel" onClick={(e) => e.stopPropagation()}>
-          <button
-            className="mobile-menu__burger"
-            aria-label="Close menu"
-            onClick={closeMenu}
-          >
+          <button className="mobile-menu__burger" aria-label="Close menu" onClick={closeMenu}>
             <span className="menu-icon" />
           </button>
           <div className="mobile-menu__content">
-          <a href="#services" onClick={handleSectionClick('services')}>
-            Services
-          </a>
-          <a href="#about" onClick={handleSectionClick('about')}>
-            About
-          </a>
-          <a href="#why-us" onClick={handleSectionClick('why-us')}>
-            Why Us
-          </a>
-          <a href="#contact" onClick={handleSectionClick('contact')}>
-            Contact
-          </a>
-          <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>
-            Request Estimate
-          </Link>
+            <a href="#services" onClick={handleSectionClick('services')}>
+              Services
+            </a>
+            <a href="#about" onClick={handleSectionClick('about')}>
+              About
+            </a>
+            <a href="#why-us" onClick={handleSectionClick('why-us')}>
+              Why Us
+            </a>
+            <a href="#contact" onClick={handleSectionClick('contact')}>
+              Contact
+            </a>
+            <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>
+              Request Estimate
+            </Link>
           </div>
         </div>
       </div>

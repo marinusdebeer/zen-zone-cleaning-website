@@ -168,6 +168,9 @@
   font-size: 0.875rem;
 }
 
-.review-card__text { margin: 0.75rem 0 0.5rem 0; color: var(--color-text); }
+.review-card__text {
+  margin: 0.75rem 0 0.5rem 0;
+  color: var(--color-text);
+}
 
 /* service pill removed by request */
