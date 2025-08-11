@@ -29,7 +29,7 @@ const BookingPage = () => {
   }, []);
 
   // Feature flag: temporarily disable emails
-  const ENABLE_EMAILS = false;
+  const ENABLE_EMAILS = true;
 
   // Prefill flag (?prefill=1) to auto-populate all fields for testing
   useEffect(() => {
