@@ -27,7 +27,9 @@ export default function BlogListPage() {
       <SEO title={pageTitle} description={pageDescription} path="/blog" jsonLd={articleLd} />
 
       <section className="section blog" aria-label="Zen Zone Cleaning blog">
-        <h1 className="section-title" style={{ textAlign: 'left' }}>Blog</h1>
+        <h1 className="section-title" style={{ textAlign: 'left' }}>
+          Blog
+        </h1>
         <p className="section__subtitle" style={{ textAlign: 'left' }}>
           Practical cleaning guides, checklists, and tips. New posts added regularly.
         </p>
@@ -72,5 +74,3 @@ export default function BlogListPage() {
     </main>
   );
 }
-
-
