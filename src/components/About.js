@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './About.css';
 
 /**
@@ -8,6 +9,13 @@ import './About.css';
  * CMS or API.
  */
 const About = () => {
+  const location = useLocation();
+  const match = location.pathname.match(/^\/house-cleaning-services-([a-z-]+)$/);
+  const citySlug = match ? match[1] : null;
+  const cityName = citySlug
+    ? citySlug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+    : null;
+
   return (
     <section className="section about" id="about">
       <div className="about__wrapper">
@@ -37,6 +45,52 @@ const About = () => {
             happiness of our cleaners form the foundation of our business. Experience the joy of a
             clean, stress‑free space—one expert clean at a time.
           </p>
+
+          {/* City-specific about content */}
+          {cityName && (
+            <div className="city-about-section">
+              {citySlug === 'barrie' && (
+                <>
+                  <h3>Why We Love Serving Barrie</h3>
+                  <p>
+                    Barrie's unique blend of urban convenience and natural beauty makes it a special
+                    place to serve. From the bustling downtown core to the peaceful lakeside
+                    communities, we've learned that Barrie residents value quality, reliability, and
+                    a personal touch. Our team has become part of the fabric of this community,
+                    understanding the seasonal rhythms and the importance of maintaining beautiful
+                    homes that reflect Barrie's charm.
+                  </p>
+                </>
+              )}
+
+              {citySlug === 'orillia' && (
+                <>
+                  <h3>Our Connection to Orillia</h3>
+                  <p>
+                    Orillia holds a special place in our hearts. This historic lakeside city
+                    combines small-town warmth with big-city amenities, and we've found that Orillia
+                    families appreciate the same values we do: trust, consistency, and attention to
+                    detail. Whether you're in the established neighborhoods or the growing west end,
+                    we're committed to maintaining the high standards that make Orillia such a
+                    wonderful place to call home.
+                  </p>
+                </>
+              )}
+
+              {citySlug === 'innisfil' && (
+                <>
+                  <h3>Growing Together with Innisfil</h3>
+                  <p>
+                    Innisfil's rapid growth and development have been exciting to witness, and we're
+                    proud to be part of this community's journey. From the established areas like
+                    Alcona and Stroud to the new developments, we understand that Innisfil families
+                    need flexible, reliable cleaning services that adapt to their changing needs.
+                    We're committed to growing alongside this vibrant community.
+                  </p>
+                </>
+              )}
+            </div>
+          )}
         </div>
         <div className="about__image-wrapper">
           <img

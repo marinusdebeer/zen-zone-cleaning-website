@@ -95,6 +95,90 @@
   transition: all var(--transition-fast);
 }
 
+/* City-specific content styles */
+.city-details {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.city-details h3 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.city-details p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.city-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.city-feature h4 {
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.city-feature ul {
+  list-style: none;
+  padding: 0;
+}
+
+.city-feature li {
+  padding: 0.25rem 0;
+  color: var(--color-text);
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.city-feature li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  .city-features {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+.city-service-info {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    color-mix(in oklab, var(--color-primary) 15%, transparent) 100%
+  );
+  color: var(--color-secondary);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.city-service-info p {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.city-service-info strong {
+  color: var(--color-secondary);
+}
+
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px var(--color-shadow);

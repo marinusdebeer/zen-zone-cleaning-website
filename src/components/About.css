@@ -29,3 +29,21 @@
   border-radius: var(--border-radius);
   box-shadow: 0 4px 12px var(--color-shadow);
 }
+
+.city-about-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--color-border);
+}
+
+.city-about-section h3 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.city-about-section p {
+  color: var(--color-text);
+  line-height: 1.6;
+  margin-bottom: 0;
+}

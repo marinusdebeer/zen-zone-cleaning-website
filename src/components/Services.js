@@ -65,6 +65,41 @@ const Services = () => {
       <div className="services-content">
         <h2 className="section-title">Recurring Cleaning Plans</h2>
 
+        {/* City-specific service information */}
+        {citySlug === 'barrie' && (
+          <div className="city-service-info">
+            <p>
+              <strong>Barrie residents:</strong> Our recurring plans are designed around Barrie's
+              active lifestyle. Whether you're near the waterfront, in the growing north end, or in
+              established neighborhoods like Holly, we adapt our cleaning schedule to your needs.
+              Many Barrie families choose our bi-weekly service to maintain their homes between busy
+              weekends at the lake.
+            </p>
+          </div>
+        )}
+
+        {citySlug === 'orillia' && (
+          <div className="city-service-info">
+            <p>
+              <strong>Orillia homeowners:</strong> We understand the unique rhythm of life in
+              Orillia. Our recurring cleaning services are tailored for families who appreciate the
+              city's charm while maintaining busy schedules. From the waterfront communities to the
+              growing west end, we provide flexible cleaning that fits your lifestyle.
+            </p>
+          </div>
+        )}
+
+        {citySlug === 'innisfil' && (
+          <div className="city-service-info">
+            <p>
+              <strong>Innisfil families:</strong> As Innisfil continues to grow, we've adapted our
+              recurring cleaning services to meet the needs of both established communities and new
+              developments. Whether you're in Alcona, Stroud, or the expanding areas, our flexible
+              scheduling accommodates Innisfil's diverse family needs.
+            </p>
+          </div>
+        )}
+
         <div className="services-intro">
           <h3>What our recurring cleaning plans include</h3>
           <div className="includes-list">
