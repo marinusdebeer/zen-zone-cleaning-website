@@ -45,8 +45,31 @@
         var piiKeys = ['name', 'firstName', 'lastName', 'email', 'phone'];
         if (piiKeys.indexOf(fieldId) !== -1) {
           try {
-            if (global.posthog && global.posthog.people && global.posthog.people.set) {
-              var obj = {}; obj[fieldId] = value; global.posthog.people.set(obj);
+            if (global.posthog) {
+              var props = {};
+              if (fieldId === 'email') {
+                props.$email = value; // PostHog standard email property
+                props.email = value; // also keep plain key for convenience
+              } else if (fieldId === 'name') {
+                props.$name = value; // PostHog standard name property
+                props.name = value;
+              } else if (fieldId === 'phone') {
+                props.$phone_number = value; // commonly used phone property
+                props.phone = value;
+              } else {
+                props[fieldId] = value;
+              }
+
+              if (global.posthog.setPersonProperties) {
+                global.posthog.setPersonProperties(props);
+              } else if (global.posthog.people && global.posthog.people.set) {
+                global.posthog.people.set(props);
+              }
+
+              // Identify by email once available to merge anonymous -> known profile
+              if (fieldId === 'email' && typeof value === 'string' && value.indexOf('@') > 0 && global.posthog.identify) {
+                try { global.posthog.identify(value); } catch (e) {}
+              }
             }
           } catch (e) {}
         }
