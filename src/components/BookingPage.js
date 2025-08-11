@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import SEO from './SEO';
 import { useNavigate } from 'react-router-dom';
 import './BookingPage.css';
@@ -15,6 +16,8 @@ const BookingPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [maxCompletedStep, setMaxCompletedStep] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
+  const [showNoImagesModal, setShowNoImagesModal] = useState(false);
+  const [confirmNoImages, setConfirmNoImages] = useState(false);
 
   // Check if device is mobile
   useEffect(() => {
@@ -29,7 +32,7 @@ const BookingPage = () => {
   }, []);
 
   // Feature flag: temporarily disable emails
-  const ENABLE_EMAILS = true;
+  const ENABLE_EMAILS = false;
 
   // Prefill flag (?prefill=1) to auto-populate all fields for testing
   useEffect(() => {
@@ -49,8 +52,8 @@ const BookingPage = () => {
       industry: 'Home Cleaning',
       propertyType: 'House',
       // Step 3
-      bookingType: 'Recurring',
-      frequency: 'Weekly',
+      bookingType: 'One-Time',
+      // frequency: 'Weekly',
       reason: '',
       firstTimeDeepCleaning: 'Yes',
       // Step 4
@@ -66,6 +69,7 @@ const BookingPage = () => {
       lastRenovated: '2020',
       pets: 'Dog(s)',
       furnished: 'Yes',
+      basement: '', // Added for prefill
       // Step 5
       package: '4',
       extras: [],
@@ -127,6 +131,7 @@ const BookingPage = () => {
     lastRenovated: '',
     pets: '',
     furnished: '',
+    basement: '', // Added for initial state
 
     // Step 5: Packages and Extras
     package: '', // if Recurring
@@ -152,6 +157,64 @@ const BookingPage = () => {
 
   const isRecurring = formData.bookingType === 'Recurring';
   const isOneTime = formData.bookingType === 'One-Time';
+
+  // Generate preview URLs for selected images
+  const imagePreviews = useMemo(() => {
+    try {
+      return (formData.images || []).map(function (file) {
+        return { url: URL.createObjectURL(file), name: file && file.name ? file.name : 'photo' };
+      });
+    } catch (e) {
+      return [];
+    }
+  }, [formData.images]);
+
+  // Revoke object URLs when previews change/unmount
+  useEffect(() => {
+    return () => {
+      try {
+        (imagePreviews || []).forEach(function (p) {
+          URL.revokeObjectURL(p.url);
+        });
+      } catch (e) {}
+    };
+  }, [imagePreviews]);
+
+  // Remove one selected image
+  const removeImageAtIndex = (indexToRemove) => {
+    setFormData(function (prev) {
+      var next = (prev.images || []).filter(function (_, idx) { return idx !== indexToRemove; });
+      try {
+        if (window.Tracking) {
+          window.Tracking.queue && window.Tracking.queue('imagesSelected', next.length);
+          window.Tracking.sendDataDebounced && window.Tracking.sendDataDebounced('imagesSelected', next.length);
+        }
+      } catch (e) {}
+      return { ...prev, images: next };
+    });
+  };
+
+  // Drag & drop support for images
+  const handleImagesDrop = (event) => {
+    event.preventDefault();
+    try {
+      var dropped = Array.prototype.slice.call((event.dataTransfer && event.dataTransfer.files) || []);
+      var imagesOnly = dropped.filter(function (f) { return f && f.type && f.type.indexOf('image/') === 0; });
+      if (!imagesOnly.length) return;
+      setFormData(function (prev) {
+        var merged = (prev.images || []).concat(imagesOnly).slice(0, 30);
+        try {
+          if (window.Tracking) {
+            window.Tracking.queue && window.Tracking.queue('imagesSelected', merged.length);
+            window.Tracking.sendDataDebounced && window.Tracking.sendDataDebounced('imagesSelected', merged.length);
+          }
+        } catch (e) {}
+        return { ...prev, images: merged };
+      });
+    } catch (e) {}
+  };
+
+  const preventDefault = (e) => { e.preventDefault(); };
 
   const handleInputChange = (event) => {
     const target = event.target;
@@ -201,7 +264,8 @@ const BookingPage = () => {
             window.Tracking.sendDataDebounced && window.Tracking.sendDataDebounced('imagesSelected', selected.length);
           }
         } catch (e) {}
-        return { ...prev, [name]: selected };
+        const capped = (prev.images || []).concat(selected).slice(0, 30);
+        return { ...prev, [name]: capped };
       }
 
       const updated = { ...prev, [name]: value };
@@ -336,6 +400,15 @@ const BookingPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Guard: for One-Time bookings, encourage images; show confirm modal when none selected
+    if (
+      isOneTime &&
+      (!formData.images || formData.images.length === 0) &&
+      !confirmNoImages
+    ) {
+      setShowNoImagesModal(true);
+      return;
+    }
     if (!validateCurrentStep()) return;
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -393,6 +466,35 @@ const BookingPage = () => {
     }
   };
 
+  // Confirm modal action: proceed without images
+  const confirmAndSubmitWithoutImages = () => {
+    setConfirmNoImages(true);
+    setShowNoImagesModal(false);
+    // Re-trigger submit after state updates
+    setTimeout(() => {
+      if (formRef.current) {
+        try { formRef.current.requestSubmit(); } catch (e) {}
+      }
+      // reset flag for future submissions
+      setConfirmNoImages(false);
+    }, 0);
+  };
+
+  // Close on Escape when modal open
+  useEffect(() => {
+    if (!showNoImagesModal) return;
+    const onKey = (e) => { if (e.key === 'Escape') setShowNoImagesModal(false); };
+    window.addEventListener('keydown', onKey);
+    // lock body scroll and help ensure overlay covers full area
+    document.body.classList.add('body--modal-open');
+    return () => window.removeEventListener('keydown', onKey);
+  }, [showNoImagesModal]);
+
+  useEffect(() => {
+    if (showNoImagesModal) return;
+    document.body.classList.remove('body--modal-open');
+  }, [showNoImagesModal]);
+
   const stepTitle = useMemo(() => {
     switch (currentStep) {
       case 1:
@@ -412,7 +514,7 @@ const BookingPage = () => {
     }
   }, [currentStep]);
 
-  const stepShortLabels = ['Info', 'Industry', 'Service', 'Property', 'Packages', 'Details'];
+  const stepShortLabels = ['Info', 'Industry', 'Service', 'Property', 'Extras', 'Details'];
 
   // Calculate progress percentage (show progress on first step too)
   const progressPercentage = (currentStep / 6) * 100;
@@ -637,6 +739,18 @@ const BookingPage = () => {
                           onChange={handleInputChange}
                         />
                         Office Cleaning
+                      </label>
+                      <label htmlFor="industry-airbnb">
+                        <input
+                          id="industry-airbnb"
+                          type="radio"
+                          name="industry"
+                          value="Airbnb Cleaning"
+                          required
+                          checked={formData.industry === 'Airbnb Cleaning'}
+                          onChange={handleInputChange}
+                        />
+                        Airbnb Cleaning
                       </label>
                     </div>
                   </div>
@@ -997,106 +1111,95 @@ const BookingPage = () => {
                     </select>
                   </div>
                 </div>
+
+                <div className="form-row">
+                  <div className="form-field half">
+                    <label htmlFor="booking-basement">Basement need cleaning and is it finished?</label>
+                    <input
+                      id="booking-basement"
+                      name="basement"
+                      type="text"
+                      required
+                      value={formData.basement}
+                      onChange={handleInputChange}
+                      placeholder="e.g., 'Yes, finished basement', 'No, unfinished storage', 'N/A'"
+                    />
+                  </div>
+                </div>
               </div>
             )}
 
             {/* Step 5: Packages and Extras */}
             {currentStep === 5 && (
               <div data-step="5" className="step-panel">
-                {isRecurring && (
-                  <div className="form-row">
-                    <div className="form-field">
-                      <span className="field-label">Package</span>
-                      <div className="radio-group radio-grid">
-                        {['2.5', '3', '3.5', '4', '4.5', '5', '6', 'NA'].map((pkg) => (
-                          <label key={pkg} htmlFor={`package-${pkg}`}>
-                            <input
-                              id={`package-${pkg}`}
-                              type="radio"
-                              name="package"
-                              value={pkg}
-                              required={isRecurring}
-                              checked={formData.package === pkg}
-                              onChange={handleInputChange}
-                            />
-                            {pkg}
-                          </label>
-                        ))}
-                      </div>
-                    </div>
+                <div className="form-extras">
+                  <p className="extras-title">{isRecurring ? 'Do you want any extras for your first-time cleaning?' : 'Do you want any extras?'}</p>
+                  <div className="extras-grid checkbox-grid">
+                    {[
+                      { id: 'extra-baseboards', label: 'Deep clean of baseboards' },
+                      { id: 'extra-oven', label: 'Inside Oven' },
+                      { id: 'extra-behind-stove', label: 'Behind Stove' },
+                      { id: 'extra-inside-fridge', label: 'Inside Fridge' },
+                      { id: 'extra-behind-fridge', label: 'Behind Fridge' },
+                      { id: 'extra-window-blinds', label: 'Window Blinds' },
+                      { id: 'extra-wall-spot', label: 'Wall Spot Cleaning' },
+                      { id: 'extra-cabinet-fronts', label: 'Cabinet Fronts (Deep Clean)' },
+                    ].map((ex) => (
+                      <label key={ex.id} htmlFor={ex.id}>
+                        <input
+                          id={ex.id}
+                          type="checkbox"
+                          name="extras"
+                          value={ex.label}
+                          checked={formData.extras.includes(ex.label)}
+                          onChange={handleInputChange}
+                        />
+                        {ex.label}
+                      </label>
+                    ))}
                   </div>
-                )}
+                </div>
 
                 {isOneTime && (
-                  <>
-                    <div className="form-extras">
-                      <p className="extras-title">Extras</p>
-                      <div className="extras-grid checkbox-grid">
-                        {[
-                          { id: 'extra-baseboards', label: 'Deep clean of baseboards' },
-                          { id: 'extra-oven', label: 'Inside Oven' },
-                          { id: 'extra-behind-stove', label: 'Behind Stove' },
-                          { id: 'extra-inside-fridge', label: 'Inside Fridge' },
-                          { id: 'extra-behind-fridge', label: 'Behind Fridge' },
-                          { id: 'extra-window-blinds', label: 'Window Blinds' },
-                          { id: 'extra-wall-spot', label: 'Wall Spot Cleaning' },
-                          { id: 'extra-cabinet-fronts', label: 'Cabinet Fronts (Deep Clean)' },
-                        ].map((ex) => (
-                          <label key={ex.id} htmlFor={ex.id}>
-                            <input
-                              id={ex.id}
-                              type="checkbox"
-                              name="extras"
-                              value={ex.label}
-                              checked={formData.extras.includes(ex.label)}
-                              onChange={handleInputChange}
-                            />
-                            {ex.label}
-                          </label>
-                        ))}
-                      </div>
+                  <div className="form-row">
+                    <div className="form-field">
+                      <label htmlFor="interiorWindows">Interior Windows</label>
+                      <select
+                        id="interiorWindows"
+                        name="interiorWindows"
+                        required={isOneTime}
+                        value={formData.interiorWindows}
+                        onChange={handleInputChange}
+                      >
+                        <option value="" disabled>
+                          Select an option
+                        </option>
+                        <option value="Basic - Shine Glass">Basic - Shine Glass</option>
+                        <option value="Deep - Scrub Frame & Shine Glass">
+                          Deep - Scrub Frame & Shine Glass
+                        </option>
+                        <option value="Not Needed">Not Needed</option>
+                      </select>
                     </div>
 
-                    <div className="form-row">
-                      <div className="form-field">
-                        <label htmlFor="interiorWindows">Interior Windows</label>
-                        <select
-                          id="interiorWindows"
-                          name="interiorWindows"
-                          required={isOneTime}
-                          value={formData.interiorWindows}
-                          onChange={handleInputChange}
-                        >
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="Basic - Shine Glass">Basic - Shine Glass</option>
-                          <option value="Deep - Scrub Frame & Shine Glass">
-                            Deep - Scrub Frame & Shine Glass
-                          </option>
-                          <option value="Not Needed">Not Needed</option>
-                        </select>
-                      </div>
-
-                      <div className="form-field">
-                        <label htmlFor="insideCabinets">Inside Empty Kitchen Cabinets</label>
-                        <select
-                          id="insideCabinets"
-                          name="insideEmptyKitchenCabinets"
-                          required={isOneTime}
-                          value={formData.insideEmptyKitchenCabinets}
-                          onChange={handleInputChange}
-                        >
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          <option value="Basic Wipe Out">Basic Wipe Out</option>
-                          <option value="Deep Clean">Deep Clean</option>
-                          <option value="Not Needed">Not Needed</option>
-                        </select>
-                      </div>
+                    <div className="form-field">
+                      <label htmlFor="insideCabinets">Inside Empty Kitchen Cabinets</label>
+                      <select
+                        id="insideCabinets"
+                        name="insideEmptyKitchenCabinets"
+                        required={isOneTime}
+                        value={formData.insideEmptyKitchenCabinets}
+                        onChange={handleInputChange}
+                      >
+                        <option value="" disabled>
+                          Select an option
+                        </option>
+                        <option value="Basic Wipe Out">Basic Wipe Out</option>
+                        <option value="Deep Clean">Deep Clean</option>
+                        <option value="Not Needed">Not Needed</option>
+                      </select>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             )}
@@ -1287,15 +1390,73 @@ const BookingPage = () => {
 
                 <div className="form-row">
                   <div className="form-field">
-                    <label htmlFor="booking-images">Upload Images (optional)</label>
-                    <input
-                      id="booking-images"
-                      name="images"
-                      type="file"
-                      accept="image/*"
-                      multiple
-                      onChange={handleInputChange}
-                    />
+                    <div className="upload-header">
+                      <h3 id="upload-title" className="upload-title">Upload images</h3>
+                      <p>More photos = better rates!</p>
+                      <small id="upload-desc">
+                        Please attach as many photos as possible of the areas you believe need the most attention. Also include photos of the kitchen, bathroom, living room and any extras chosen like windows, baseboards, oven, etc. Without photos, we have to assume the worst and charge more.
+                      </small>
+                    </div>
+
+                    <div
+                      className="dropzone"
+                      onDragOver={preventDefault}
+                      onDragEnter={preventDefault}
+                      onDrop={handleImagesDrop}
+                      onClick={() => document.getElementById('booking-images') && document.getElementById('booking-images').click()}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); var el = document.getElementById('booking-images'); if (el) el.click(); } }}
+                      aria-describedby="upload-desc"
+                      aria-labelledby="upload-title"
+                    >
+                      <div className="file-upload">
+                        <input
+                          id="booking-images"
+                          name="images"
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          aria-describedby="upload-desc"
+                          aria-labelledby="upload-title"
+                          onChange={handleInputChange}
+                        />
+                        <span className="btn file-upload__btn">Choose Photos or Drag & Drop</span>
+                        <span className="file-upload__info">
+                          {formData.images && formData.images.length
+                            ? `${formData.images.length} photo${formData.images.length > 1 ? 's' : ''} selected`
+                            : 'Up to 30 photos; JPG/PNG/WebP; max 10MB each'}
+                        </span>
+                      </div>
+                    </div>
+
+                    {imagePreviews && imagePreviews.length > 0 && (
+                      <ul className="thumb-grid" aria-live="polite">
+                        {imagePreviews.map(function (p, idx) {
+                          return (
+                            <li key={p.url} className="thumb">
+                              <img src={p.url} alt={p.name} />
+                              <button type="button" className="thumb__remove" onClick={() => removeImageAtIndex(idx)} aria-label={`Remove ${p.name}`}>
+                                Remove
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+
+                    {imagePreviews && imagePreviews.length > 0 && (
+                      <div className="upload-actions">
+                        <button 
+                          type="button" 
+                          className="btn btn--outline btn--small" 
+                          onClick={() => setFormData(prev => ({ ...prev, images: [] }))}
+                          aria-label="Clear all uploaded photos"
+                        >
+                          Clear All Photos
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1324,10 +1485,29 @@ const BookingPage = () => {
                   disabled={isSubmitting}
                   aria-disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Sending…' : 'Request Estimate'}
+                  {isSubmitting ? 'Sending…' : 'Submit'}
                 </button>
               )}
             </div>
+            {showNoImagesModal && ReactDOM.createPortal(
+              (
+                <div className="booking-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onClick={() => setShowNoImagesModal(false)}>
+                  <div className="booking-modal__content" onClick={(e) => e.stopPropagation()}>
+                    <h3 id="modal-title" className="booking-modal__title">Submit without photos?</h3>
+                    <p>More photos = better rates!</p>
+                    <p className="booking-modal__body">
+                      For one-time cleanings, uploading photos helps us estimate the cost more accurately and often leads to better rates.
+                      Are you sure you want to submit without images?
+                    </p>
+                    <div className="booking-modal__actions">
+                      <button type="button" className="btn btn--outline" onClick={() => setShowNoImagesModal(false)}>Go back</button>
+                      <button type="button" className="btn" onClick={confirmAndSubmitWithoutImages}>Submit anyway</button>
+                    </div>
+                  </div>
+                </div>
+              ),
+              document.body
+            )}
           </form>
         </div>
       </section>

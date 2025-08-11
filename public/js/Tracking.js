@@ -20,7 +20,7 @@
       firstName: 1, lastName: 1, company: 1, email: 1, phone: 1, industry: 1, propertyType: 1,
       reason: 1, bookingType: 1, frequency: 1, firstTimeDeepCleaning: 1, serviceType: 1,
       squareFootage: 1, levels: 1, kitchens: 1, bedrooms: 1, bathrooms: 1, powderRooms: 1,
-      builtYear: 1, lastRenovated: 1, lastCleaned: 1, pets: 1, people: 1, furnished: 1, extras: 1,
+      builtYear: 1, lastRenovated: 1, lastCleaned: 1, pets: 1, people: 1, furnished: 1, basement: 1, extras: 1,
       interiorWindows: 1, insideEmptyKitchenCabinets: 1, package: 1, price: 1, address: 1, city: 1,
       province: 1, postal: 1, accessMethod: 1, accessDetails: 1, date: 1, details: 1,
       hearAbout: 1, referralName: 1, images: 1, submitClicked: 1,

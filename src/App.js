@@ -12,6 +12,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import ScrollToTop from './components/ScrollToTop';
 import RouteChangeIndicator from './components/RouteChangeIndicator';
 import './App.css';
+import Analytics from './components/Analytics';
 
 /**
  * The root application component.
@@ -24,6 +25,7 @@ function App() {
     <ThemeProvider>
       <div className="app-shell">
         <Header />
+        <Analytics />
         <RouteChangeIndicator />
         <div className="app-content route-transition">
           <ScrollToTop />
