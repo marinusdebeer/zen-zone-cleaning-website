@@ -110,6 +110,9 @@ const Header = () => {
         aria-modal="true"
         aria-label="Site navigation"
       >
+        <button className="mobile-menu__close" aria-label="Close menu" onClick={closeMenu}>
+          ×
+        </button>
         <div className="mobile-menu__content">
           <a href="#services" onClick={handleSectionClick('services')}>
             Services

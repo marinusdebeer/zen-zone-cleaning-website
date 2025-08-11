@@ -66,12 +66,6 @@ const Hero = ({ title, subtitle }) => {
             See Services
           </a>
         </div>
-
-        <ul className="hero__trust" aria-label="reasons to trust Zen Zone Cleaning">
-          <li>5‑Star Rated</li>
-          <li>Background‑Checked</li>
-          <li>Supplies Included</li>
-        </ul>
       </div>
     </section>
   );
