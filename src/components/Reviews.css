@@ -6,6 +6,27 @@
     color-mix(in oklab, var(--color-primary) 8%, transparent),
     transparent
   );
+  position: relative;
+  isolation: isolate;
+}
+
+.reviews::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  background-image: url('/public/images/reviews.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+[data-theme='dark'] .reviews::before {
+  background-image: url('/public/images/reviews_dark.png');
 }
 
 .reviews__header {
@@ -73,7 +94,7 @@
 }
 
 .reviews__scroller {
-  margin: 0;
+  margin: 0 0 0 1rem;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 60%;

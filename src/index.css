@@ -20,7 +20,7 @@
   --color-on-primary: #ffffff; /* text color on primary backgrounds */
 
   /* Layout variables */
-  --max-content-width: 1200px;
+  --max-content-width: 100%;
   --border-radius: 6px;
   --transition-fast: 0.2s ease-in-out;
   --transition-medium: 0.3s ease-in-out;
