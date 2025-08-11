@@ -167,19 +167,32 @@
 .mobile-menu {
   position: fixed;
   top: 0;
-  right: -100%;
+  right: 0;
   bottom: 0;
-  width: 80%;
-  max-width: 360px;
-  background: transparent; /* drawer background transparent */
+  width: 100%; /* full-screen overlay to catch outside clicks */
+  max-width: none;
+  background: rgba(0, 0, 0, 0.4); /* dark overlay to dim background */
   border-left: none;
   box-shadow: none;
-  transition: right var(--transition-medium);
+  transition: opacity var(--transition-medium);
   z-index: 1001;
   height: 100vh; /* ensure explicit height for children to inherit */
+  opacity: 0;
+  pointer-events: none;
 }
 .mobile-menu.open {
-  right: 0;
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu__panel {
+  position: relative;
+  height: 100%;
+  background: var(--color-background);
+  border-left: 1px solid var(--color-border);
+  box-shadow: -8px 0 24px var(--color-shadow);
+  width: 70%;
+  max-width: 300px;
+  margin-left: auto; /* anchor to right inside full-screen overlay */
 }
 .mobile-menu__content {
   display: flex;
@@ -187,9 +200,6 @@
   gap: 1.25rem;
   padding: 80px 1.25rem 1.5rem; /* leave room for close button and sticky header */
   height: 100%;
-  background: var(--color-background); /* inner panel is solid */
-  border-left: 1px solid var(--color-border);
-  box-shadow: -8px 0 24px var(--color-shadow);
   overflow-y: auto;
 }
 .mobile-menu__content a {
@@ -216,21 +226,40 @@
   border-color: var(--color-border);
   transform: translateX(2px);
 }
-.mobile-menu__close {
+.mobile-menu__burger {
   position: absolute;
   top: 12px;
-  right: 12px;
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
+  left: 12px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text);
   z-index: 1;
 }
-.mobile-menu__close:hover {
+.mobile-menu__burger .menu-icon {
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  position: relative;
+  display: inline-block;
+}
+.mobile-menu__burger .menu-icon::before,
+.mobile-menu__burger .menu-icon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+}
+.mobile-menu__burger .menu-icon::before { top: -7px; }
+.mobile-menu__burger .menu-icon::after { top: 7px; }
+.mobile-menu__burger:hover {
   filter: brightness(1.05);
 }
 

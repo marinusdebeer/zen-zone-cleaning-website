@@ -109,11 +109,17 @@ const Header = () => {
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
+        onClick={closeMenu}
       >
-        <button className="mobile-menu__close" aria-label="Close menu" onClick={closeMenu}>
-          ×
-        </button>
-        <div className="mobile-menu__content">
+        <div className="mobile-menu__panel" onClick={(e) => e.stopPropagation()}>
+          <button
+            className="mobile-menu__burger"
+            aria-label="Close menu"
+            onClick={closeMenu}
+          >
+            <span className="menu-icon" />
+          </button>
+          <div className="mobile-menu__content">
           <a href="#services" onClick={handleSectionClick('services')}>
             Services
           </a>
@@ -129,6 +135,7 @@ const Header = () => {
           <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>
             Request Estimate
           </Link>
+          </div>
         </div>
       </div>
       {isMenuOpen && <div className="menu-backdrop" onClick={closeMenu} aria-hidden="true" />}
