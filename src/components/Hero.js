@@ -73,6 +73,12 @@ const Hero = ({ title, subtitle }) => {
           <a href="#services" className="btn btn--outline">
             See Services
           </a>
+          <a href="tel:+17052425462" className="btn btn--call">
+            <span className="phone-icon" aria-hidden="true">
+              📞
+            </span>
+            Call Now
+          </a>
         </div>
       </div>
     </section>

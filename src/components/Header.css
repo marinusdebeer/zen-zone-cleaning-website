@@ -247,6 +247,13 @@
   color: var(--color-text);
   z-index: 1;
 }
+
+.mobile-menu__theme-toggle {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+}
 .mobile-menu__burger .menu-icon {
   width: 22px;
   height: 2px;
@@ -370,6 +377,15 @@
   }
   .phone-text {
     display: none; /* only icon on mobile */
+  }
+  .header__phone {
+    display: none; /* hide phone icon on mobile */
+  }
+  .header__book {
+    display: none; /* hide Request Estimate button on mobile */
+  }
+  .header__actions .theme-toggle {
+    display: none; /* hide theme toggle in header on mobile */
   }
   .header__menu-toggle {
     display: inline-flex;

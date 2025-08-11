@@ -123,6 +123,7 @@ const Header = () => {
           <button className="mobile-menu__burger" aria-label="Close menu" onClick={closeMenu}>
             <span className="menu-icon" />
           </button>
+          <ThemeToggle size="medium" className="mobile-menu__theme-toggle" />
           <div className="mobile-menu__content">
             <a href="#locations" onClick={handleSectionClick('locations')}>
               Locations
@@ -139,9 +140,6 @@ const Header = () => {
             <Link to={'/gallery'} onClick={closeMenu}>
               Gallery
             </Link>
-            <a href="tel:+17052425462" onClick={closeMenu}>
-              Call 705‑242‑5462
-            </a>
             <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>
               Request Estimate
             </Link>

@@ -94,6 +94,7 @@
   padding: 4rem 2rem;
   max-width: var(--max-content-width);
   margin: 0 auto;
+  scroll-margin-top: 100px; /* Account for fixed header */
 }
 
 .section--alt {
