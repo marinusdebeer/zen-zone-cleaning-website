@@ -13,6 +13,9 @@ const Hero = ({ title, subtitle }) => {
   const ratingInfo = useMemo(() => getReviewsSummary(), []);
   const match = location.pathname.match(/^\/house-cleaning-services-([a-z-]+)(?:\/.*)?$/);
   const citySlug = match ? match[1] : null;
+  const cityName = citySlug
+    ? citySlug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+    : null;
   return (
     <section className="hero">
       <div
@@ -58,6 +61,11 @@ const Hero = ({ title, subtitle }) => {
           more free time—without lifting a finger.
         </p>
 
+        {cityName && (
+          <div className="route-chip" aria-live="polite">
+            Now viewing: {cityName}
+          </div>
+        )}
         <div className="hero__buttons">
           <Link to={'/book'} className="btn">
             Request Estimate

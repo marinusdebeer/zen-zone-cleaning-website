@@ -107,6 +107,14 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
     ],
   };
 
+  React.useEffect(() => {
+    // On city route change, focus the heading for an accessible visual cue
+    const el = document.querySelector('main h2');
+    if (cityName && el) {
+      el.focus({ preventScroll: true });
+    }
+  }, [cityName, location.pathname]);
+
   return (
     <main>
       <SEO
@@ -118,7 +126,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
       <Hero title={heroTitle} subtitle={heroSubtitle} />
       {cityName && (
         <section className="section" aria-label={`House Cleaning in ${cityName}`}>
-          <h2>House Cleaning in {cityName}</h2>
+          <h2 tabIndex="-1">House Cleaning in {cityName}</h2>
           <p>
             Professional recurring and one‑time cleaning services across {cityName}.
             Background‑checked cleaners, supplies included, flexible scheduling. Open daily 8am–8pm.

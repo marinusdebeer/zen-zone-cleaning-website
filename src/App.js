@@ -6,6 +6,8 @@ import BookingPage from './components/BookingPage';
 import ConfirmationPage from './components/ConfirmationPage';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
+import ScrollToTop from './components/ScrollToTop';
+import RouteChangeIndicator from './components/RouteChangeIndicator';
 import './App.css';
 
 /**
@@ -19,7 +21,9 @@ function App() {
     <ThemeProvider>
       <div className="app-shell">
         <Header />
-        <div className="app-content">
+        <RouteChangeIndicator />
+        <div className="app-content route-transition">
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route
