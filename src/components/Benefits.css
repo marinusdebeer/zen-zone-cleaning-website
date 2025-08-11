@@ -2,6 +2,93 @@
 
 .benefits {
   text-align: center;
+  /* Full‑bleed like Reviews */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  width: 100vw;
+  max-width: 100vw;
+  padding: 2.5rem 0; /* slightly larger than tiles but not full viewport */
+  position: relative;
+  isolation: isolate; /* keep pseudo-element background behind content */
+  /* Let height be driven by content so the background is just larger than tiles */
+  overflow: hidden; /* prevent background from bleeding into adjacent sections */
+}
+
+/* Remove container constraints from the shared .section class for this block */
+.section.benefits {
+  max-width: 100vw !important;
+  width: 100vw !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+}
+
+/* Full-bleed background image behind content */
+.benefits::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  /* Try user's preferred path first; fall back to root-level like Locations */
+  background-image: url('/public/images/cleaning_background.png'), url('/public/images/cleaning_background.png');
+  /* Zoom the background so it fills and appears closer */
+  background-size: 160% auto; /* desktop zoom */
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Dark mode background */
+[data-theme='dark'] .benefits::before {
+  background-image: url('/public/images/cleaning_background_dark.png'), url('/public/images/cleaning_background_dark.png');
+}
+
+/* Adjust zoom on smaller screens for better composition */
+@media (max-width: 768px) {
+  .benefits::before {
+    background-size: 260% auto; /* stronger zoom on mobile */
+    background-position: center top;
+    /* Flip vertically so artwork has more visual weight lower on the screen */
+    transform: translateX(-50%) scaleY(-1);
+    transform-origin: center top;
+  }
+}
+
+/* Remove the boxed background/border from section--alt for this section */
+.benefits.section--alt {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Optional subtle overlay to improve text/card contrast on busy images */
+.benefits::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.08),
+    rgba(0, 0, 0, 0.08)
+  );
+  z-index: 0; /* above ::before image, below content */
+  pointer-events: none;
+}
+
+/* Ensure content layers above the background */
+.benefits .section-title,
+.benefits .section__subtitle,
+.benefits__grid {
+  position: relative;
+  z-index: 1;
 }
 
 .benefits .section__subtitle {
@@ -14,7 +101,25 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
+  padding: 0; /* full edge-to-edge tiles */
   align-items: stretch;
+}
+
+/* Mobile layout: two columns (3 rows) */
+@media (max-width: 768px) {
+  .benefits__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .benefit-card {
+    padding: 0.9rem;
+  }
+  .benefit-card__title {
+    font-size: 1rem;
+  }
+  .benefit-card__description {
+    font-size: 0.9rem;
+  }
 }
 
 .benefit-card {

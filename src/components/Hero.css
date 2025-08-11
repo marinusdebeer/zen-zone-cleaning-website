@@ -8,6 +8,8 @@
   justify-content: center;
   text-align: center;
   padding: 120px 2rem 2rem; /* Added top padding for fixed header */
+  /* Pull the hero up to sit flush under the fixed header (app-content adds top padding) */
+  margin-top: -84px;
   overflow: hidden;
 }
 
@@ -254,6 +256,7 @@
 @media (max-width: 768px) {
   .hero {
     padding: 60px 1rem 1rem;
+    margin-top: -72px; /* match mobile header offset */
   }
 
   .hero__title {
