@@ -125,6 +125,13 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         jsonLd={[localBusinessLd, faqLd]}
       />
       <Hero title={heroTitle} subtitle={heroSubtitle} />
+      <Locations />
+      <Services />
+      <Reviews />
+      <About />
+      <Gallery limit={8} fullWidth strip />
+      <Benefits />
+      <Steps />
       {cityName && (
         <section className="section" aria-label={`House Cleaning in ${cityName}`}>
           <h2 tabIndex="-1">House Cleaning in {cityName}</h2>
@@ -358,13 +365,6 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
           )}
         </section>
       )}
-      <Locations />
-      <Services />
-      <Reviews />
-      <About />
-      <Gallery limit={8} fullWidth strip />
-      <Benefits />
-      <Steps />
     </main>
   );
 };
