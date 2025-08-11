@@ -7,6 +7,8 @@ import Services from './Services';
 import About from './About';
 import Benefits from './Benefits';
 import Locations from './Locations';
+import Reviews from './Reviews';
+import { getReviewsSummary } from './reviewsData';
 
 /**
  * The home page aggregates the core sections of the public site. It exists so
@@ -19,6 +21,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
   const match = location.pathname.match(/^\/house-cleaning-services-([a-z-]+)$/);
   const citySlug = match ? match[1] : null;
   const cityName = citySlug ? capitalizeWords(citySlug.replace(/-/g, ' ')) : null;
+  const { average, count } = getReviewsSummary();
 
   const title = cityName
     ? `House Cleaning Services in ${cityName} | Zen Zone Cleaning`
@@ -50,6 +53,11 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
       longitude: -79.6903,
     },
     areaServed: cityName || 'Simcoe County',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: average.toFixed(1),
+      reviewCount: String(count),
+    },
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -119,6 +127,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
       )}
       <Locations />
       <Services />
+      <Reviews />
       <About />
       <Benefits />
       <Steps />

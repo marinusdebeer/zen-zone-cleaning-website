@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { getReviewsSummary } from './reviewsData';
 import { Link, useLocation } from 'react-router-dom';
 import './Hero.css';
 
@@ -9,6 +10,7 @@ import './Hero.css';
  */
 const Hero = ({ title, subtitle }) => {
   const location = useLocation();
+  const ratingInfo = useMemo(() => getReviewsSummary(), []);
   const match = location.pathname.match(/^\/house-cleaning-services-([a-z-]+)(?:\/.*)?$/);
   const citySlug = match ? match[1] : null;
   return (
@@ -25,6 +27,32 @@ const Hero = ({ title, subtitle }) => {
         <h2 className="hero__subtitle">
           {subtitle || 'Serving Barrie, Orillia, and greater Simcoe County'}
         </h2>
+        <div className="hero__rating">
+          <a
+            href="https://maps.app.goo.gl/EyMWdSuMsExvrxaG7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero__rating-badge"
+            aria-label={`Rated ${ratingInfo.average.toFixed(1)} out of 5 on Google based on ${ratingInfo.count} reviews`}
+          >
+            <span className="google-word" aria-hidden="true">
+              <span className="g g--blue">G</span>
+              <span className="g g--red">o</span>
+              <span className="g g--yellow">o</span>
+              <span className="g g--blue">g</span>
+              <span className="g g--green">l</span>
+              <span className="g g--red">e</span>
+            </span>
+            <span className="hero__rating-sep" aria-hidden="true">
+              •
+            </span>
+            <span className="hero__rating-score">{ratingInfo.average.toFixed(1)}</span>
+            <span className="hero__rating-stars" aria-hidden="true">
+              ★★★★★
+            </span>
+            <span className="hero__rating-count">({ratingInfo.count})</span>
+          </a>
+        </div>
         <p className="hero__subtitle">
           Family‑owned, reliable, and background‑checked professionals. Enjoy a spotless home and
           more free time—without lifting a finger.

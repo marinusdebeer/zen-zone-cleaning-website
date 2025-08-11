@@ -1,0 +1,231 @@
+// Centralized reviews data so multiple components can share counts/averages
+export const REVIEWS = [
+  {
+    name: 'Sharon Beca (Happy Sharon)',
+    date: 'August 8, 2025',
+    rating: 5,
+    text: 'Our home was cleaned for moving out and we are very happy with the results, the lady did an amazing job!! We are very happy and would recommend this company!! Very easy to deal with and great communication too! :-)',
+  },
+  {
+    name: 'Renee Breier',
+    isLocalGuide: true,
+    date: 'August 7, 2025',
+    rating: 5,
+    text: "I can't offer a lot at this time. We had a newly renovated, empty space that I wanted cleaned prior to furniture moving in. I was not the first hand person to experience the results, but it was commented how clean the space was. What I do know first hand is that the customer service and communication and payment was second to none. Every message was responded to almost immediately, no wondering on my part. From start to finish, I am very, very happy and will continue to use this company for future needs for sure. Thank you very much.",
+  },
+  {
+    name: 'Diana Zhang',
+    date: 'August 5, 2025',
+    rating: 5,
+    text: 'The cleaner did fantastic job. We were very happy with her work. Strongly recommended.',
+  },
+  {
+    name: 'Somi Feiner',
+    date: 'August 2, 2025',
+    rating: 5,
+    text: 'Shannon was on time very thorough cleaner, thanks for a great job!',
+  },
+  {
+    name: 'Brenda Taylor',
+    date: 'August 2, 2025',
+    rating: 5,
+    text: 'We had our first clean very happy everything felt fresh and clean 😀',
+  },
+  {
+    name: 'Renata Anne Mcginn',
+    date: 'July 26, 2025',
+    rating: 5,
+    text: 'Cleaned excellent! Great attention to detail!',
+  },
+  {
+    name: 'Candace Hamilton',
+    date: 'July 19, 2025',
+    rating: 5,
+    text: 'I have never used a cleaning service before, but Zen Zone accommodated my request. Communication was great. Our cleaner Shannon was on time, and did a phenomenal job! A great experience all around.',
+  },
+  {
+    name: 'Cathie Leahy',
+    date: 'July 12, 2025',
+    rating: 5,
+    text: 'I started speaking with Daleen and Marius when I was looking for a new house cleaner. They came up with a recurring schedule that works perfectly for us and covers what we need done on a bi weekly basis. Gabriela did our first clean last week and we are over the moon happy with the job she did! Can’t wait for the next clean. I highly recommend Zen Zone cleaning for any or all of your cleaning needs. John & Cathie',
+  },
+  {
+    name: 'SW',
+    isLocalGuide: true,
+    date: 'July 5, 2025',
+    rating: 5,
+    text: "When I arrived at the house, Shannon was vacuuming the ceiling 😂. One of the best cleaning services I've ever used. Extremely thorough!",
+  },
+  {
+    name: 'Dario A',
+    date: 'June 14, 2025',
+    rating: 5,
+    text: '[No written review provided]',
+  },
+  {
+    name: 'Roy Micks',
+    date: 'May 24, 2025',
+    rating: 5,
+    text: '[No written review provided]',
+  },
+  {
+    name: 'Max Armstrong',
+    date: 'May 24, 2025',
+    rating: 5,
+    text: 'Zen Zone does an amazingly thorough job of cleaning our cottage before and after guests arrive. Daleen is a great communicator and organizer. Her service pays close attention to any specific notes you may have about high traffic/ problematic areas, sends helpful calendar reminders and makes payment very quick and convenient. We’ve been very pleased with a job well done by super professional people. Would highly recommend.',
+  },
+  {
+    name: 'Matthew Lightfoot',
+    isLocalGuide: true,
+    date: 'May 10, 2025',
+    rating: 5,
+    text: 'Always amazing cleaning. I always appreciate the quick service from Daleen and Zen Zone!',
+  },
+  {
+    name: 'Nurit Adler',
+    date: 'April 19, 2025',
+    rating: 5,
+    text: 'Excellent job. Very professional!! From booking to cleaning, a job well done!',
+  },
+  {
+    name: 'Luann Meehan',
+    date: 'April 12, 2025',
+    rating: 5,
+    text: 'I am so happy with the quality of this service! From the very first phone call, to answering my follow-up questions, to the actual cleaning provided to us, we are thrilled. Worth. Every. Penny.',
+  },
+  {
+    name: 'Monica (Monika K.)',
+    date: 'February 21, 2025',
+    rating: 5,
+    text: 'I want to express my appreciation and satisfaction for the work and results of my house cleaning. The cleaners did a fantastic job and I was real pleased with the "Deep Cleaning" and appearance of our home. I would be glad to recommend this service to my friends and family!!! I also had contact with the Office where the people who work there are also super nice and wonderful 😍😍 I totally recommend it!!!!!! Monika K. 🙂🙂🙂🙂😉🙂😉',
+  },
+  {
+    name: 'John Kuzyk',
+    isLocalGuide: true,
+    date: 'January 31, 2025',
+    rating: 5,
+    text: "I've been using this service for my rentals in Barrie and Orillia for the past few months and I can't recommend them enough. They're thorough, punctual, and incredibly easy to book—the best cleaning company I've used!",
+  },
+  {
+    name: 'Michelle',
+    date: 'January 17, 2025',
+    rating: 5,
+    text: 'Zen Zone Cleaning Services is amazing and I would highly recommend them. Our company recently found them online and used them for the first time last week. They were quick, kind and extremely professional and we look forward to our weekly cleaning with them. Definitely did a great job!',
+  },
+  {
+    name: 'Rick R',
+    date: 'December 20, 2024',
+    rating: 5,
+    text: '[No written review provided]',
+  },
+  {
+    name: 'Kylee Munro',
+    date: 'December 20, 2024',
+    rating: 5,
+    text: 'Very thorough move out cleaning! Amazing work.',
+  },
+  {
+    name: 'Paul Carletti',
+    isLocalGuide: true,
+    date: 'December 2, 2024',
+    rating: 5,
+    text: 'Zen cleaning did an awesome job I would recommend them to anyone looking for a trustworthy company.',
+  },
+  {
+    name: 'W N',
+    date: 'December 2, 2024',
+    rating: 5,
+    text: 'I’ve had a bi-weekly cleaning service for a while now at my home in Innisfil, and they never disappoint. The team is professional and really pays attention to the details. They did a really great job with my baseboards and other areas that haven’t been cleaned in a while. Highly recommend!',
+  },
+  {
+    name: 'Khalil Barakzai',
+    isLocalGuide: true,
+    date: 'December 2, 2024',
+    rating: 5,
+    text: 'I’ve been using Zen Zone Cleaning for weekly cleanings at my home in Barrie, and they’ve been incredible. The team is always on time, professional, and leaves my house looking spotless every time. It’s such a relief to have a consistently clean home without worrying about it myself. Highly recommend their weekly service if you want reliable and thorough cleaners!',
+  },
+  {
+    name: 'Janet Brewda',
+    date: 'November 25, 2024',
+    rating: 5,
+    text: 'I called last minute looking for help with my MIL move from her house and they accommodated our schedule. They did a fantastic job. Extremely thorough and very friendly. I would 100% recommend them and use them again.',
+  },
+  {
+    name: 'Elizabeth Wrenshall',
+    date: 'November 18, 2024',
+    rating: 5,
+    text: 'The job gets done with Zen Zone Cleaning! They are professional, thorough and efficient. I am happy to have them come back routinely to help keep up with the tasks. I can now enjoy my beautiful home even more.',
+  },
+  {
+    name: 'Lucia Haggart',
+    isLocalGuide: true,
+    date: 'November 18, 2024',
+    rating: 5,
+    text: 'The cleaning job that my husband and I come home to is excellent! Everything we request to be addressed is cleaned and done so 👌. We even get follow up texts to check that nothing was missed. We are happy with the service we have received from this company so far and appreciate their attention to detail 😊',
+  },
+  {
+    name: 'hgalasaad',
+    date: 'November 11, 2024',
+    rating: 5,
+    text: 'Excellent service. Very professional.',
+  },
+  {
+    name: 'Stefanie Dale Lilly',
+    date: 'October 21, 2024',
+    rating: 5,
+    text: 'I would recommend Zen Zone Cleaning Services! They clean the office I work in and the cleaners are very respectful and responsive to requests!',
+  },
+  {
+    name: 'Tye Hunt',
+    date: 'October 21, 2024',
+    rating: 5,
+    text: 'Been using Zen Zone for a few months now. Great service. Very reliable. Daneer is very professional and prompt. I highly recommend them.',
+  },
+  {
+    name: 'Kim Wickett',
+    date: 'September 30, 2024',
+    rating: 5,
+    text: 'Always friendly and asks if there is anything special that needs to be done before they start. Always on time and very efficient.',
+  },
+  {
+    name: 'Jackie and Rob Jenkins',
+    date: 'September 30, 2024',
+    rating: 5,
+    text: 'Great work - fabulous attention to detail!',
+  },
+  {
+    name: 'Sean Deece-Cassidy',
+    date: 'September 30, 2024',
+    rating: 5,
+    text: 'Wonderful experience. I had 2 cleaners come to assist in an estate clean. They truly worked harder and longer than I anticipated and remained happy and positive. Highly recommended. Thanks again!',
+  },
+  {
+    name: 'Jeremy Walker',
+    isLocalGuide: true,
+    date: 'September 30, 2024',
+    rating: 5,
+    text: 'Great group of professional cleaners. Zen Zone is reliable and my go-to cleaners when I have a property that needs cleaning.',
+  },
+  {
+    name: 'Iga de Beer',
+    date: 'August 6, 2024',
+    rating: 5,
+    text: "I've been using Zen Zone Cleaning Services for biweekly home cleanings, and I couldn't be happier. The team is always friendly, on time, and professional. After every clean, my home isn't just spotless—it smells amazing too. Their attention to detail and dedication to keeping things super clean are really impressive. I highly recommend Zen Zone Cleaning Services to anyone who needs reliable and thorough home cleaning!",
+  },
+  {
+    name: 'Yinze X',
+    isLocalGuide: true,
+    date: 'June 28, 2024',
+    rating: 5,
+    text: 'I’ve hired Zen Zone a number of times to clean my rental property, both for tenant turnover and for post-construction clean-up. Each time they’ve done a stellar job, really taking care to leave it in perfect shape. Fair pricing for the services too. Will continue to use Zen Zone for any future cleaning needs.',
+  },
+];
+
+export function getReviewsSummary() {
+  const count = REVIEWS.length;
+  const sum = REVIEWS.reduce((acc, r) => acc + (Number(r.rating) || 0), 0);
+  return {
+    count,
+    average: count ? sum / count : 0,
+  };
+}
