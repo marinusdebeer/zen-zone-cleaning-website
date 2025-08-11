@@ -34,7 +34,7 @@
   width: 100vw;
   height: 100%;
   /* Try user's preferred path first; fall back to root-level like Locations */
-  background-image: url('/public/images/cleaning_background.png'), url('/public/images/cleaning_background.png');
+  background-image: url('/public/images/cleaning_background.png');
   /* Zoom the background so it fills and appears closer */
   background-size: 160% auto; /* desktop zoom */
   background-position: center top;
@@ -45,17 +45,18 @@
 
 /* Dark mode background */
 [data-theme='dark'] .benefits::before {
-  background-image: url('/public/images/cleaning_background_dark.png'), url('/public/images/cleaning_background_dark.png');
+  background-image: url('/public/images/cleaning_background_dark.png');
 }
 
 /* Adjust zoom on smaller screens for better composition */
 @media (max-width: 768px) {
   .benefits::before {
-    background-size: 260% auto; /* stronger zoom on mobile */
+    /* Simplify for mobile rendering: avoid transforms that can hide the layer */
+    left: 0;
+    width: 100%;
+    transform: none;
+    background-size: cover; /* fill container */
     background-position: center top;
-    /* Flip vertically so artwork has more visual weight lower on the screen */
-    transform: translateX(-50%) scaleY(-1);
-    transform-origin: center top;
   }
 }
 
@@ -101,7 +102,7 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
-  padding: 0; /* full edge-to-edge tiles */
+  padding: 0 1rem; /* add light side margin for tiles */
   align-items: stretch;
 }
 
@@ -110,6 +111,7 @@
   .benefits__grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
+    padding: 0 0.75rem; /* slightly smaller side margin on mobile */
   }
   .benefit-card {
     padding: 0.9rem;

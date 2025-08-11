@@ -196,6 +196,11 @@
   width: 70%;
   max-width: 300px;
   margin-left: auto; /* anchor to right inside full-screen overlay */
+  transform: translateX(100%);
+  transition: transform var(--transition-medium);
+}
+.mobile-menu.open .mobile-menu__panel {
+  transform: translateX(0);
 }
 .mobile-menu__content {
   display: flex;

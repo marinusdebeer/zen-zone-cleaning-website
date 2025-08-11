@@ -27,6 +27,14 @@ const Header = () => {
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  // Close drawer with Escape key
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const onKey = (e) => { if (e.key === 'Escape') closeMenu(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isMenuOpen]);
+
   const handleSectionClick = (sectionId) => (event) => {
     event.preventDefault();
     const onHome = location.pathname === '/' || isCityHomepagePath(location.pathname);
@@ -110,8 +118,12 @@ const Header = () => {
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
+        onClick={(e) => {
+          // Clicking on the dimmed area (outside the panel) closes the drawer
+          if (e.target === e.currentTarget) closeMenu();
+        }}
       >
-        <div className="mobile-menu__panel">
+        <div className="mobile-menu__panel" onClick={(e) => e.stopPropagation()}>
           <button className="mobile-menu__burger" aria-label="Close menu" onClick={closeMenu}>
             <span className="menu-icon" />
           </button>
