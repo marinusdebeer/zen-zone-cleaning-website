@@ -19,6 +19,8 @@
 
 .app-content {
   flex: 1 0 auto;
+  /* Add top padding to account for fixed header height so headings are not hidden */
+  padding-top: 84px;
 }
 
 /* Route change visual transition */
@@ -289,6 +291,11 @@
 @media (max-width: 768px) {
   .section {
     padding: 3rem 1rem;
+  }
+
+  /* Slightly smaller header on mobile, reduce offset */
+  .app-content {
+    padding-top: 72px;
   }
 
   .section__title {

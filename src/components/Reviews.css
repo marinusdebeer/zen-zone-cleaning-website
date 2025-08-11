@@ -1,5 +1,6 @@
 .reviews {
-  padding: 4rem 1rem;
+  /* Full-bleed section, horizontal padding handled by inner containers */
+  padding: 4rem 0;
   background: linear-gradient(
     180deg,
     color-mix(in oklab, var(--color-primary) 8%, transparent),
@@ -9,21 +10,16 @@
 
 .reviews__header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   gap: 1rem;
-  margin: 0 auto 2rem auto;
-  max-width: 1100px;
+  margin: 0 0 2rem 0;
+  padding: 0 1rem;
 }
 
 @media (max-width: 768px) {
-  .reviews__header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1.5rem;
-  }
-
   .reviews__title {
     font-size: 1.75rem;
   }
@@ -77,14 +73,13 @@
 }
 
 .reviews__scroller {
-  margin: 0 auto;
-  max-width: 1100px;
+  margin: 0;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 80%;
+  grid-auto-columns: 60%;
   gap: 1rem;
   overflow-x: auto;
-  padding-bottom: 0.5rem;
+  padding: 0 1rem 0.5rem;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 }
@@ -110,14 +105,31 @@
 
 @media (min-width: 640px) {
   .reviews__scroller {
-    grid-auto-columns: 50%;
+    grid-auto-columns: 34%;
   }
 }
 
 @media (min-width: 1024px) {
   .reviews__scroller {
-    grid-auto-columns: 33.333%;
+    grid-auto-columns: 24%;
   }
+}
+
+/* Visual hint for scrollability */
+.reviews__hint {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  padding: 0 1rem 0.75rem;
+}
+
+.reviews__scroller::after {
+  content: '';
+  pointer-events: none;
+  position: sticky;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(270deg, var(--color-background), transparent);
 }
 
 .review-card__header {

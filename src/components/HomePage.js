@@ -359,10 +359,10 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         </section>
       )}
       <Locations />
-      <Gallery limit={8} fullWidth strip />
       <Services />
       <Reviews />
       <About />
+      <Gallery limit={8} fullWidth strip />
       <Benefits />
       <Steps />
     </main>

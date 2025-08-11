@@ -15,15 +15,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isCityHomepagePath = (pathname) => /^\/house-cleaning-services-[a-z-]+$/.test(pathname);
-  const currentCitySlug = () => {
-    const match = location.pathname.match(/^\/house-cleaning-services-([a-z-]+)(?:\/.*)?$/);
-    return match ? match[1] : null;
-  };
-
-  const handleLogoClick = () => {
-    navigate('/');
-    setIsMenuOpen(false);
-  };
+  // city slug derived where needed; no local state here
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -55,7 +47,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__container">
-        <div className="header__logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
+        <Link to={'/'} className="header__logo" onClick={() => setIsMenuOpen(false)}>
           <img
             src={`${process.env.PUBLIC_URL}/images/logo.png`}
             alt="Zen Zone Cleaning Services"
@@ -65,7 +57,7 @@ const Header = () => {
           <span className="header__flag" role="img" aria-label="Canada">
             🇨🇦
           </span>
-        </div>
+        </Link>
 
         {/* Desktop navigation */}
         <nav className="header__nav" aria-label="Primary">
@@ -81,6 +73,7 @@ const Header = () => {
           <a href="#why-us" onClick={handleSectionClick('why-us')}>
             Why Us
           </a>
+          <Link to={'/blog'}>Blog</Link>
           <Link to={'/gallery'}>Gallery</Link>
         </nav>
 
@@ -117,9 +110,8 @@ const Header = () => {
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        onClick={closeMenu}
       >
-        <div className="mobile-menu__panel" onClick={(e) => e.stopPropagation()}>
+        <div className="mobile-menu__panel">
           <button className="mobile-menu__burger" aria-label="Close menu" onClick={closeMenu}>
             <span className="menu-icon" />
           </button>
@@ -137,6 +129,9 @@ const Header = () => {
             <a href="#why-us" onClick={handleSectionClick('why-us')}>
               Why Us
             </a>
+            <Link to={'/blog'} onClick={closeMenu}>
+              Blog
+            </Link>
             <Link to={'/gallery'} onClick={closeMenu}>
               Gallery
             </Link>

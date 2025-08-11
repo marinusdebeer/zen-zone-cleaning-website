@@ -21,10 +21,14 @@ function Star({ filled }) {
 }
 
 function Avatar({ name }) {
-  const initial = (name || '?').trim().charAt(0).toUpperCase();
+  const trimmed = (name || '?').trim();
+  const parts = trimmed.split(/\s+/);
+  const first = parts[0]?.charAt(0) || '?';
+  const last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+  const initials = `${first}${last}`.toUpperCase();
   return (
     <div className="review__avatar" aria-hidden="true">
-      {initial}
+      {initials}
     </div>
   );
 }
@@ -46,7 +50,6 @@ function ReviewCard({ review }) {
             )}
           </strong>
           <div className="review-card__rating" aria-label={`${review.rating} out of 5 stars`}>
-            <span className="review-card__rating-score">{review.rating.toFixed(1)}</span>
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} filled={i < review.rating} />
             ))}
