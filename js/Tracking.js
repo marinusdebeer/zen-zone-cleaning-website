@@ -14,8 +14,22 @@
 
     // Note: Apps Script only implements doPost; avoid GET pixel fallbacks
 
+    // Only allow columns that exist in the sheet to avoid write failures
+    var allowedFields = {
+      userId: 1, sessionId: 1, firstSeen: 1, lastSeen: 1, openedBookingForm: 1, name: 1, gclid: 1,
+      firstName: 1, lastName: 1, company: 1, email: 1, phone: 1, industry: 1, propertyType: 1,
+      reason: 1, bookingType: 1, frequency: 1, firstTimeDeepCleaning: 1, serviceType: 1,
+      squareFootage: 1, levels: 1, kitchens: 1, bedrooms: 1, bathrooms: 1, powderRooms: 1,
+      builtYear: 1, lastRenovated: 1, lastCleaned: 1, pets: 1, people: 1, furnished: 1, extras: 1,
+      interiorWindows: 1, insideEmptyKitchenCabinets: 1, package: 1, price: 1, address: 1, city: 1,
+      province: 1, postal: 1, accessMethod: 1, accessDetails: 1, date: 1, details: 1,
+      hearAbout: 1, referralName: 1, images: 1, submitClicked: 1,
+      utm_campaign: 1, utm_source: 1, utm_medium: 1, utm_content: 1, utm_term: 1
+    };
+
     function isValidFieldId(fieldId) {
-      return /^[A-Za-z0-9_]+$/.test(String(fieldId || ''));
+      var key = String(fieldId || '');
+      return Object.prototype.hasOwnProperty.call(allowedFields, key);
     }
 
     function sendData(fieldId, value) {
@@ -63,10 +77,11 @@
 
     function flush() {
       try {
-        if (!eventQueue.length) return;
-        // filter out any fields that won't exist as columns (e.g., contain ':')
-        var safeEvents = eventQueue.filter(function (evt) { return isValidFieldId(evt.fieldId); });
-        if (!safeEvents.length) { eventQueue = []; return; }
+        // support an override batch (used by desktop step jump / next step batching)
+        var batch = (typeof global.Tracking !== 'undefined' && global.Tracking._q) || eventQueue;
+        if (!batch.length) return;
+        var safeEvents = batch.filter(function (evt) { return isValidFieldId(evt.fieldId); });
+        if (!safeEvents.length) { if (batch === eventQueue) { eventQueue = []; } return; }
 
         var hostname = location.hostname;
         var userId = localStorage.getItem('userId') || Utilities.getFormattedUserId();
@@ -76,7 +91,11 @@
         var payload = JSON.stringify({ hostname: hostname, userId: userId, sessionId: sessionId, gclid: gclid, events: safeEvents });
 
         // clear the queue immediately so new events can start accumulating
-        eventQueue = [];
+        if (batch === eventQueue) {
+          eventQueue = [];
+        } else {
+          // external batch: do not touch the internal queue
+        }
 
         // use navigator.sendBeacon if available (it never blocks the UI)
         if (navigator.sendBeacon) {
@@ -97,25 +116,9 @@
       } catch (e) {}
     }
 
-    function trackSubmitted() {
-      try {
-        var hostname = location.hostname;
-        var userId = localStorage.getItem('userId') || Utilities.getFormattedUserId();
-        localStorage.setItem('userId', userId);
-        var sessionId = sessionStorage.getItem('sessionId');
-        var gclid = localStorage.getItem('gclid') || '';
-        var events = [{ fieldId: 'submitClicked', value: 'Submitted' }];
-        var payload = JSON.stringify({ hostname: hostname, userId: userId, sessionId: sessionId, gclid: gclid, events: events });
-        if (navigator.sendBeacon) {
-          var blob = new Blob([payload], { type: 'text/plain;charset=UTF-8' });
-          navigator.sendBeacon(endpoint, blob);
-          return;
-        }
-        fetch(endpoint, { method: 'POST', mode: 'no-cors', keepalive: true, body: payload }).catch(function () {});
-      } catch (e) {}
-    }
+    // Removed separate submit beacon to avoid creating a separate row
 
-    return { sendData: sendData, sendDataDebounced: sendDataDebounced, queue: queue, flush: flush, trackSubmitted: trackSubmitted };
+    return { sendData: sendData, sendDataDebounced: sendDataDebounced, queue: queue, flush: flush };
   })();
 
   global.Tracking = Tracking;
