@@ -174,7 +174,12 @@ const Services = () => {
           </div>
         </div>
 
-        <section className="faq" id="faq" aria-labelledby="faq-heading">
+        <section
+          className="faq"
+          id="faq"
+          aria-labelledby="faq-heading"
+          style={{ marginTop: '4rem' }}
+        >
           <h2 id="faq-heading" className="section-title">
             Frequently Asked Questions
           </h2>
@@ -210,7 +215,7 @@ const Services = () => {
           </div>
         </section>
 
-        <h2 className="section-title" style={{ marginTop: '2rem' }}>
+        <h2 className="section-title" style={{ marginTop: '4rem' }}>
           One‑Time Cleaning Services
         </h2>
         <div className="services-hero-tiles">
