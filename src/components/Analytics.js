@@ -1,5 +1,26 @@
 import { useEffect } from 'react';
 
+// Analytics Configuration
+const ANALYTICS_CONFIG = {
+  // Set to false to enable PostHog on localhost for development/testing
+  DISABLE_POSTHOG_ON_LOCALHOST: true,
+  
+  // Additional hostnames to exclude from PostHog (e.g., staging domains)
+  EXCLUDED_HOSTNAMES: [
+    '127.0.0.1',
+    'localhost',
+    // Add more hostnames here as needed
+    // 'staging.example.com',
+    // 'dev.example.com'
+  ],
+  
+  // PostHog project token
+  POSTHOG_TOKEN: 'phc_vJtgilJJj4Wu08WECgNrClemMoFdmi7Iw7ZvXS8XbP4',
+  
+  // Google Analytics ID
+  GA_ID: 'G-8H1891ZW72'
+};
+
 /**
  * Analytics mounts once and loads third‑party analytics/chat integrations
  * (Google Analytics, PostHog, Tawk.to) in a non‑blocking way across the app.
@@ -7,6 +28,14 @@ import { useEffect } from 'react';
  */
 export default function Analytics() {
   useEffect(() => {
+    // Check if PostHog should be disabled
+    const shouldDisablePostHog = () => {
+      if (!ANALYTICS_CONFIG.DISABLE_POSTHOG_ON_LOCALHOST) return false;
+      
+      const hostname = window.location.hostname;
+      return ANALYTICS_CONFIG.EXCLUDED_HOSTNAMES.includes(hostname);
+    };
+
     // Persist UTM params and gclid
     try {
       const params = new URLSearchParams(window.location.search || '');
@@ -27,7 +56,7 @@ export default function Analytics() {
         if (!window.gtag) {
           const ga = document.createElement('script');
           ga.async = true;
-          ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-8H1891ZW72';
+          ga.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_CONFIG.GA_ID}`;
           document.head.appendChild(ga);
           ga.onload = () => {
             window.dataLayer = window.dataLayer || [];
@@ -35,14 +64,14 @@ export default function Analytics() {
             // @ts-ignore
             window.gtag = gtag;
             gtag('js', new Date());
-            gtag('config', 'G-8H1891ZW72');
+            gtag('config', ANALYTICS_CONFIG.GA_ID);
           };
         }
       } catch {}
 
       // PostHog
       try {
-        if (!window.posthog || !window.posthog.__loaded) {
+        if (!window.posthog && !shouldDisablePostHog()) {
           (function (t, e) {
             let o, n, p, r; e.__SV || ((window.posthog = e), (e._i = []), (e.init = function (i, s, a) {
               function g(t2, e2) { const o2 = e2.split('.'); 2 === o2.length && ((t2 = t2[o2[0]]), (e2 = o2[1])); t2[e2] = function () { t2.push([e2].concat(Array.prototype.slice.call(arguments, 0))); }; }
@@ -55,7 +84,7 @@ export default function Analytics() {
               o = 'init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId'.split(' ');
               for (n = 0; n < o.length; n++) g(u, o[n]); e._i.push([i, s, a]); }), (e.__SV = 1));
           })(document, window.posthog || []);
-          window.posthog.init('phc_vJtgilJJj4Wu08WECgNrClemMoFdmi7Iw7ZvXS8XbP4', {
+          window.posthog.init(ANALYTICS_CONFIG.POSTHOG_TOKEN, {
             api_host: 'https://us.i.posthog.com',
             // Disable session recording for now to avoid noisy console errors
             disable_session_recording: false,
@@ -70,6 +99,8 @@ export default function Analytics() {
           if (window.posthog.identify && window.posthog.get_distinct_id) {
             window.posthog.identify(window.posthog.get_distinct_id(), { site_domain: window.location.hostname });
           }
+        } else if (shouldDisablePostHog()) {
+          console.log('PostHog disabled on localhost/excluded hostname:', window.location.hostname);
         }
       } catch {}
 

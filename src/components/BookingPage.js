@@ -18,6 +18,9 @@ const BookingPage = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showNoImagesModal, setShowNoImagesModal] = useState(false);
   const [confirmNoImages, setConfirmNoImages] = useState(false);
+  const [viewMode, setViewMode] = useState('steps'); // 'steps' | 'single'
+
+  const isSinglePage = viewMode === 'single';
 
   // Check if device is mobile
   useEffect(() => {
@@ -29,6 +32,13 @@ const BookingPage = () => {
     window.addEventListener('resize', checkMobile);
 
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Initialize view mode from URL (?mode=single)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get('mode');
+    if (mode === 'single') setViewMode('single');
   }, []);
 
   // Feature flag: temporarily disable emails
@@ -93,12 +103,12 @@ const BookingPage = () => {
     setMaxCompletedStep(6);
   }, []);
 
-  // Clear validation highlights when the step changes
+  // Clear validation highlights when the step changes (steps mode)
   useEffect(() => {
-    if (!formRef.current) return;
+    if (!formRef.current || isSinglePage) return;
     const highlighted = formRef.current.querySelectorAll('.step-panel.show-validation');
     highlighted.forEach((el) => el.classList.remove('show-validation'));
-  }, [currentStep]);
+  }, [currentStep, isSinglePage]);
 
   const initialState = {
     // Step 1: Personal Information
@@ -229,11 +239,9 @@ const BookingPage = () => {
           : prev.extras.filter((v) => v !== value);
         try {
           if (window.Tracking) {
-            // granular toggle event per extra
             window.Tracking.queue && window.Tracking.queue(`extra:${value}`, nowSelected);
             window.Tracking.sendDataDebounced &&
               window.Tracking.sendDataDebounced(`extra:${value}`, nowSelected);
-            // snapshot of all extras as a stable string
             const snapshot = updatedExtras.join(' | ');
             window.Tracking.queue && window.Tracking.queue('extras', snapshot);
             window.Tracking.sendDataDebounced &&
@@ -270,11 +278,9 @@ const BookingPage = () => {
 
       const updated = { ...prev, [name]: value };
       try {
-        // Queue all changes for batch flush
         if (window.Tracking && window.Tracking.queue) {
           window.Tracking.queue(name, value);
         }
-        // Debounce immediate PII fields
         if (['firstName', 'lastName'].includes(name)) {
           const fullName = `${name === 'firstName' ? value : updated.firstName} ${
             name === 'lastName' ? value : updated.lastName
@@ -303,6 +309,7 @@ const BookingPage = () => {
   };
 
   const validateCurrentStep = () => {
+    if (isSinglePage) return true;
     if (!formRef.current) return true;
     const stepEl = formRef.current.querySelector(`[data-step="${currentStep}"]`);
     if (!stepEl) return true;
@@ -342,14 +349,25 @@ const BookingPage = () => {
     return true;
   };
 
+  const validateAllRequired = () => {
+    if (!formRef.current) return true;
+    const inputs = formRef.current.querySelectorAll('input, select, textarea');
+    for (const input of inputs) {
+      if (input.required && !input.checkValidity()) {
+        input.reportValidity();
+        input.focus();
+        return false;
+      }
+    }
+    return true;
+  };
+
   const goNext = () => {
     if (!validateCurrentStep()) return;
-    // Batch-track all fields when proceeding to the next step
     try {
       if (window.Tracking && window.Tracking.queue) {
         const serializeValue = (key, val) => {
           if (key === 'extras') return Array.isArray(val) ? val.join(' | ') : val;
-          // skip images in step snapshot to avoid clobbering server 'images' link
           if (key === 'images') return undefined;
           return val;
         };
@@ -358,9 +376,7 @@ const BookingPage = () => {
           const out = serializeValue(key, val);
           if (typeof out !== 'undefined') events.push({ fieldId: key, value: out });
         });
-        // send in one batch to ensure same-row write
         if (events.length && window.Tracking.flush) {
-          // temporarily replace queue, flush, then restore
           const prevQueue = window.Tracking._q || [];
           window.Tracking._q = events; // internal use
           try { window.Tracking.flush(); } finally { window.Tracking._q = prevQueue; }
@@ -383,7 +399,6 @@ const BookingPage = () => {
   // Enhanced mobile scroll behavior
   const scrollToTop = () => {
     if (isMobile) {
-      // Smooth scroll to top on mobile with offset for better UX
       const headerOffset = 80;
       const elementPosition = document.body.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -393,13 +408,14 @@ const BookingPage = () => {
         behavior: 'smooth',
       });
     } else {
-      // Instant scroll on desktop
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // In single-page mode, validate entire form
+    if (isSinglePage && !validateAllRequired()) return;
     // Guard: for One-Time bookings, encourage images; show confirm modal when none selected
     if (
       isOneTime &&
@@ -409,11 +425,10 @@ const BookingPage = () => {
       setShowNoImagesModal(true);
       return;
     }
-    if (!validateCurrentStep()) return;
+    if (!isSinglePage && !validateCurrentStep()) return;
     if (isSubmitting) return;
     setIsSubmitting(true);
     try {
-      // Build one batch with snapshot + submitClicked and flush in a single request
       try {
         if (window.Tracking) {
           const serializeValue = (key, val) => {
@@ -436,10 +451,8 @@ const BookingPage = () => {
           }
         }
       } catch (e) {}
-      // capture a few details for the confirmation page before resetting state
       const confirmEmail = formData.email;
       const confirmName = formData.firstName;
-      // Upload images and track archive link even if emails are disabled
       try {
         if (formData.images && formData.images.length && window.Email && window.Email.uploadAllImages) {
           const result = await window.Email.uploadAllImages(formData.images, formData);
@@ -454,7 +467,6 @@ const BookingPage = () => {
       if (ENABLE_EMAILS && window.Email && window.Email.sendBookingRequest) {
         await window.Email.sendBookingRequest(formData);
       }
-      // reset and navigate to confirmation
       setFormData(initialState);
       setCurrentStep(1);
       navigate('/confirmation', { state: { email: confirmEmail, firstName: confirmName } });
@@ -470,12 +482,10 @@ const BookingPage = () => {
   const confirmAndSubmitWithoutImages = () => {
     setConfirmNoImages(true);
     setShowNoImagesModal(false);
-    // Re-trigger submit after state updates
     setTimeout(() => {
       if (formRef.current) {
         try { formRef.current.requestSubmit(); } catch (e) {}
       }
-      // reset flag for future submissions
       setConfirmNoImages(false);
     }, 0);
   };
@@ -485,7 +495,6 @@ const BookingPage = () => {
     if (!showNoImagesModal) return;
     const onKey = (e) => { if (e.key === 'Escape') setShowNoImagesModal(false); };
     window.addEventListener('keydown', onKey);
-    // lock body scroll and help ensure overlay covers full area
     document.body.classList.add('body--modal-open');
     return () => window.removeEventListener('keydown', onKey);
   }, [showNoImagesModal]);
@@ -516,25 +525,7 @@ const BookingPage = () => {
 
   const stepShortLabels = ['Info', 'Industry', 'Service', 'Property', 'Extras', 'Details'];
 
-  // Calculate progress percentage (show progress on first step too)
   const progressPercentage = (currentStep / 6) * 100;
-
-  // Flush queued events on visibility change/unload to avoid data loss
-  useEffect(() => {
-    const flushHandler = () => {
-      try {
-        window.Tracking && window.Tracking.flush && window.Tracking.flush();
-      } catch (e) {}
-    };
-    window.addEventListener('visibilitychange', flushHandler);
-    window.addEventListener('pagehide', flushHandler);
-    window.addEventListener('beforeunload', flushHandler);
-    return () => {
-      window.removeEventListener('visibilitychange', flushHandler);
-      window.removeEventListener('pagehide', flushHandler);
-      window.removeEventListener('beforeunload', flushHandler);
-    };
-  }, []);
 
   return (
     <main>
@@ -546,10 +537,16 @@ const BookingPage = () => {
       <section className="booking">
         <div className="booking__container">
           <h1 className="booking__title">Book Your Cleaning</h1>
-          <p className="booking__intro">Please complete the steps below to request an estimate.</p>
+          <p className="booking__intro">{isSinglePage ? 'Complete the form below.' : 'Please complete the steps below to request an estimate.'}</p>
+
+          {/* Mode toggle */}
+          <div className="view-toggle" role="group" aria-label="Form mode">
+            <button type="button" className={`toggle-btn ${!isSinglePage ? 'is-active' : ''}`} onClick={() => setViewMode('steps')} aria-pressed={!isSinglePage}>Step-by-step</button>
+            <button type="button" className={`toggle-btn ${isSinglePage ? 'is-active' : ''}`} onClick={() => setViewMode('single')} aria-pressed={isSinglePage}>Single page</button>
+          </div>
 
           {/* Enhanced Mobile progress indicator */}
-          {isMobile && (
+          {!isSinglePage && isMobile && (
             <div className="mobile-progress">
               <div className="mobile-progress__text">
                 Step {currentStep} of 6: {stepTitle}
@@ -564,7 +561,7 @@ const BookingPage = () => {
           )}
 
           {/* Desktop-only stepper progress */}
-          {!isMobile && (
+          {!isSinglePage && !isMobile && (
             <div className="stepper" aria-label="Booking steps">
               <div className="stepper__header">
                 <span className="stepper__current-textline">
@@ -585,7 +582,6 @@ const BookingPage = () => {
                     .join(' ');
                   const handleJump = () => {
                     if (!isClickable) return;
-                    // If jumping forward, batch-track snapshot before changing step
                     if (stepNum > currentStep) {
                       try {
                         if (window.Tracking && window.Tracking.queue) {
@@ -627,12 +623,9 @@ const BookingPage = () => {
             </div>
           )}
 
-          {/* Remove duplicate desktop title; the header above now shows it with progress */}
-          {/* {!isMobile && <h2 className="step-title">Step {currentStep}: {stepTitle}</h2>} */}
-
           <form ref={formRef} className="booking__form" onSubmit={handleSubmit}>
             {/* Step 1: Personal Information */}
-            {currentStep === 1 && (
+            {(isSinglePage || currentStep === 1) && (
               <div data-step="1" className="step-panel">
                 <div className="form-row">
                   <div className="form-field">
@@ -710,7 +703,7 @@ const BookingPage = () => {
             )}
 
             {/* Step 2: Select Industry */}
-            {currentStep === 2 && (
+            {(isSinglePage || currentStep === 2) && (
               <div data-step="2" className="step-panel">
                 <div className="form-row">
                   <div className="form-field">
@@ -781,7 +774,7 @@ const BookingPage = () => {
             )}
 
             {/* Step 3: Select Service */}
-            {currentStep === 3 && (
+            {(isSinglePage || currentStep === 3) && (
               <div data-step="3" className="step-panel">
                 <div className="form-row">
                   <div className="form-field">
@@ -911,7 +904,7 @@ const BookingPage = () => {
             )}
 
             {/* Step 4: Property Details */}
-            {currentStep === 4 && (
+            {(isSinglePage || currentStep === 4) && (
               <div data-step="4" className="step-panel">
                 <div className="form-row">
                   <div className="form-field">
@@ -1130,7 +1123,7 @@ const BookingPage = () => {
             )}
 
             {/* Step 5: Packages and Extras */}
-            {currentStep === 5 && (
+            {(isSinglePage || currentStep === 5) && (
               <div data-step="5" className="step-panel">
                 <div className="form-extras">
                   <p className="extras-title">{isRecurring ? 'Do you want any extras for your first-time cleaning?' : 'Do you want any extras?'}</p>
@@ -1205,7 +1198,7 @@ const BookingPage = () => {
             )}
 
             {/* Step 6: Additional Details */}
-            {currentStep === 6 && (
+            {(isSinglePage || currentStep === 6) && (
               <div data-step="6" className="step-panel">
                 <div className="form-row">
                   <div className="form-field">
@@ -1463,22 +1456,37 @@ const BookingPage = () => {
             )}
 
             {/* Navigation Buttons */}
-            <div className="nav-buttons">
-              <button
-                type="button"
-                className="btn btn--outline"
-                onClick={goPrev}
-                disabled={currentStep === 1}
-                aria-disabled={currentStep === 1}
-              >
-                Previous
-              </button>
-              {currentStep < 6 && (
-                <button type="button" className="btn" onClick={goNext}>
-                  Next
+            {!isSinglePage && (
+              <div className="nav-buttons">
+                <button
+                  type="button"
+                  className="btn btn--outline"
+                  onClick={goPrev}
+                  disabled={currentStep === 1}
+                  aria-disabled={currentStep === 1}
+                >
+                  Previous
                 </button>
-              )}
-              {currentStep === 6 && (
+                {currentStep < 6 && (
+                  <button type="button" className="btn" onClick={goNext}>
+                    Next
+                  </button>
+                )}
+                {currentStep === 6 && (
+                  <button
+                    type="submit"
+                    className="btn booking__submit"
+                    disabled={isSubmitting}
+                    aria-disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending…' : 'Submit'}
+                  </button>
+                )}
+              </div>
+            )}
+
+            {isSinglePage && (
+              <div className="nav-buttons">
                 <button
                   type="submit"
                   className="btn booking__submit"
@@ -1487,8 +1495,9 @@ const BookingPage = () => {
                 >
                   {isSubmitting ? 'Sending…' : 'Submit'}
                 </button>
-              )}
-            </div>
+              </div>
+            )}
+
             {showNoImagesModal && ReactDOM.createPortal(
               (
                 <div className="booking-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onClick={() => setShowNoImagesModal(false)}>
