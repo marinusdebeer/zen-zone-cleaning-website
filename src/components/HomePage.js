@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useLocation } from 'react-router-dom';
 import SEO from './SEO';
 import Hero from './Hero';
-import Steps from './Steps';
-import Services from './Services';
-import About from './About';
-import Benefits from './Benefits';
-import Locations from './Locations';
-import Reviews from './Reviews';
-import Gallery from './Gallery';
 import { getReviewsSummary } from './reviewsData';
+
+// Lazy load non-critical components for better performance
+const Steps = lazy(() => import('./Steps'));
+const Services = lazy(() => import('./Services'));
+const About = lazy(() => import('./About'));
+const Benefits = lazy(() => import('./Benefits'));
+const Locations = lazy(() => import('./Locations'));
+const Reviews = lazy(() => import('./Reviews'));
+const Gallery = lazy(() => import('./Gallery'));
 
 /**
  * The home page aggregates the core sections of the public site. It exists so
@@ -126,13 +128,15 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
       />
       <Hero title={heroTitle} subtitle={heroSubtitle} />
       
-      <Services />
-      <Reviews />
-      <About />
-      <Gallery limit={8} fullWidth strip />
-      <Benefits />
-      <Steps />
-      <Locations />
+      <Suspense fallback={<div style={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Loading...</div>}>
+        <Services />
+        <Reviews />
+        <About />
+        <Gallery limit={8} fullWidth strip />
+        <Benefits />
+        <Steps />
+        <Locations />
+      </Suspense>
       {cityName && (
         <section className="section" aria-label={`House Cleaning in ${cityName}`}>
           <h2 tabIndex="-1">House Cleaning in {cityName}</h2>

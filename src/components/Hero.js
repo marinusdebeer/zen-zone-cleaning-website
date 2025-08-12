@@ -24,6 +24,7 @@ const Hero = ({ title, subtitle }) => {
         className="hero__background"
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/images/hero.png)`,
+          willChange: 'transform', // Optimize for animations
         }}
       ></div>
       <div className="hero__overlay"></div>

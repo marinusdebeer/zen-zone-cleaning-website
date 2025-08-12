@@ -51,21 +51,32 @@ export default function Analytics() {
     } catch {}
 
     const loadVendors = () => {
-      // Google Analytics (gtag)
+      // Google Analytics (gtag) - Load only after user interaction for performance
       try {
         if (!window.gtag) {
-          const ga = document.createElement('script');
-          ga.async = true;
-          ga.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_CONFIG.GA_ID}`;
-          document.head.appendChild(ga);
-          ga.onload = () => {
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { window.dataLayer.push(arguments); }
-            // @ts-ignore
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', ANALYTICS_CONFIG.GA_ID);
+          const loadGA = () => {
+            const ga = document.createElement('script');
+            ga.async = true;
+            ga.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_CONFIG.GA_ID}`;
+            document.head.appendChild(ga);
+            ga.onload = () => {
+              window.dataLayer = window.dataLayer || [];
+              function gtag() { window.dataLayer.push(arguments); }
+              // @ts-ignore
+              window.gtag = gtag;
+              gtag('js', new Date());
+              gtag('config', ANALYTICS_CONFIG.GA_ID);
+            };
           };
+
+          // Load on first user interaction or after 5 seconds
+          const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+          const loadOnce = () => {
+            loadGA();
+            events.forEach(event => document.removeEventListener(event, loadOnce, true));
+          };
+          events.forEach(event => document.addEventListener(event, loadOnce, { once: true, passive: true }));
+          setTimeout(loadGA, 5000); // Fallback after 5 seconds
         }
       } catch {}
 
@@ -153,9 +164,14 @@ export default function Analytics() {
         schedule.forEach((ms) => setTimeout(() => { if (!document.getElementById('tawk-script') && !document.querySelector('iframe[src*="tawk.to"]')) injectTawk(); }, ms));
       } catch {}
     }
-    // Load everything immediately (no idle deferral)
-    loadVendors();
-    loadTawk();
+    // Significantly delay analytics for critical performance metrics
+    const timer = setTimeout(() => {
+      loadVendors();
+      loadTawk();
+    }, 3000); // Increased delay to 3 seconds for better LCP/FCP
+
+    // Cleanup timer on unmount
+    return () => clearTimeout(timer);
   }, []);
 
   return null;

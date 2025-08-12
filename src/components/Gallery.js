@@ -1,4 +1,5 @@
 import React from 'react';
+import LazyImage from './LazyImage';
 import './Gallery.css';
 
 // Auto‑wire images from public/images/gallery
@@ -117,7 +118,7 @@ export default function Gallery({
             onClick={() => openLightbox(index)}
             aria-label={`Open image`}
           >
-            <img src={item.src} alt={item.alt} loading="lazy" />
+            <LazyImage src={item.src} alt={item.alt} loading="lazy" />
             <span className="gallery__tile-overlay" aria-hidden="true" />
           </button>
         ))}
