@@ -212,3 +212,17 @@
 }
 
 /* service pill removed by request */
+
+.reviews__header .faces-row {
+  margin-top: 0.25rem;
+}
+
+/* Scattered faces positions */
+.reviews__face { z-index: 1; }
+.reviews__face--tl { top: -20px; left: -10px; }
+.reviews__face--br { bottom: -30px; right: -20px; }
+
+@media (max-width: 768px) {
+  .reviews__face--tl { top: -10px; left: -6px; }
+  .reviews__face--br { bottom: -16px; right: -10px; }
+}

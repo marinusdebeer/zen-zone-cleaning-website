@@ -181,7 +181,11 @@
   border: none;
   font-size: 1.5rem;
   line-height: 1;
+  color: #ff0000;
   cursor: pointer;
+}
+.modal__close:hover {
+  transform: scale(1.2);
 }
 .modal__body {
   padding: 1rem;
@@ -225,3 +229,7 @@
   font-size: 0.9rem;
   color: var(--color-text);
 }
+
+.faq { position: relative; }
+.faq__face { top: -24px; right: -12px; }
+@media (max-width: 768px) { .faq__face { top: -12px; right: -8px; } }

@@ -1,0 +1,88 @@
+.face {
+  width: 64px;
+  height: 64px;
+  display: inline-block;
+  object-fit: cover;
+  background-color: #ddd;
+}
+
+/* Background-image variant for better cropping */
+.face--bg {
+  object-fit: initial; /* not used when background-image is applied */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Zoom helpers for background variant */
+.face--zoom-sm { background-size: 130% !important; }
+.face--zoom { background-size: 150% !important; }
+.face--zoom-lg { background-size: 180% !important; }
+
+.face--sm { width: 56px; height: 56px; }
+.face--md { width: 88px; height: 88px; }
+.face--lg { width: 120px; height: 120px; }
+.face--xl { width: 160px; height: 160px; }
+
+.face--circle { border-radius: 9999px; }
+.face--rounded { border-radius: 18px; }
+
+/* Squircle-like rounded shape */
+.face--squircle { border-radius: 35% / 25%; }
+
+/* Organic blob using clip-path */
+.face--blob {
+  clip-path: polygon(59% 2%, 84% 13%, 98% 36%, 92% 62%, 75% 84%, 50% 96%, 26% 89%, 11% 70%, 5% 47%, 14% 24%, 32% 9%);
+}
+
+/* Hexagon */
+.face--hex {
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%);
+}
+
+/* Heart mask via SVG data URI */
+.face--heart {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23fff' d='M50 86 L12 48 A20 20 0 0 1 50 20 A20 20 0 0 1 88 48 Z'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23fff' d='M50 86 L12 48 A20 20 0 0 1 50 20 A20 20 0 0 1 88 48 Z'/></svg>");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  border-radius: 0; /* mask controls shape */
+}
+
+/* Rotation helpers */
+.face--tilt-l { transform: rotate(-6deg); }
+.face--tilt-r { transform: rotate(6deg); }
+.face--tilt-l2 { transform: rotate(-10deg); }
+.face--tilt-r2 { transform: rotate(10deg); }
+
+/* Generic row for clustered faces */
+.faces-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Overlapping variant */
+.faces-row.faces-row--overlap .face {
+  margin-left: -12px;
+  box-shadow: 0 2px 8px var(--color-shadow);
+  border: 2px solid var(--color-surface);
+}
+
+/* Helper: allow absolute positioning when used as decorative stickers */
+.face--sticker {
+  position: absolute;
+  pointer-events: none;
+  box-shadow: 0 8px 24px var(--color-shadow);
+  border: 2px solid var(--color-surface);
+}
+
+@media (max-width: 768px) {
+  .face--md { width: 72px; height: 72px; }
+  .face--lg { width: 96px; height: 96px; }
+  .face--xl { width: 120px; height: 120px; }
+}

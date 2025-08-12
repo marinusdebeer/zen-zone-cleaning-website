@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './About.css';
+import './Faces.css';
+import './Mascots.css';
 
 /**
  * About section tells the story of the company and its mission. A
@@ -20,7 +22,9 @@ const About = () => {
     <section className="section about" id="about">
       <div className="about__wrapper">
         <div className="about__content">
-          <h2 className="section-title">About Zen Zone Cleaning Services</h2>
+          <h2 className="section-title about__title">
+            About Zen Zone Cleaning Services
+          </h2>
           <p>
             Zen Zone Cleaning Services is a locally operated, family‑owned cleaning company in
             Ontario, Canada created with one clear mission: to simplify your life by taking cleaning
@@ -144,6 +148,8 @@ const About = () => {
             alt="Our team"
             className="about__image"
           />
+          <span className="face face--lg face--heart face--sticker face--bg face--zoom" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/2.png)` }} aria-hidden="true" />
+          <span className="face face--md face--squircle face--sticker face--bg face--zoom-sm" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/6.png)` }} aria-hidden="true" />
         </div>
       </div>
     </section>

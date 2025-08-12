@@ -1,0 +1,38 @@
+.mascot {
+  /* position: absolute; */
+  pointer-events: none;
+  user-select: none;
+  /* display: block; */
+  margin-bottom: -29px;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.18));
+}
+
+.mascot--sm { width: 96px; height: auto; }
+.mascot--md { width: 140px; height: auto; }
+.mascot--lg { width: 180px; height: auto; }
+
+/* Hero placements */
+.hero__mascot { z-index: 4; }
+.hero__mascot--br { bottom: 18px; right: 18px; transform: rotate(-4deg); }
+
+/* Reviews placements */
+.reviews__mascot { z-index: 1; }
+.reviews__mascot--peek { top: -10px; left: -8px; transform: rotate(-6deg); }
+
+/* About placements */
+.about__mascot { z-index: 1; }
+.about__mascot--tr { top: -12px; right: -8px; transform: rotate(6deg); }
+.about__mascot--above { top: -36px; right: -6px; transform: rotate(6deg); }
+.about__title { position: relative; display: inline-block; }
+.about__mascot--hang { position: absolute; right: -46px; top: -32px; transform: rotate(8deg); }
+
+@media (max-width: 768px) {
+  .mascot--lg { width: 140px; }
+  .mascot--md { width: 120px; }
+  .mascot--sm { width: 84px; }
+  .hero__mascot--br { bottom: 10px; right: 10px; }
+  .reviews__mascot--peek { top: -6px; left: -6px; }
+  .about__mascot--tr { top: -8px; right: -6px; }
+  .about__mascot--above { top: -28px; right: -4px; }
+  .about__mascot--hang { right: -30px; top: -24px; }
+}

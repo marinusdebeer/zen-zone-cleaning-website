@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Services.css';
+import './Faces.css';
 
 /**
  * Services shows two groups: Recurring Cleaning Plans and One‑Time Services.
@@ -252,8 +253,9 @@ const Services = () => {
           className="faq"
           id="faq"
           aria-labelledby="faq-heading"
-          style={{ marginTop: '4rem' }}
+          style={{ marginTop: '4rem', position: 'relative' }}
         >
+          <img src={`${process.env.PUBLIC_URL}/images/4.png`} alt="" className="face face--lg face--rounded face--sticker faq__face" aria-hidden="true" />
           <h2 id="faq-heading" className="section-title">
             Frequently Asked Questions
           </h2>

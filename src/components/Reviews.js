@@ -1,5 +1,7 @@
 import React from 'react';
 import './Reviews.css';
+import './Faces.css';
+import './Mascots.css';
 import { REVIEWS as RAW_REVIEWS, getReviewsSummary } from './reviewsData';
 
 // Sort by date desc; parse using Date for robust ordering
@@ -71,6 +73,7 @@ export default function Reviews() {
   }, []);
   return (
     <section className="reviews" id="reviews" aria-label="Client Reviews">
+      <img src={`${process.env.PUBLIC_URL}/images/peaking_moose.png`} alt="" className="mascot mascot--md reviews__mascot reviews__mascot--peek" aria-hidden="true" />
       <div className="reviews__header">
         <h2 className="reviews__title">Reviews</h2>
         <div className="reviews__actions">
@@ -97,7 +100,16 @@ export default function Reviews() {
             </span>
           </a>
         </div>
+        <div className="faces-row faces-row--overlap" aria-hidden="true" style={{ marginTop: '0.5rem' }}>
+          <span className="face face--md face--circle face--bg face--zoom" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/2.png)` }} />
+          <span className="face face--md face--blob face--bg face--zoom-sm" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/6.png)` }} />
+          <span className="face face--md face--heart face--bg face--zoom-lg" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/1.png)` }} />
+        </div>
       </div>
+
+      {/* Scattered decorative faces */}
+      <img src={`${process.env.PUBLIC_URL}/images/4.png`} alt="" className="face face--lg face--rounded face--sticker reviews__face reviews__face--tl" aria-hidden="true" />
+      <img src={`${process.env.PUBLIC_URL}/images/8.png`} alt="" className="face face--xl face--heart face--sticker reviews__face reviews__face--br face--tilt-r2" aria-hidden="true" />
 
       <div className="reviews__scroller" aria-label="Reviews list">
         {REVIEWS.map((r) => (

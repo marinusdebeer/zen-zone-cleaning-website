@@ -9,6 +9,7 @@
 
 .about__content {
   flex: 1 1 400px;
+  position: relative;
 }
 
 .about__content p {
@@ -21,6 +22,20 @@
   flex: 1 1 300px;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.about__face {
+  box-shadow: 0 6px 18px var(--color-shadow);
+  border: 2px solid var(--color-surface);
+}
+
+.about__face--tl { top: -12px; left: -12px; }
+.about__face--br { bottom: -12px; right: -12px; }
+
+@media (max-width: 768px) {
+  .about__face--tl { top: -8px; left: -8px; transform: scale(0.9); }
+  .about__face--br { bottom: -8px; right: -8px; transform: scale(0.9); }
 }
 
 .about__image {

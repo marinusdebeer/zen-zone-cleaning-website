@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import { getReviewsSummary } from './reviewsData';
 import { Link, useLocation } from 'react-router-dom';
 import './Hero.css';
+import './Faces.css';
+import './Mascots.css';
 
 /**
  * Hero section with a decorative background image, headline, sub‑text and a
@@ -26,6 +28,7 @@ const Hero = ({ title, subtitle }) => {
       ></div>
       <div className="hero__overlay"></div>
       <div className="hero__content">
+      <img src={`${process.env.PUBLIC_URL}/images/moose_in_suit.png`} alt="" className="mascot mascot--lg hero__mascot" aria-hidden="true"/>
         <h1 className="hero__title">{title || 'House Cleaning Services'}</h1>
         <h2 className="hero__subtitle">
           {subtitle || 'Serving Barrie, Orillia, and greater Simcoe County'}
@@ -56,6 +59,8 @@ const Hero = ({ title, subtitle }) => {
             <span className="hero__rating-count">({ratingInfo.count})</span>
           </a>
         </div>
+        
+        
         <p className="hero__subtitle">
           Family‑owned, reliable, and background‑checked professionals. Enjoy a spotless home and
           more free time—without lifting a finger.
@@ -80,6 +85,7 @@ const Hero = ({ title, subtitle }) => {
             Call Now
           </a>
         </div>
+        
       </div>
     </section>
   );

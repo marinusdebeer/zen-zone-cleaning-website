@@ -1,38 +1,49 @@
 import React from 'react';
 import './Steps.css';
+import './Faces.css';
 
 /**
  * Displays the simplified booking process in three steps. Each step
- * includes an icon, a title and supporting text. Using images from
- * the public folder allows the assets to be referenced at runtime without
- * bundling them into the JavaScript bundle.
+ * includes an image, a title and supporting text.
  */
 const Steps = () => {
   const steps = [
     {
-      icon: `${process.env.PUBLIC_URL}/images/house.png`,
+      image: `${process.env.PUBLIC_URL}/images/5.png`,
       title: 'Book Online',
-      description: 'Choose your service, date and time in a few clicks using our easy online form.',
+      description:
+        'Customize and book your cleaning service online. 24hr cancellation policy.',
     },
     {
-      icon: `${process.env.PUBLIC_URL}/images/broom.png`,
+      image: `${process.env.PUBLIC_URL}/images/zen_zone_branded_cleaner.png`,
       title: 'We Clean',
-      description: 'Our background‑checked professionals arrive on time with all supplies needed.',
+      description:
+        'Your home cleaned by a professional and background checked cleaner.',
     },
     {
-      icon: `${process.env.PUBLIC_URL}/images/bucket.png`,
+      image: `${process.env.PUBLIC_URL}/images/2.png`,
       title: 'You Relax',
-      description: 'Enjoy your sparkling home and spend your time on what matters most to you.',
+      description:
+        'Rate your cleaning, relax, and enjoy what matters most in life.',
     },
   ];
 
   return (
     <section className="section section--alt steps" id="how-it-works">
+      <img src={`${process.env.PUBLIC_URL}/images/7.png`} alt="" className="face face--lg face--heart face--sticker steps__face steps__face--l" aria-hidden="true" />
+      <img src={`${process.env.PUBLIC_URL}/images/3.png`} alt="" className="face face--md face--blob face--sticker steps__face steps__face--r" aria-hidden="true" />
       <h2 className="section-title">How It Works</h2>
       <div className="steps__grid">
         {steps.map((step, idx) => (
           <div key={idx} className="step">
-            <img src={step.icon} alt="" className="step__icon" />
+            <div className="step__media">
+              <div
+                className="step__photo"
+                style={{ backgroundImage: `url(${step.image})` }}
+                role="img"
+                aria-label={step.title}
+              />
+            </div>
             <h3 className="step__title">{`${idx + 1}. ${step.title}`}</h3>
             <p className="step__description">{step.description}</p>
           </div>
