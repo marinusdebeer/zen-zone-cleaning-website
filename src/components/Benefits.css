@@ -34,7 +34,7 @@
   width: 100vw;
   height: 100%;
   /* Try user's preferred path first; fall back to root-level like Locations */
-  background-image: url('/public/images/cleaning_background.png');
+  background-image: url('/public/images/cleaning_background.avif');
   /* Zoom the background so it fills and appears closer */
   background-size: 160% auto; /* desktop zoom */
   background-position: center top;
@@ -45,7 +45,7 @@
 
 /* Dark mode background */
 [data-theme='dark'] .benefits::before {
-  background-image: url('/public/images/cleaning_background_dark.png');
+  background-image: url('/public/images/cleaning_background_dark.avif');
 }
 
 /* Adjust zoom on smaller screens for better composition */

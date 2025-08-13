@@ -11,7 +11,7 @@ export default function SEO({
   title = 'Zen Zone Cleaning Services',
   description = 'House cleaning in Simcoe County. Reliable, background‑checked cleaners. Get a free estimate.',
   path = '/',
-  image = '/images/hero.png',
+  image = '/images/hero.avif',
   jsonLd = null,
   robots = 'index,follow',
 }) {

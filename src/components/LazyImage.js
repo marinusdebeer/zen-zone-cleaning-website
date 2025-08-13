@@ -46,24 +46,45 @@ const LazyImage = ({
   };
 
   // Only load image when in view, with optimized placeholder
+  const canTranscode = /\.(png|jpe?g)$/i.test(src || '');
+  const avifSrc = canTranscode ? (src || '').replace(/\.(png|jpe?g|webp)$/i, '.avif') : src;
+
   return (
     <div ref={imgRef} className={`lazy-image-wrapper ${className}`} style={{ minHeight: '200px' }}>
       {isInView ? (
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          onLoad={handleLoad}
-          onError={handleError}
-          style={{
-            opacity: isLoaded ? 1 : 0,
-            transition: 'opacity 0.2s ease',
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-          {...props}
-        />
+        canTranscode ? (
+          <img
+            src={avifSrc}
+            alt={alt}
+            loading="lazy"
+            onLoad={handleLoad}
+            onError={handleError}
+            style={{
+              opacity: isLoaded ? 1 : 0,
+              transition: 'opacity 0.2s ease',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+            {...props}
+          />
+        ) : (
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            onLoad={handleLoad}
+            onError={handleError}
+            style={{
+              opacity: isLoaded ? 1 : 0,
+              transition: 'opacity 0.2s ease',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+            {...props}
+          />
+        )
       ) : (
         <div 
           style={{

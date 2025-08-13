@@ -64,11 +64,14 @@ const Header = () => {
             try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}
           }}
         >
-          <img
-            src={`${process.env.PUBLIC_URL}/images/logo.png`}
-            alt="Zen Zone Cleaning Services"
-            className="header__logo-image"
-          />
+          <picture>
+            <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/logo.avif`} />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/logo.avif`}
+              alt="Zen Zone Cleaning Services"
+              className="header__logo-image"
+            />
+          </picture>
           <span className="header__logo-text">Zen Zone Cleaning</span>
           <span className="header__flag" role="img" aria-label="Canada">
             🇨🇦

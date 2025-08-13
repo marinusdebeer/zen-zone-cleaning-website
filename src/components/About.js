@@ -169,7 +169,7 @@ const About = () => {
           <div className="about__founders-grid">
             <section className="founder-card" aria-label="Founder Daleen">
               <img
-                src={`${process.env.PUBLIC_URL}/images/daleen.jpeg`}
+                src={`${process.env.PUBLIC_URL}/images/daleen.avif`}
                 alt="Founder Daleen from Zen Zone Cleaning"
                 className="founder-card__photo"
                 loading="lazy"
@@ -189,7 +189,7 @@ const About = () => {
 
             <section className="founder-card" aria-label="Founder Marinus">
               <img
-                src={`${process.env.PUBLIC_URL}/images/marinus.JPG`}
+                src={`${process.env.PUBLIC_URL}/images/marinus.avif`}
                 alt="Founder Marinus from Zen Zone Cleaning"
                 className="founder-card__photo founder-card__photo--top"
                 loading="lazy"

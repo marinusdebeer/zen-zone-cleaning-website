@@ -24,7 +24,7 @@
   transform: translateX(-50%);
   width: 100vw; /* stretch across the entire screen width */
   height: 100%;
-  background-image: url('/public/images/map.png');
+  background-image: url('/public/images/map.avif');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -32,7 +32,7 @@
 }
 /* Dark mode background */
 [data-theme='dark'] .locations-group::before {
-  background-image: url('/public/images/map_dark.png');
+  background-image: url('/public/images/map_dark.avif');
 }
 
 

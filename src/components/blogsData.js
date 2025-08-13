@@ -7,7 +7,7 @@ export const blogs = [
     date: '2025-01-15',
     readTime: 5,
     tags: ['Home Cleaning', 'Checklist', 'Tips'],
-    image: '/images/hero.png',
+  image: '/images/hero.avif',
   },
   {
     slug: 'recurring-vs-one-time-cleaning-which-is-right-for-you',
@@ -17,7 +17,7 @@ export const blogs = [
     date: '2024-12-05',
     readTime: 6,
     tags: ['Planning', 'Budgeting'],
-    image: '/images/house.png',
+  image: '/images/house.avif',
   },
   {
     slug: 'the-ultimate-post-renovation-cleaning-checklist',
@@ -27,7 +27,7 @@ export const blogs = [
     date: '2024-10-22',
     readTime: 7,
     tags: ['Deep Clean', 'Renovation'],
-    image: '/images/hammer.png',
+  image: '/images/hammer.avif',
   },
   {
     slug: 'how-to-keep-your-bathroom-sparkling-between-cleans',
@@ -37,7 +37,7 @@ export const blogs = [
     date: '2024-08-12',
     readTime: 4,
     tags: ['Bathrooms', 'Maintenance'],
-    image: '/images/bucket.png',
+  image: '/images/bucket.avif',
   },
   {
     slug: 'a-guide-to-eco-friendly-cleaning-products',
@@ -47,7 +47,7 @@ export const blogs = [
     date: '2024-06-01',
     readTime: 6,
     tags: ['Eco‑Friendly', 'Products'],
-    image: '/images/broom.png',
+  image: '/images/broom.avif',
   },
   {
     slug: 'moving-cleaning-checklist-move-in-move-out',
@@ -57,6 +57,6 @@ export const blogs = [
     date: '2024-04-18',
     readTime: 8,
     tags: ['Moving', 'Checklist'],
-    image: '/images/box.png',
+  image: '/images/box.avif',
   },
 ];

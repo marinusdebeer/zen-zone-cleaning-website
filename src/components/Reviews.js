@@ -103,9 +103,7 @@ export default function Reviews() {
       </div>
 
     {/* Scattered decorative faces */}
-    <img src={`${process.env.PUBLIC_URL}/images/8.png`} alt="" className="face face--xl 
-    face--heart face--sticker reviews__face reviews__face--br face--tilt-r2" 
-    aria-hidden="true" />
+    <img src={`${process.env.PUBLIC_URL}/images/8.avif`} alt="" className="face face--xl face--heart face--sticker reviews__face reviews__face--br face--tilt-r2" aria-hidden="true" />
       <div className="reviews__scroller" aria-label="Reviews list">
         {REVIEWS.map((r) => (
           <ReviewCard key={r.name} review={r} />

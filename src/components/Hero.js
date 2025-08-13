@@ -23,13 +23,13 @@ const Hero = ({ title, subtitle }) => {
       <div
         className="hero__background"
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/images/hero.png)`,
-          willChange: 'transform', // Optimize for animations
+          backgroundImage: `url(${process.env.PUBLIC_URL}/images/hero.avif)`,
+          willChange: 'transform',
         }}
       ></div>
       <div className="hero__overlay"></div>
       <div className="hero__content">
-      <img src={`${process.env.PUBLIC_URL}/images/moose_in_suit.png`} alt="" className="mascot mascot--lg hero__mascot" aria-hidden="true"/>
+        <img src={`${process.env.PUBLIC_URL}/images/moose_in_suit.avif`} alt="" className="mascot mascot--lg hero__mascot" aria-hidden="true"/>
         <h1 className="hero__title">{title || 'House Cleaning Services'}</h1>
         <h2 className="hero__subtitle">
           {subtitle || 'Serving Barrie, Orillia, and greater Simcoe County'}

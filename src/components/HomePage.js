@@ -40,7 +40,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
     url: 'https://zenzonecleaning.com',
     telephone: '+1-705-242-5462',
     email: 'admin@zenzonecleaning.com',
-    image: 'https://zenzonecleaning.com/images/hero.png',
+    image: 'https://zenzonecleaning.com/images/hero.avif',
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',

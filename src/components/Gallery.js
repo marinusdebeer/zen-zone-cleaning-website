@@ -132,7 +132,7 @@ export default function Gallery({
     activeItem ? (
       <div className="lightbox" role="dialog" aria-modal="true" onClick={closeLightbox}>
         <div className="lightbox__content" onClick={(e) => e.stopPropagation()}>
-          <img src={activeItem.src} alt={activeItem.alt} className="lightbox__image" />
+          <img src={activeItem.src.replace(/\.JPG$/i, '.avif')} alt={activeItem.alt} className="lightbox__image" />
         </div>
         <button className="lightbox__close" aria-label="Close" onClick={closeLightbox}>
           ×
