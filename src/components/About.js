@@ -143,13 +143,22 @@ const About = () => {
           )}
         </div>
         <div className="about__image-wrapper">
-          <img
-            src={`${process.env.PUBLIC_URL}/images/team.png`}
-            alt="Our team"
-            className="about__image"
-          />
-          <span className="face face--lg face--heart face--sticker face--bg face--zoom" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/2.png)` }} aria-hidden="true" />
-          <span className="face face--md face--squircle face--sticker face--bg face--zoom-sm" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/6.png)` }} aria-hidden="true" />
+          <div className="about__image-grid">
+            <img
+              src={`${process.env.PUBLIC_URL}/images/marinus.JPG`}
+              alt="Marinus from Zen Zone Cleaning"
+              className="about__image about__image--grid"
+              loading="lazy"
+              decoding="async"
+            />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/daleen.jpeg`}
+              alt="Daleen from Zen Zone Cleaning"
+              className="about__image about__image--grid"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </div>
       </div>
     </section>

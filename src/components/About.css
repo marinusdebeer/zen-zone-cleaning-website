@@ -2,9 +2,8 @@
 
 .about__wrapper {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .about__content {
@@ -44,10 +43,9 @@
 }
 
 .about__image-wrapper {
-  flex: 1 1 300px;
+  width: 100%;
   display: flex;
   justify-content: center;
-  position: relative;
 }
 
 .about__face {
@@ -64,10 +62,32 @@
 }
 
 .about__image {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: var(--border-radius);
   box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+/* Small 2-up grid for About images */
+.about__image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 260px));
+  gap: 16px;
+  align-items: start;
+}
+
+.about__image--grid {
+  width: 100%;
+  max-width: 260px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+@media (max-width: 560px) {
+  .about__image-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
 }
 
 .city-about-section {

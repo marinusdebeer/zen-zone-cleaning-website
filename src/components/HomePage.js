@@ -132,8 +132,8 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         <Services />
         <Reviews />
         <About />
-        <Gallery limit={8} fullWidth strip />
         <Benefits />
+        <Gallery limit={8} fullWidth strip />
         <Steps />
         <div className="locations-group">
           <Locations />
