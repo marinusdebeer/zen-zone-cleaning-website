@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import SEO from './SEO';
 import { useNavigate } from 'react-router-dom';
 import './BookingPage.css';
+import BookingFAQ from './BookingFAQ';
+import MiniReviews from './MiniReviews';
 
 /**
  * BookingPage renders a multi-step booking form with conditional fields
@@ -530,14 +532,18 @@ const BookingPage = () => {
   return (
     <main>
       <SEO
-        title="Request an Estimate | Zen Zone Cleaning"
+        title="Booking"
         description="Request your free house cleaning estimate. Open daily 8am–8pm. Serving Barrie, Orillia, Innisfil and surrounding areas."
         path="/book"
       />
       <section className="booking">
-        <div className="booking__container">
-          <h1 className="booking__title">Book Your Cleaning</h1>
-          <p className="booking__intro">{isSinglePage ? 'Complete the form below.' : 'Please complete the steps below to request an estimate.'}</p>
+
+        <div className="booking__layout">
+          <div className="booking__container">
+            <div className="booking__header">
+              <h1 className="booking__title">Get Your Free Cleaning Estimate</h1>
+              <p className="booking__intro">Fill out the form below and we'll get back to you with a personalized estimate within 24 hours.</p>
+            </div>
 
           {/* Mode toggle */}
           <div className="view-toggle" role="group" aria-label="Form mode">
@@ -623,10 +629,13 @@ const BookingPage = () => {
             </div>
           )}
 
-          <form ref={formRef} className="booking__form" onSubmit={handleSubmit}>
+            <form ref={formRef} className="booking__form" onSubmit={handleSubmit}>
             {/* Step 1: Personal Information */}
             {(isSinglePage || currentStep === 1) && (
               <div data-step="1" className="step-panel">
+                {isSinglePage && (
+                  <h3 className="single-step-title">Personal Information</h3>
+                )}
                 <div className="form-row">
                   <div className="form-field">
                     <label htmlFor="booking-firstName">First Name</label>
@@ -705,6 +714,9 @@ const BookingPage = () => {
             {/* Step 2: Select Industry */}
             {(isSinglePage || currentStep === 2) && (
               <div data-step="2" className="step-panel">
+                {isSinglePage && (
+                  <h3 className="single-step-title">Industry</h3>
+                )}
                 <div className="form-row">
                   <div className="form-field">
                     <span className="field-label">Industry</span>
@@ -776,6 +788,9 @@ const BookingPage = () => {
             {/* Step 3: Select Service */}
             {(isSinglePage || currentStep === 3) && (
               <div data-step="3" className="step-panel">
+                {isSinglePage && (
+                  <h3 className="single-step-title">Service</h3>
+                )}
                 <div className="form-row">
                   <div className="form-field">
                     <span className="field-label">Booking Type</span>
@@ -906,6 +921,9 @@ const BookingPage = () => {
             {/* Step 4: Property Details */}
             {(isSinglePage || currentStep === 4) && (
               <div data-step="4" className="step-panel">
+                {isSinglePage && (
+                  <h3 className="single-step-title">Property Details</h3>
+                )}
                 <div className="form-row">
                   <div className="form-field">
                     <label htmlFor="booking-squareFootage">Square Footage</label>
@@ -1125,6 +1143,9 @@ const BookingPage = () => {
             {/* Step 5: Packages and Extras */}
             {(isSinglePage || currentStep === 5) && (
               <div data-step="5" className="step-panel">
+                {isSinglePage && (
+                  <h3 className="single-step-title">Packages and Extras</h3>
+                )}
                 <div className="form-extras">
                   <p className="extras-title">{isRecurring ? 'Do you want any extras for your first-time cleaning?' : 'Do you want any extras?'}</p>
                   <div className="extras-grid checkbox-grid">
@@ -1200,6 +1221,9 @@ const BookingPage = () => {
             {/* Step 6: Additional Details */}
             {(isSinglePage || currentStep === 6) && (
               <div data-step="6" className="step-panel">
+                {isSinglePage && (
+                  <h3 className="single-step-title">Additional Details</h3>
+                )}
                 <div className="form-row">
                   <div className="form-field">
                     <label htmlFor="booking-address">Address</label>
@@ -1517,7 +1541,15 @@ const BookingPage = () => {
               ),
               document.body
             )}
-          </form>
+            </form>
+          </div>
+          {/* Desktop-only sidebar OUTSIDE container */}
+          {!isMobile && (
+            <aside className="booking__sidebar" aria-label="Helpful info">
+              <MiniReviews />
+              <BookingFAQ />
+            </aside>
+          )}
         </div>
       </section>
     </main>
