@@ -135,11 +135,11 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         <Gallery limit={8} fullWidth strip />
         <Benefits />
         <Steps />
-        <Locations />
-      </Suspense>
-      {cityName && (
-        <section className="section" aria-label={`House Cleaning in ${cityName}`}>
-          <h2 tabIndex="-1">House Cleaning in {cityName}</h2>
+        <div className="locations-group">
+          <Locations />
+          {cityName && (
+            <section className="section locations--city" aria-label={`House Cleaning in ${cityName}`}>
+              <h2 tabIndex="-1">House Cleaning in {cityName}</h2>
           <p>
             Professional recurring and one‑time cleaning services across {cityName}.
             Background‑checked cleaners, supplies included, flexible scheduling. Open daily 8am–8pm.
@@ -370,6 +370,8 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
           )}
         </section>
       )}
+        </div>
+      </Suspense>
     </main>
   );
 };

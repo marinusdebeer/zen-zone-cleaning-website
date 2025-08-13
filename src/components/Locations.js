@@ -62,7 +62,7 @@ const Locations = () => {
   return (
     <section className="section locations" id="locations" aria-label="Service Areas">
       <div className="locations__header">
-        <h2 className="section-title">Locations We Serve</h2>
+        <h2 className="section__title">Locations We Serve</h2>
         <p className="section__subtitle">Proudly serving communities across Simcoe County.</p>
 
         {/* City-specific location information */}

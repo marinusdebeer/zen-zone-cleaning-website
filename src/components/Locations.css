@@ -1,11 +1,22 @@
 .locations {
-  padding-top: 0;
+  padding-top: 3rem;
+}
+
+/* Wrapper that spans both the Locations grid and the city content with one background */
+.locations-group {
   position: relative;
   isolation: isolate; /* ensure the background pseudo-element stays behind content */
 }
 
-/* Full-bleed map background spanning the entire screen width */
-.locations::before {
+/* Variant for city content section sharing the same map background */
+.locations--city {
+  /* keep default section padding from `.section` but ensure spacing above title
+     doesn’t get removed by `.locations { padding-top: 0; }` */
+  padding-top: 4rem;
+}
+
+/* Full-bleed map background spanning the entire screen width for the whole group */
+.locations-group::before {
   content: '';
   position: absolute;
   top: 0;
@@ -20,7 +31,7 @@
   z-index: -1; /* keep it behind the section content */
 }
 /* Dark mode background */
-[data-theme='dark'] .locations::before {
+[data-theme='dark'] .locations-group::before {
   background-image: url('/public/images/map_dark.png');
 }
 
@@ -33,11 +44,8 @@
 }
 
 /* Improve text readability over the map background */
-.locations .section-title,
 .locations .section__subtitle {
-  text-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.4),
-    0 2px 6px rgba(0, 0, 0, 0.25);
+  text-shadow: none;
 }
 
 /* Slight backdrop for subtitle on busy areas */
