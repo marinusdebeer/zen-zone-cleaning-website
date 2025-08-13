@@ -66,7 +66,7 @@ const BookingPage = () => {
       // Step 3
       bookingType: 'One-Time',
       // frequency: 'Weekly',
-      reason: '',
+      reason: 'Need to clean my house before I move in',
       firstTimeDeepCleaning: 'Yes',
       // Step 4
       squareFootage: '1800',
@@ -81,7 +81,7 @@ const BookingPage = () => {
       lastRenovated: '2020',
       pets: 'Dog(s)',
       furnished: 'Yes',
-      basement: '', // Added for prefill
+      basement: 'No', // Added for prefill
       // Step 5
       package: '4',
       extras: [],

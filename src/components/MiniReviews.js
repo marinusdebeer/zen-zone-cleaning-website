@@ -37,7 +37,15 @@ export default function MiniReviews() {
           className="mini-reviews__link"
           aria-label={`Open Google Reviews. Average ${SUMMARY.average.toFixed(1)} from ${SUMMARY.count} reviews`}
         >
-          Google Reviews • <strong>{SUMMARY.average.toFixed(1)}</strong> ({SUMMARY.count})
+          <span className="google-word" aria-hidden="true">
+            <span className="g g--blue">G</span>
+            <span className="g g--red">o</span>
+            <span className="g g--yellow">o</span>
+            <span className="g g--blue">g</span>
+            <span className="g g--green">l</span>
+            <span className="g g--red">e</span>
+          </span>
+          &nbsp;Reviews • <strong>{SUMMARY.average.toFixed(1)}</strong> ({SUMMARY.count})
         </a>
       </div>
       <ul className="mini-reviews__list mini-reviews__scroller" role="list" aria-label="Recent reviews list">

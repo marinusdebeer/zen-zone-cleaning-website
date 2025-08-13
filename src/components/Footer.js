@@ -34,6 +34,13 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer__bottom" />
+      <div className="footer__container footer__container--compact" style={{ marginTop: '0.5rem' }}>
+        <nav aria-label="Legal" style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link to="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</Link>
+          <span className="dot" aria-hidden>·</span>
+          <Link to="/terms" target="_blank" rel="noopener noreferrer">Terms & Conditions</Link>
+        </nav>
+      </div>
     </footer>
   );
 };

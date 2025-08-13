@@ -2,6 +2,11 @@
   text-align: left;
 }
 
+/* Constrain article width for readability */
+.blog-post {
+  max-width: 1200px;
+}
+
 .blog-post__eyebrow {
   display: flex;
   gap: 8px;

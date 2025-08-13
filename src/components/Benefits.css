@@ -71,17 +71,16 @@
 .benefits::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.08),
-    rgba(0, 0, 0, 0.08)
-  );
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25); /* soften image in light theme */
   z-index: 0; /* above ::before image, below content */
   pointer-events: none;
+  backdrop-filter: saturate(85%) blur(1px);
+}
+
+/* Dark theme overlay tuned for contrast */
+[data-theme='dark'] .benefits::after {
+  background: rgba(0, 0, 0, 0.35);
 }
 
 /* Ensure content layers above the background */
@@ -93,8 +92,10 @@
 }
 
 .benefits .section__subtitle {
-  max-width: 700px;
-  margin: 0.5rem auto 1.5rem;
+  max-width: 780px;
+  margin: 0.75rem auto 1.75rem;
+  color: var(--color-text); /* darker in light theme, lighter in dark theme */
+  font-weight: 600;
 }
 
 .benefits__grid {
@@ -125,10 +126,10 @@
 }
 
 .benefit-card {
-  background-color: var(--color-background);
-  border-radius: var(--border-radius);
+  background: linear-gradient(180deg, var(--color-surface), color-mix(in oklab, var(--color-surface) 85%, transparent 15%));
+  border-radius: 14px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px var(--color-shadow);
+  box-shadow: 0 6px 20px var(--color-shadow);
   border: 1px solid var(--color-border);
   transition:
     transform var(--transition-fast),
@@ -148,16 +149,18 @@
   font-size: 2rem;
   margin-bottom: 0.75rem;
   color: var(--color-primary);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
 
 .benefit-card__title {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 800;
   margin-bottom: 0.35rem;
   color: var(--color-primary);
 }
 
 .benefit-card__description {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   color: var(--color-text);
+  line-height: 1.6;
 }

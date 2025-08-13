@@ -65,7 +65,7 @@ export const REVIEWS = [
   {
     name: 'Roy Micks',
     date: 'May 24, 2025',
-    rating: 5,
+    rating: 4,
     text: '[No written review provided]',
   },
   {
@@ -184,7 +184,7 @@ export const REVIEWS = [
   {
     name: 'Kim Wickett',
     date: 'September 30, 2024',
-    rating: 5,
+    rating: 4,
     text: 'Always friendly and asks if there is anything special that needs to be done before they start. Always on time and very efficient.',
   },
   {

@@ -25,6 +25,20 @@
   z-index: -1;
 }
 
+/* Desaturate/dim the background art so content stands out */
+.reviews::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.45);
+  z-index: -1; /* still behind content, above ::before image */
+  backdrop-filter: saturate(85%) blur(1px);
+}
+
+[data-theme='dark'] .reviews::after {
+  background: rgba(0, 0, 0, 0.35);
+}
+
 [data-theme='dark'] .reviews::before {
   background-image: url('/public/images/reviews_dark.png');
 }
@@ -74,7 +88,7 @@
 }
 
 .reviews__summary strong {
-  color: var(--color-primary);
+  color: #fbbc05; /* Google golden yellow */
   font-weight: 800;
   font-size: 1.05rem;
   margin-right: 2px;

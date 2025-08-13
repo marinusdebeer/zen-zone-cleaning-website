@@ -22,8 +22,8 @@
 
 .app-content {
   flex: 1 0 auto;
-  /* Add top padding to account for fixed header height so headings are not hidden */
-  padding-top: 84px;
+  /* Reduced now that header is sticky (not fixed) */
+  padding-top: 16px;
 }
 
 /* Route change visual transition */
@@ -146,6 +146,16 @@
   border-radius: var(--border-radius);
   box-shadow: 0 2px 8px var(--color-shadow);
 }
+
+/* Legal pages layout */
+.legal {
+  display: block;
+}
+.legal .section {
+  max-width: 820px;
+}
+.legal__header .section__title { margin-bottom: 0.25rem; }
+.legal__header .section__subtitle { margin-bottom: 0; }
 
 .city-details h3 {
   color: var(--color-primary);
@@ -298,7 +308,7 @@
 
   /* Slightly smaller header on mobile, reduce offset */
   .app-content {
-    padding-top: 72px;
+    padding-top: 12px;
   }
 
   .section__title {

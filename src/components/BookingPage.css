@@ -1,3 +1,22 @@
+.mini-reviews__link strong {
+  color: #fbbc05; /* Google golden yellow */
+}
+.google-word {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 700;
+}
+.g { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+.g--blue { color: #4285f4; }
+.g--red { color: #ea4335; }
+.g--yellow { color: #fbbc05; }
+.g--green { color: #34a853; }
+
+.mini-reviews__star.is-filled {
+  fill: #f4b400; /* Google star yellow */
+}
+
 /* Booking page styling */
 
 /* The outer section provides a neutral backdrop for the booking form. */
@@ -17,6 +36,66 @@
   border-radius: var(--border-radius);
   padding: 2rem;
   box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+/* Two-column layout: form + right rail that stretches to viewport bottom */
+.booking__layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.booking__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 112px; /* header height + breathing room; avoid clipping */
+  max-height: calc(100vh - 112px);
+  overflow: auto;
+  padding-right: 0.25rem; /* breathing room near scrollbar */
+  align-self: start;
+}
+
+/* In case the viewport is very tall, ensure the sidebar rail spans the full height */
+.booking__layout {
+  min-height: calc(100vh - 112px);
+}
+
+/* Ensure the first card isn't visually clipped under the sticky boundary */
+.booking__sidebar > *:first-child {
+  margin-top: 2px;
+}
+
+/* Cards inside sidebar should stretch nicely */
+.mini-reviews,
+.faq {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+/* Make both sidebar cards stretch to fill the rail height evenly */
+.booking__sidebar > .mini-reviews,
+.booking__sidebar > .faq {
+  flex: 1 1 0;
+  min-height: 0;
+  margin-bottom: 0.5rem; /* tiny cushion above bottom of viewport */
+}
+
+/* Mobile: stack; sidebar below form */
+@media (max-width: 1024px) {
+  .booking__layout {
+    grid-template-columns: 1fr;
+  }
+  .booking__sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
 }
 
 .booking__header {
@@ -1524,14 +1603,24 @@ input[type='checkbox'] {
   background: var(--color-surface);
   color: var(--color-text);
   border: 1px solid var(--color-border);
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 1.1rem;
   border-radius: 999px;
   cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px var(--color-shadow);
 }
 .toggle-btn.is-active {
   background: var(--color-primary);
   color: var(--color-on-primary);
   border-color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .toggle-btn {
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+  }
 }
 
 /* Outer layout wrapper so sidebar sits outside the booking container */
@@ -1557,13 +1646,13 @@ input[type='checkbox'] {
 
   .booking__sidebar {
     position: sticky;
-    top: 2rem; /* closer to top since no page bar */
+    top: 112px; /* match global sticky offset to avoid clipping under header */
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    height: calc(100vh - 3rem);
-    max-height: calc(100vh - 3rem);
-    overflow: hidden; /* contain inner scroll areas */
+    height: calc(100vh - 112px);
+    max-height: calc(100vh - 112px);
+    overflow: auto; /* allow sidebar to scroll when needed */
   }
   
   .booking__sidebar .mini-reviews {

@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import './Services.css';
 import './Faces.css';
+import { FAQS } from './faqsData';
 
 /**
  * Services shows two groups: Recurring Cleaning Plans and One‑Time Services.
@@ -256,63 +257,16 @@ const Services = () => {
           aria-labelledby="faq-heading"
           style={{ marginTop: '4rem', position: 'relative' }}
         >
-          <img src={`${process.env.PUBLIC_URL}/images/4.png`} alt="" className="face face--lg face--rounded face--sticker faq__face" aria-hidden="true" />
           <h2 id="faq-heading" className="section-title">
             Frequently Asked Questions
           </h2>
           <div className="faq-list">
-            <details>
-              <summary>What if I need to reschedule?</summary>
-              <p>
-                You can reschedule up to 12 hours before your cleaning via your client portal or by
-                calling us. We’ll find a new slot that fits your needs.
-              </p>
-            </details>
-            <details>
-              <summary>Do I get the same cleaner every time?</summary>
-              <p>
-                Whenever possible, yes! We aim to send the same team to build familiarity with your
-                home and your preferences.
-              </p>
-            </details>
-            <details>
-              <summary>What if I’m not happy with the clean?</summary>
-              <p>
-                Your satisfaction is guaranteed. If anything was missed, let us know within 24 hours
-                and we’ll return to make it right—free of charge.
-              </p>
-            </details>
-            <details>
-              <summary>How do I pay for my recurring plan?</summary>
-              <p>
-                After each cleaning, we'll send you an invoice that you can pay by e‑transfer or
-                credit card. You can also set up automatic payments.
-              </p>
-            </details>
-            <details>
-              <summary>What supplies do you bring?</summary>
-              <p>
-                Our teams bring professional-grade supplies and equipment. If you prefer we use your products (e.g., specialty stone cleaners), just leave them out with a note.
-              </p>
-            </details>
-            <details>
-              <summary>Do I need to be home during the cleaning?</summary>
-              <p>
-                No. Many customers provide entry instructions and return to a sparkling home. If you will be home, that works too—we’re flexible either way.
-              </p>
-            </details>
-            <details>
-              <summary>Are pets okay during the clean?</summary>
-              <p>
-                Absolutely. Please let us know any special instructions. For anxious pets, we recommend a quiet space while we work.
-              </p>
-            </details>
-            <details>
-              <summary>What’s your cancellation policy?</summary>
-              <p>
-                You can cancel or reschedule up to 12 hours before the appointment with no fee. Late cancellations may incur a small charge to cover scheduling costs.
-              </p>
-            </details>
+            {FAQS.map((f) => (
+              <details key={f.q}>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
           </div>
         </section>
 

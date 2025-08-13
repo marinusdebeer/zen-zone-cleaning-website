@@ -55,7 +55,15 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__container">
-        <Link to={'/'} className="header__logo" onClick={() => setIsMenuOpen(false)}>
+        <Link
+          to={'/'}
+          className="header__logo"
+          onClick={() => {
+            setIsMenuOpen(false);
+            // Smooth scroll to top on home route
+            try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}
+          }}
+        >
           <img
             src={`${process.env.PUBLIC_URL}/images/logo.png`}
             alt="Zen Zone Cleaning Services"
@@ -69,20 +77,12 @@ const Header = () => {
 
         {/* Desktop navigation */}
         <nav className="header__nav" aria-label="Primary">
-          <a href="#locations" onClick={handleSectionClick('locations')}>
-            Locations
-          </a>
-          <a href="#services" onClick={handleSectionClick('services')}>
-            Services
-          </a>
-          <a href="#about" onClick={handleSectionClick('about')}>
-            About
-          </a>
-          <a href="#why-us" onClick={handleSectionClick('why-us')}>
-            Why Us
-          </a>
-          <Link to={'/blog'}>Blog</Link>
+          <a href="#services" onClick={handleSectionClick('services')}>Services</a>
+          <a href="#locations" onClick={handleSectionClick('locations')}>Locations</a>
+          <a href="#about" onClick={handleSectionClick('about')}>About</a>
+          <a href="#why-us" onClick={handleSectionClick('why-us')}>Why Us</a>
           <Link to={'/gallery'}>Gallery</Link>
+          <Link to={'/blog'}>Blog</Link>
         </nav>
 
         {/* Right side actions (desktop and mobile): phone, theme toggle, CTA, burger */}
@@ -128,12 +128,12 @@ const Header = () => {
             <span className="menu-icon" />
           </button>
           <ThemeToggle size="medium" className="mobile-menu__theme-toggle" />
-          <div className="mobile-menu__content">
-            <a href="#locations" onClick={handleSectionClick('locations')}>
-              Locations
-            </a>
+            <div className="mobile-menu__content">
             <a href="#services" onClick={handleSectionClick('services')}>
               Services
+            </a>
+            <a href="#locations" onClick={handleSectionClick('locations')}>
+              Locations
             </a>
             <a href="#about" onClick={handleSectionClick('about')}>
               About
@@ -141,11 +141,11 @@ const Header = () => {
             <a href="#why-us" onClick={handleSectionClick('why-us')}>
               Why Us
             </a>
-            <Link to={'/blog'} onClick={closeMenu}>
-              Blog
-            </Link>
             <Link to={'/gallery'} onClick={closeMenu}>
               Gallery
+            </Link>
+            <Link to={'/blog'} onClick={closeMenu}>
+              Blog
             </Link>
             <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>
               Request Estimate

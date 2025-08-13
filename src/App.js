@@ -5,6 +5,8 @@ import HomePage from './components/HomePage';
 import BookingPage from './components/BookingPage';
 import ConfirmationPage from './components/ConfirmationPage';
 import FullGalleryPage from './components/FullGalleryPage';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsPage from './components/TermsPage';
 import BlogListPage from './components/BlogListPage';
 import BlogPostPage from './components/BlogPostPage';
 import { Routes, Route } from 'react-router-dom';
@@ -113,6 +115,8 @@ function App() {
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/book" element={<BookingPage />} />
             <Route path="/confirmation" element={<ConfirmationPage />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsPage />} />
           </Routes>
         </div>
         <Footer />
