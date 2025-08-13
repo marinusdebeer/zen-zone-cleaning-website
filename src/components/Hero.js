@@ -20,13 +20,26 @@ const Hero = ({ title, subtitle }) => {
     : null;
   return (
     <section className="hero">
-      <div
-        className="hero__background"
-        style={{
-          backgroundImage: `image-set(url(${process.env.PUBLIC_URL}/images/hero.avif) type('image/avif'), url(${process.env.PUBLIC_URL}/images/hero.webp) type('image/webp'))`,
-          willChange: 'transform',
-        }}
-      ></div>
+      <div className="hero__background" style={{ willChange: 'transform' }}>
+        <picture>
+          <source srcSet={`${process.env.PUBLIC_URL}/images/hero.avif`} type="image/avif" />
+          <source srcSet={`${process.env.PUBLIC_URL}/images/hero.webp`} type="image/webp" />
+          <img
+            src={`${process.env.PUBLIC_URL}/images/hero.webp`}
+            alt=""
+            aria-hidden="true"
+            decoding="async"
+            fetchpriority="high"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          />
+        </picture>
+      </div>
       <div className="hero__overlay"></div>
       <div className="hero__content">
         <picture>

@@ -13,8 +13,9 @@
     <meta name="theme-color" content="#2e3d2f" />
     
     <!-- Critical performance optimizations -->
-    <link rel="preload" href="%PUBLIC_URL%/images/hero.avif" as="image" importance="high" />
-    <link rel="preload" href="%PUBLIC_URL%/images/logo.avif" as="image" importance="high" />
+    <link rel="preload" href="%PUBLIC_URL%/images/hero.avif" as="image" fetchpriority="high" />
+    <link rel="preload" href="%PUBLIC_URL%/images/hero.webp" as="image" fetchpriority="high" />
+    <link rel="preload" href="%PUBLIC_URL%/images/logo.avif" as="image" fetchpriority="high" />
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     <link rel="preconnect" href="https://us.i.posthog.com" crossorigin />
     <link rel="dns-prefetch" href="https://embed.tawk.to" />
@@ -66,7 +67,7 @@
       (function () {
         // Set to false to disable all analytics (GA, PostHog, Tawk, custom Tracking)
         // This is a code-level flag. Change it and rebuild to apply.
-        window.__ANALYTICS_ENABLED__ = false;
+        window.__ANALYTICS_ENABLED__ = true;
         if (window.__ANALYTICS_ENABLED__ === false) {
           window['ga-disable-G-8H1891ZW72'] = true;
         }
