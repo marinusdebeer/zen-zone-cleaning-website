@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .about__content {
@@ -42,6 +44,24 @@
   color: var(--color-text);
 }
 
+/* Improve readability: narrower measure and spacing */
+.about__content {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.about__content p + p { margin-top: 0.25rem; }
+.about__content h3 { margin-top: 1.5rem; margin-bottom: 0.25rem; text-align: center; }
+.about__content h4 { margin-top: 0.75rem; margin-bottom: 0.25rem; text-align: center; font-weight: 600; }
+
+/* Subtle separators */
+.about__content .about__separator {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+  margin: 1.25rem auto 0.75rem;
+  width: min(560px, 70%);
+}
+
 .about__image-wrapper {
   width: 100%;
   display: flex;
@@ -68,25 +88,80 @@
   box-shadow: 0 4px 12px var(--color-shadow);
 }
 
-/* Small 2-up grid for About images */
-.about__image-grid {
+/* Founders grid */
+.about__founders-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 260px));
-  gap: 16px;
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
 }
 
-.about__image--grid {
-  width: 100%;
-  max-width: 260px;
-  aspect-ratio: 4 / 5;
+.founder-card {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: linear-gradient(180deg, var(--color-surface), rgba(0,0,0,0.02));
+  box-shadow: 0 6px 20px var(--color-shadow);
+  position: relative;
+}
+
+.founder-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.founder-card__photo {
+  width: 160px;
+  height: 160px;
   object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+.founder-card__photo--top {
+  object-position: top center;
+}
+
+.founder-card__name {
+  margin: 0;
+}
+.founder-card__role {
+  color: var(--color-muted-text);
+  margin: 4px 0 10px;
+  font-size: 0.95rem;
+}
+.founder-card__blurb {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.about__founders {
+  margin-top: 1rem;
+}
+.about__founders h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .about__founders-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 560px) {
-  .about__image-grid {
+  .founder-card {
     grid-template-columns: 1fr;
-    justify-items: center;
+    text-align: center;
+  }
+  .founder-card__photo {
+    justify-self: center;
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import './Services.css';
 import './Faces.css';
@@ -411,36 +412,39 @@ const Services = () => {
         </div>
       </div>
 
-      {activeModal && (
-        <div className="modal-backdrop" onClick={() => setActiveModal(null)}>
-          <div
-            className="modal"
-            role="dialog"
-            aria-modal="true"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="modal__header">
-              <h3 className="modal__title">{oneTimeServiceContent[activeModal].title}</h3>
-              <button
-                className="modal__close"
-                aria-label="Close"
-                onClick={() => setActiveModal(null)}
-              >
-                ×
-              </button>
-            </div>
-            <div className="modal__body">
-              {oneTimeServiceContent[activeModal].paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-            <div className="modal__footer">
-              <Link to={'/book'} className="btn">
-                Request Estimate
-              </Link>
+      {activeModal && createPortal(
+        (
+          <div className="modal-backdrop" onClick={() => setActiveModal(null)}>
+            <div
+              className="modal"
+              role="dialog"
+              aria-modal="true"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal__header">
+                <h3 className="modal__title">{oneTimeServiceContent[activeModal].title}</h3>
+                <button
+                  className="modal__close"
+                  aria-label="Close"
+                  onClick={() => setActiveModal(null)}
+                >
+                  ×
+                </button>
+              </div>
+              <div className="modal__body">
+                {oneTimeServiceContent[activeModal].paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              <div className="modal__footer">
+                <Link to={'/book'} className="btn">
+                  Request Estimate
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        ),
+        document.body
       )}
     </section>
   );

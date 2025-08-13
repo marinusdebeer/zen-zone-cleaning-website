@@ -152,12 +152,12 @@
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: var(--color-overlay);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  z-index: 1000;
+  z-index: 2002;
 }
 .modal {
   background: var(--color-surface);
@@ -165,6 +165,7 @@
   max-width: 680px;
   width: 100%;
   box-shadow: 0 10px 30px var(--color-shadow);
+  z-index: 2003;
 }
 .modal__header {
   display: flex;

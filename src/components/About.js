@@ -26,28 +26,51 @@ const About = () => {
             About Zen Zone Cleaning Services
           </h2>
           <p>
-            Zen Zone Cleaning Services is a locally operated, family‑owned cleaning company in
+            Zen Zone Cleaning Services is a locally operated, family-owned cleaning company in
             Ontario, Canada created with one clear mission: to simplify your life by taking cleaning
             off your busy schedule. Founded by Daleen and Marinus, we understand the pressures of
-            balancing work, family commitments and household upkeep—especially in today’s demanding
-            world. Recognising that many of our neighbours in Barrie, Orillia, Innisfil and across
-            Simcoe County face similar challenges, we set out to provide a solution that delivers
-            peace of mind and more free time for you and your family.
+            balancing work, family commitments, and household upkeep—especially in today’s demanding
+            world. Recognizing that many of our neighbors in Barrie, Orillia, Innisfil, and all
+            areas within Simcoe County faced similar daily challenges, we set out to offer a
+            solution that provides peace of mind and more free time for you and your family.
+          </p>
+
+          <p>
+            What began as a family-owned passion project has blossomed into a respected, top-rated
+            cleaning service relied upon by homeowners, businesses, and rental property managers
+            across the region. From one-time comprehensive deep cleans to weekly or monthly
+            maintenance plans, Zen Zone delivers consistently exceptional results tailored
+            specifically to your needs. Our friendly, professional cleaning specialists are ready to
+            help transform your space—no matter your cleaning goals.
+          </p>
+
+          <h3>Our Mission</h3>
+          <h4>For Our Clients</h4>
+          <p>
+            We connect you with reliable, insured, and thoroughly background-checked cleaners who
+            consistently deliver outstanding results. Our customizable service options mean you can
+            choose exactly what you need—allowing you to reclaim precious time and enjoy life to its
+            fullest.
+          </p>
+          <h4>For Our Cleaners</h4>
+          <p>
+            We strive to create fulfilling, supportive job opportunities with competitive
+            compensation and respectful working conditions. We ensure every member of our team feels
+            valued, motivated, and committed to providing exceptional care for every home and
+            business they serve.
+          </p>
+
+          <p>
+            At Zen Zone Cleaning, the satisfaction of our clients and the happiness of our team form
+            the foundation of our business. As we steadily grow across Barrie, Orillia, Innisfil,
+            and surrounding communities, we remain passionately committed to leaving homes, offices,
+            and vacation rentals sparkling clean and stress-free. Whether you’re hosting guests,
+            managing rental properties, or simply looking to reclaim your free time, Zen Zone is
+            here to help you maintain a cleaner, calmer space—one expert clean at a time.
           </p>
           <p>
-            What began as a passion project has blossomed into a top‑rated cleaning service relied
-            upon by homeowners, businesses and property managers throughout the region. Whether
-            you’re looking for a one‑time deep clean, ongoing maintenance or move‑in/move‑out
-            services, our friendly professionals are ready to transform your space. We connect you
-            with reliable, insured and thoroughly background‑checked cleaners and offer customisable
-            options so you get exactly the support you need.
-          </p>
-          <p>
-            Our mission extends beyond cleaning: we strive to create fulfilling, supportive job
-            opportunities with competitive compensation and respectful working conditions for our
-            team members. At Zen Zone Cleaning Services, the satisfaction of our clients and the
-            happiness of our cleaners form the foundation of our business. Experience the joy of a
-            clean, stress‑free space—one expert clean at a time.
+            Let us give you back your valuable time. Choose Zen Zone Cleaning Services today, and
+            experience the true joy of a clean, stress-free space.
           </p>
 
           {/* City-specific about content */}
@@ -143,21 +166,46 @@ const About = () => {
           )}
         </div>
         <div className="about__image-wrapper">
-          <div className="about__image-grid">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/marinus.JPG`}
-              alt="Marinus from Zen Zone Cleaning"
-              className="about__image about__image--grid"
-              loading="lazy"
-              decoding="async"
-            />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/daleen.jpeg`}
-              alt="Daleen from Zen Zone Cleaning"
-              className="about__image about__image--grid"
-              loading="lazy"
-              decoding="async"
-            />
+          <div className="about__founders-grid">
+            <section className="founder-card" aria-label="Founder Daleen">
+              <img
+                src={`${process.env.PUBLIC_URL}/images/daleen.jpeg`}
+                alt="Founder Daleen from Zen Zone Cleaning"
+                className="founder-card__photo"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="founder-card__body">
+                <h3 className="founder-card__name">Daleen</h3>
+                <div className="founder-card__role" aria-label="Role">Co‑Founder • Operations & Quality</div>
+                <p className="founder-card__blurb">
+                  Daleen leads our day-to-day operations and quality standards, bringing a strong
+                  cleaning and business background to every client relationship. With a hands-on
+                  approach and a focus on consistency, communication, and care, she ensures our
+                  teams deliver reliable, detail-oriented service—every single visit.
+                </p>
+              </div>
+            </section>
+
+            <section className="founder-card" aria-label="Founder Marinus">
+              <img
+                src={`${process.env.PUBLIC_URL}/images/marinus.JPG`}
+                alt="Founder Marinus from Zen Zone Cleaning"
+                className="founder-card__photo founder-card__photo--top"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="founder-card__body">
+                <h3 className="founder-card__name">Marinus</h3>
+                <div className="founder-card__role" aria-label="Role">Co‑Founder • Technology & Marketing</div>
+                <p className="founder-card__blurb">
+                  Marinus brings a technology background that powers our scheduling, customer
+                  experience, and operational efficiency. He’s focused on building simple, modern
+                  systems that make it easy to book, manage, and customize your cleaning—so you get
+                  dependable results without any hassle.
+                </p>
+              </div>
+            </section>
           </div>
         </div>
       </div>
