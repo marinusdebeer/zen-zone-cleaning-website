@@ -12,6 +12,31 @@
   position: relative;
 }
 
+/* Moose mascot sitting on the About title */
+.about__title {
+  position: relative;
+  display: inline-block;
+}
+.about__title::after {
+  content: '';
+  position: absolute;
+  top: -99px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  background: url('/public/images/peaking_moose.png') no-repeat center / contain;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .about__title::after {
+    width: 84px;
+    height: 84px;
+    top: -48px;
+  }
+}
+
 .about__content p {
   margin-bottom: 1rem;
   font-size: 0.95rem;

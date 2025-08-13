@@ -42,6 +42,13 @@
   color: var(--color-text); /* dark text in light mode */
 }
 
+/* Ensure the hero mascot centers cleanly above the headline */
+.hero .hero__mascot {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* In dark mode, use light text */
 [data-theme='dark'] .hero__content {
   color: var(--color-secondary);
@@ -50,7 +57,7 @@
 .hero__title {
   font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin: 0.25rem 0 1rem; /* tighten around mascot */
   line-height: 1.2;
   text-shadow: 2px 2px 4px var(--color-shadow);
   transition: color var(--transition-medium);
@@ -58,8 +65,8 @@
 
 .hero__subtitle {
   font-size: 1.25rem;
-  margin-bottom: 2.5rem;
-  max-width: 600px;
+  margin-bottom: 1.5rem;
+  max-width: 720px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.6;

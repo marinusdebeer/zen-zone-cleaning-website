@@ -35,8 +35,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 1rem;
-  margin: 0 0 2rem 0;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem 0;
   padding: 0 1rem;
 }
 
@@ -94,7 +94,7 @@
 }
 
 .reviews__scroller {
-  margin: 0 0 0 1rem;
+  margin: 0 1rem;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 60%;
@@ -219,7 +219,7 @@
 
 /* Scattered faces positions */
 .reviews__face { z-index: 1; }
-.reviews__face--tl { top: -20px; left: -10px; }
+.reviews__face--tl { top: -20px; left: 0; right: 0; margin: 0 auto; }
 .reviews__face--br { bottom: -30px; right: -20px; }
 
 @media (max-width: 768px) {
