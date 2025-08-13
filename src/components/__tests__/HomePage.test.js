@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import HomePage from '../HomePage';
@@ -13,7 +13,7 @@ const renderWithRouter = (ui) =>
     </HelmetProvider>
   );
 
-test('renders hero heading', () => {
+test('renders hero heading', async () => {
   renderWithRouter(<HomePage />);
-  expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+  await waitFor(() => expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument());
 });

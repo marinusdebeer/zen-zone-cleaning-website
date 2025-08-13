@@ -67,19 +67,61 @@ export default function BlogPostPage() {
         </header>
 
         <div className="blog-post__content">
-          {blocks.map((block, idx) => {
-            if (block.type === 'h2') return <h2 key={idx}>{block.text}</h2>;
-            if (block.type === 'p') return <p key={idx}>{block.text}</p>;
-            if (block.type === 'ul') return <ul key={idx} className="list" />;
-            if (block.type === 'li') return <li key={idx}>{block.text}</li>;
-            if (block.type === 'note')
-              return (
-                <p key={idx} className="note">
-                  {block.text}
-                </p>
+          {(() => {
+            const elements = [];
+            let listItems = [];
+            let listKey = 0;
+            blocks.forEach((block, idx) => {
+              if (block.type === 'ul') {
+                // flush any pending list just in case
+                if (listItems.length) {
+                  elements.push(
+                    <ul key={`ul-${listKey++}`} className="list">
+                      {listItems}
+                    </ul>
+                  );
+                  listItems = [];
+                }
+                // start a new list context; items will follow as 'li'
+                // if no li items follow, render an empty list for structure
+                elements.push(<ul key={`ul-${listKey++}`} className="list" />);
+                return;
+              }
+              if (block.type === 'li') {
+                listItems.push(<li key={`li-${idx}`}>{block.text}</li>);
+                return;
+              }
+              // flush list when a non-list block appears
+              if (listItems.length) {
+                elements.push(
+                  <ul key={`ul-${listKey++}`} className="list">
+                    {listItems}
+                  </ul>
+                );
+                listItems = [];
+              }
+              if (block.type === 'h2') {
+                elements.push(<h2 key={idx}>{block.text}</h2>);
+              } else if (block.type === 'p') {
+                elements.push(<p key={idx}>{block.text}</p>);
+              } else if (block.type === 'note') {
+                elements.push(
+                  <p key={idx} className="note">
+                    {block.text}
+                  </p>
+                );
+              }
+            });
+            // flush any remaining list items at the end
+            if (listItems.length) {
+              elements.push(
+                <ul key={`ul-${listKey++}`} className="list">
+                  {listItems}
+                </ul>
               );
-            return null;
-          })}
+            }
+            return elements;
+          })()}
         </div>
 
         <footer className="blog-post__footer">

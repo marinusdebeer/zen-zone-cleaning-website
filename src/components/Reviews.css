@@ -94,15 +94,18 @@
 }
 
 .reviews__scroller {
-  margin: 0 1rem;
+  margin: 0;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 60%;
+  /* Ensure each card fully fits within the viewport minus inner padding */
+  grid-auto-columns: calc(100% - 2rem);
   gap: 1rem;
   overflow-x: auto;
   padding: 0 1rem 0.5rem;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  scroll-padding-left: 1rem;
+  scroll-padding-right: 1rem;
 }
 
 .reviews__scroller::-webkit-scrollbar {
@@ -122,17 +125,21 @@
     0 10px 20px rgba(0, 0, 0, 0.08),
     0 2px 4px rgba(0, 0, 0, 0.04);
   scroll-snap-align: start;
+  /* Allow content to shrink within the grid column to avoid clipping */
+  min-width: 0;
 }
 
 @media (min-width: 640px) {
   .reviews__scroller {
     grid-auto-columns: 34%;
+    margin: 0 1rem;
   }
 }
 
 @media (min-width: 1024px) {
   .reviews__scroller {
     grid-auto-columns: 24%;
+    margin: 0 1rem;
   }
 }
 

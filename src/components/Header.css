@@ -415,13 +415,13 @@
   }
   .header__logo-text {
     display: inline;
-    font-size: 1.05rem;
+    font-size: 1.2rem; /* slightly larger company name on mobile */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .header__logo-image {
-    height: 36px;
+    height: 44px; /* slightly larger logo on mobile */
     flex: none;
   }
 }
