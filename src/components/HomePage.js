@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { useLocation } from 'react-router-dom';
 import SEO from './SEO';
+import Defer from './Defer';
 import Hero from './Hero';
 import { getReviewsSummary } from './reviewsData';
 
@@ -131,10 +132,10 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
       <Suspense fallback={<div style={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Loading...</div>}>
         <Services />
         <Steps />
-        <Reviews />
-        <About />
-        <Benefits />
-        <Gallery limit={8} fullWidth strip />
+        <Defer><Reviews /></Defer>
+        <Defer><About /></Defer>
+        <Defer><Benefits /></Defer>
+        <Defer><Gallery limit={8} fullWidth strip /></Defer>
         
         <div className="locations-group">
           <Locations />
