@@ -130,11 +130,12 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
       
       <Suspense fallback={<div style={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Loading...</div>}>
         <Services />
+        <Steps />
         <Reviews />
         <About />
         <Benefits />
         <Gallery limit={8} fullWidth strip />
-        <Steps />
+        
         <div className="locations-group">
           <Locations />
           {cityName && (
