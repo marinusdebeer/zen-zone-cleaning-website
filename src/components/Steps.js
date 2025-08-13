@@ -9,7 +9,7 @@ import './Faces.css';
 const Steps = () => {
   const steps = [
     {
-      image: `${process.env.PUBLIC_URL}/images/5.png`,
+      image: `${process.env.PUBLIC_URL}/images/book_online.png`,
       title: 'Book Online',
       description:
         'Customize and book your cleaning service online. 24hr cancellation policy.',

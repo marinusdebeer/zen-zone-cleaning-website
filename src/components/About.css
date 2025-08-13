@@ -34,7 +34,7 @@
   .about__title::after {
     width: 84px;
     height: 84px;
-    top: -48px;
+    top: -72px; /* raise moose on mobile so it doesn't cover the title */
   }
 }
 

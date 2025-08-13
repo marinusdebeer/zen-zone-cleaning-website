@@ -93,26 +93,35 @@
         if (scriptsLoaded) return;
         scriptsLoaded = true;
         
-        const scripts = [
+        // Load in a strict sequence so EmailJS SDK is guaranteed before Email.js
+        const urls = [
           '%PUBLIC_URL%/js/Utilities.js',
           '%PUBLIC_URL%/js/Tracking.js',
           'https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js',
           '%PUBLIC_URL%/js/Email.js'
         ];
-        
-        scripts.forEach(src => {
-          const script = document.createElement('script');
-          script.src = src;
-          script.async = true;
-          document.head.appendChild(script);
-        });
+
+        const loadSequential = (list) => {
+          if (!list.length) return;
+          const src = list.shift();
+          const s = document.createElement('script');
+          s.src = src;
+          // Ensure predictable execution order
+          s.async = false;
+          s.defer = false;
+          s.onload = () => loadSequential(list);
+          s.onerror = () => loadSequential(list); // do not block others
+          document.head.appendChild(s);
+        };
+        loadSequential(urls.slice());
       };
       
-      // Load on first interaction or after 3 seconds
+      // Load on first interaction, DOM ready, or after 3 seconds
       const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
       events.forEach(event => {
         document.addEventListener(event, loadScripts, { once: true, passive: true });
       });
+      document.addEventListener('DOMContentLoaded', loadScripts, { once: true });
       setTimeout(loadScripts, 3000);
     </script>
   </head>
