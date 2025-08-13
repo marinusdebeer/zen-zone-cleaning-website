@@ -164,7 +164,7 @@ const Services = () => {
 
         <div className="services-hero-tiles">
           <div className="service-tile">
-            <img src={`${process.env.PUBLIC_URL}/images/broom.avif`} alt="" aria-hidden="true" className="service-icon" />
+            <img src={`${process.env.PUBLIC_URL}/images/broom.avif`} sizes="(max-width: 640px) 64px, 80px" alt="" aria-hidden="true" className="service-icon" />
             <h3>Weekly Cleaning</h3>
             <p>
               Keep your home spotless with our weekly service—dusting, vacuuming, mopping, and
@@ -181,7 +181,7 @@ const Services = () => {
           </div>
 
           <div className="service-tile popular">
-            <img src={`${process.env.PUBLIC_URL}/images/house.avif`} alt="" aria-hidden="true" className="service-icon" />
+            <img src={`${process.env.PUBLIC_URL}/images/house.avif`} sizes="(max-width: 640px) 64px, 80px" alt="" aria-hidden="true" className="service-icon" />
             <h3>Bi-Weekly Cleaning</h3>
             <p>
               A thorough clean every two weeks—ideal for keeping your space fresh without the weekly
@@ -198,7 +198,7 @@ const Services = () => {
           </div>
 
           <div className="service-tile">
-            <img src={`${process.env.PUBLIC_URL}/images/box.avif`} alt="" aria-hidden="true" className="service-icon" />
+            <img src={`${process.env.PUBLIC_URL}/images/box.avif`} sizes="(max-width: 640px) 64px, 80px" alt="" aria-hidden="true" className="service-icon" />
             <h3>Monthly Refresh</h3>
             <p>
               A deep refresh once a month, focusing on high-traffic areas to keep your home
@@ -215,7 +215,7 @@ const Services = () => {
           </div>
 
           <div className="service-tile">
-            <img src={`${process.env.PUBLIC_URL}/images/bucket.avif`} alt="" aria-hidden="true" className="service-icon" />
+            <img src={`${process.env.PUBLIC_URL}/images/bucket.avif`} sizes="(max-width: 640px) 64px, 80px" alt="" aria-hidden="true" className="service-icon" />
             <h3>First-Time Deep Cleaning</h3>
             <p>
               One comprehensive deep clean for new recurring customers—behind appliances,

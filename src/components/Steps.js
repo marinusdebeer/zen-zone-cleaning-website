@@ -38,7 +38,7 @@ const Steps = () => {
           <div key={idx} className="step">
             <div className="step__media">
               <div className="step__photo" role="img" aria-label={step.title}>
-                <img src={step.image.replace(/\.(png|jpe?g|webp)$/i, '.avif')} alt="" />
+                <img src={step.image.replace(/\.(png|jpe?g|webp|avif)$/i, '.avif')} sizes="(max-width: 768px) 90vw, 360px" alt="" />
               </div>
             </div>
             <h3 className="step__title">{`${idx + 1}. ${step.title}`}</h3>

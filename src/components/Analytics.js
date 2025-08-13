@@ -28,6 +28,9 @@ const ANALYTICS_CONFIG = {
  */
 export default function Analytics() {
   useEffect(() => {
+    const isAnalyticsEnabled = () => {
+      try { return window.__ANALYTICS_ENABLED__ !== false; } catch { return true; }
+    };
     // Check if PostHog should be disabled
     const shouldDisablePostHog = () => {
       if (!ANALYTICS_CONFIG.DISABLE_POSTHOG_ON_LOCALHOST) return false;
@@ -51,6 +54,7 @@ export default function Analytics() {
     } catch {}
 
     const loadVendors = () => {
+      if (!isAnalyticsEnabled()) return;
       // Google Analytics (gtag) - Load only after user interaction for performance
       try {
         if (!window.gtag) {
@@ -116,7 +120,7 @@ export default function Analytics() {
       } catch {}
 
       // Also trigger Tawk load immediately
-      try { loadTawk(); } catch {}
+      try { if (isAnalyticsEnabled()) loadTawk(); } catch {}
     };
 
     // --- Tawk loader (immediate + retries) ---
@@ -166,8 +170,10 @@ export default function Analytics() {
     }
     // Significantly delay analytics for critical performance metrics
     const timer = setTimeout(() => {
-      loadVendors();
-      loadTawk();
+      if (isAnalyticsEnabled()) {
+        loadVendors();
+        loadTawk();
+      }
     }, 3000); // Increased delay to 3 seconds for better LCP/FCP
 
     // Cleanup timer on unmount

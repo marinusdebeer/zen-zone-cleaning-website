@@ -84,6 +84,27 @@ async function convertOne(srcPath) {
     await img.clone().toFormat('webp', webpOptions).toFile(outWebp);
     console.log(`[images] webp  ${path.relative(ROOT, outWebp)}${width ? `  (${width}w)` : ''}`);
   }
+
+  // Generate responsive width variants for better delivery
+  const targetWidths = [40, 64, 80, 96, 128, 160, 256, 360, 512, 720, 768, 1024, 1536, 1920];
+  const allowed = (width ? targetWidths.filter((w) => w < width) : [])
+    // avoid generating too many tiny variants
+    .filter((w, i, arr) => (arr.length > 8 ? i % 2 === 0 : true));
+
+  for (const w of allowed) {
+    const out = `${base}-w${w}.avif`;
+    if (isNewer(srcPath, out)) {
+      await img.clone().resize({ width: w }).toFormat('avif', avifOptions).toFile(out);
+      console.log(`[images] avif  ${path.relative(ROOT, out)} (${w}w)`);
+    }
+    if (SHOULD_ALSO_WEBP(srcPath)) {
+      const outW = `${base}-w${w}.webp`;
+      if (isNewer(srcPath, outW)) {
+        await img.clone().resize({ width: w }).toFormat('webp', webpOptions).toFile(outW);
+        console.log(`[images] webp  ${path.relative(ROOT, outW)} (${w}w)`);
+      }
+    }
+  }
 }
 
 async function run() {

@@ -62,6 +62,16 @@
         } catch (e) {}
       })();
     </script>
+    <script>
+      (function () {
+        // Set to false to disable all analytics (GA, PostHog, Tawk, custom Tracking)
+        // This is a code-level flag. Change it and rebuild to apply.
+        window.__ANALYTICS_ENABLED__ = false;
+        if (window.__ANALYTICS_ENABLED__ === false) {
+          window['ga-disable-G-8H1891ZW72'] = true;
+        }
+      })();
+    </script>
     <script type="text/javascript">
       /* SPA GitHub Pages redirect decoder using history.replaceState (no reload) */
       (function () {
@@ -94,12 +104,14 @@
         scriptsLoaded = true;
         
         // Load in a strict sequence so EmailJS SDK is guaranteed before Email.js
-        const urls = [
-          '%PUBLIC_URL%/js/Utilities.js',
-          '%PUBLIC_URL%/js/Tracking.js',
+        const urls = ['%PUBLIC_URL%/js/Utilities.js'];
+        if (window.__ANALYTICS_ENABLED__ !== false) {
+          urls.push('%PUBLIC_URL%/js/Tracking.js');
+        }
+        urls.push(
           'https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js',
           '%PUBLIC_URL%/js/Email.js'
-        ];
+        );
 
         const loadSequential = (list) => {
           if (!list.length) return;
