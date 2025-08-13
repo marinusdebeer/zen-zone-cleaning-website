@@ -18,7 +18,10 @@
   transform: translateX(-50%);
   width: 100vw;
   height: 100%;
-  background-image: url('/public/images/reviews.avif');
+  background-image: image-set(
+    url('/public/images/reviews.avif') type('image/avif'),
+    url('/public/images/reviews.webp') type('image/webp')
+  );
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -40,7 +43,10 @@
 }
 
 [data-theme='dark'] .reviews::before {
-  background-image: url('/public/images/reviews_dark.avif');
+  background-image: image-set(
+    url('/public/images/reviews_dark.avif') type('image/avif'),
+    url('/public/images/reviews_dark.webp') type('image/webp')
+  );
 }
 
 .reviews__header {

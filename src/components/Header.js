@@ -67,7 +67,7 @@ const Header = () => {
           <picture>
             <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/logo.avif`} />
             <img
-              src={`${process.env.PUBLIC_URL}/images/logo.avif`}
+              src={`${process.env.PUBLIC_URL}/images/logo.webp`}
               alt="Zen Zone Cleaning Services"
               className="header__logo-image"
             />

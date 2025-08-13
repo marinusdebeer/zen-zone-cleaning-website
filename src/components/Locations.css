@@ -24,7 +24,10 @@
   transform: translateX(-50%);
   width: 100vw; /* stretch across the entire screen width */
   height: 100%;
-  background-image: url('/public/images/map.avif');
+  background-image: image-set(
+    url('/public/images/map.avif') type('image/avif'),
+    url('/public/images/map.webp') type('image/webp')
+  );
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -32,7 +35,10 @@
 }
 /* Dark mode background */
 [data-theme='dark'] .locations-group::before {
-  background-image: url('/public/images/map_dark.avif');
+  background-image: image-set(
+    url('/public/images/map_dark.avif') type('image/avif'),
+    url('/public/images/map_dark.webp') type('image/webp')
+  );
 }
 
 

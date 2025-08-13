@@ -4,6 +4,7 @@
  *
  * - Scans public/images recursively
  * - Converts .png/.jpg/.jpeg to .avif next to originals
+ * - For a small allow‑list (critical assets + gallery), also outputs .webp fallbacks
  * - Skips if target exists and is newer than source
  */
 
@@ -21,6 +22,15 @@ try {
 
 const ROOT = process.cwd();
 const IMAGES_DIR = path.join(ROOT, 'public', 'images');
+
+// Generate WebP fallbacks only for critical assets and gallery
+const SHOULD_ALSO_WEBP = (filePath) => {
+  const p = filePath.replace(/\\/g, '/');
+  if (p.includes('/public/images/gallery/')) return true;
+  return /\/public\/images\/(hero|logo|moose_in_suit|peaking_moose|cleaning_background(?:_dark)?|map(?:_dark)?|reviews(?:_dark)?|bucket|box|broom|house|building)\.(png|jpe?g)$/i.test(
+    p
+  );
+};
 
 const VALID_SRC_EXT = new Set(['.png', '.jpg', '.jpeg', '.JPG', '.JPEG']);
 
@@ -55,6 +65,7 @@ async function convertOne(srcPath) {
 
   const base = srcPath.slice(0, -ext.length);
   const outAvif = `${base}.avif`;
+  const outWebp = `${base}.webp`;
 
   const img = sharp(srcPath);
   const meta = await img.metadata();
@@ -62,10 +73,16 @@ async function convertOne(srcPath) {
 
   // Reasonable quality defaults
   const avifOptions = { quality: 55, effort: 4 }; // avif compresses more
+  const webpOptions = { quality: 80, effort: 4 };
 
   if (isNewer(srcPath, outAvif)) {
     await img.clone().toFormat('avif', avifOptions).toFile(outAvif);
     console.log(`[images] avif  ${path.relative(ROOT, outAvif)}${width ? `  (${width}w)` : ''}`);
+  }
+
+  if (SHOULD_ALSO_WEBP(srcPath) && isNewer(srcPath, outWebp)) {
+    await img.clone().toFormat('webp', webpOptions).toFile(outWebp);
+    console.log(`[images] webp  ${path.relative(ROOT, outWebp)}${width ? `  (${width}w)` : ''}`);
   }
 }
 
