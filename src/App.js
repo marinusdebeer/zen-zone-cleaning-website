@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { Suspense, startTransition } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import HomePage from './components/HomePage';
-import BookingPage from './components/BookingPage';
-import ConfirmationPage from './components/ConfirmationPage';
-import FullGalleryPage from './components/FullGalleryPage';
-import PrivacyPolicy from './components/PrivacyPolicy';
-import TermsPage from './components/TermsPage';
-import BlogListPage from './components/BlogListPage';
-import BlogPostPage from './components/BlogPostPage';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ScrollToTop from './components/ScrollToTop';
 import RouteChangeIndicator from './components/RouteChangeIndicator';
 import './App.css';
 import Analytics from './components/Analytics';
+
+// Lazy load components for better performance
+const HomePage = React.lazy(() => import('./components/HomePage'));
+const BookingPage = React.lazy(() => import('./components/BookingPage'));
+const ConfirmationPage = React.lazy(() => import('./components/ConfirmationPage'));
+const FullGalleryPage = React.lazy(() => import('./components/FullGalleryPage'));
+const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
+const TermsPage = React.lazy(() => import('./components/TermsPage'));
+const BlogListPage = React.lazy(() => import('./components/BlogListPage'));
+const BlogPostPage = React.lazy(() => import('./components/BlogPostPage'));
 
 /**
  * The root application component.
@@ -31,7 +33,8 @@ function App() {
         <RouteChangeIndicator />
         <div className="app-content route-transition">
           <ScrollToTop />
-          <Routes>
+          <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
+            <Routes>
             <Route path="/" element={<HomePage />} />
             <Route
               path="/house-cleaning-services-barrie"
@@ -117,7 +120,8 @@ function App() {
             <Route path="/confirmation" element={<ConfirmationPage />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsPage />} />
-          </Routes>
+            </Routes>
+          </Suspense>
         </div>
         <Footer />
       </div>

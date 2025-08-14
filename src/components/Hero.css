@@ -35,6 +35,8 @@
   bottom: 0;
   background-color: var(--color-overlay);
   z-index: 2;
+  pointer-events: none;
+  transition: background-color var(--transition-medium);
 }
 
 .hero__content {

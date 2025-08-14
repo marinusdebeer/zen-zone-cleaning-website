@@ -1,44 +1,83 @@
 /* App component styles */
 
-.App,
-.app-shell {
-  text-align: center;
-  min-height: 100vh;
-  background-color: var(--color-background);
-  color: var(--color-text);
-  transition:
-    background-color var(--transition-medium),
-    color var(--transition-medium);
-  /* Performance optimizations */
-  contain: layout style paint;
-  will-change: background-color, color;
-}
-
-/* Sticky footer layout: header + content (flex:1) + footer */
-.app-shell {
-  display: flex;
-  flex-direction: column;
-}
-
-.app-content {
-  flex: 1 0 auto;
-  /* Reduced now that header is sticky (not fixed) */
-  padding-top: 16px;
-}
-
-/* Route change visual transition */
-.route-transition {
-  animation: routeFadeIn 280ms ease-out;
-}
-
-@keyframes routeFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
+@layer components {
+  .App,
+  .app-shell {
+    text-align: center;
+    min-block-size: 100vh;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    transition:
+      background-color var(--transition-medium),
+      color var(--transition-medium);
+    /* Performance optimizations */
+    contain: layout style paint;
+    will-change: background-color, color;
+    
+    /* Modern CSS Grid layout */
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+      "header"
+      "main"
+      "footer";
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+}
+
+@layer components {
+  .app-content {
+    grid-area: main;
+    /* Reduced now that header is sticky (not fixed) */
+    padding-block-start: 16px;
+    
+    /* Container queries for responsive content */
+    container-type: inline-size;
+    container-name: main-content;
+  }
+}
+
+@layer components {
+  /* Route change visual transition - using view transitions API fallback */
+  .route-transition {
+    animation: routeFadeIn 280ms ease-out;
+    view-transition-name: main-content;
+  }
+
+  @keyframes routeFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Loading spinner for Suspense */
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-block-size: 200px;
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+  }
+  
+  .loading-spinner::after {
+    content: '';
+    inline-size: 20px;
+    block-size: 20px;
+    margin-inline-start: 10px;
+    border: 2px solid var(--color-border);
+    border-block-start: 2px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 }
 
@@ -94,12 +133,24 @@
   color: var(--color-secondary);
 }
 
-/* Global section styles */
-.section {
-  padding: 4rem 2rem;
-  max-width: var(--max-content-width);
-  margin: 0 auto;
-  scroll-margin-top: 100px; /* Account for fixed header */
+@layer components {
+  /* Global section styles with logical properties */
+  .section {
+    padding: 4rem 2rem;
+    max-inline-size: var(--max-content-width);
+    margin: 0 auto;
+    scroll-margin-block-start: 100px; /* Account for fixed header */
+    
+    /* Container query support */
+    container-type: inline-size;
+  }
+
+  /* Responsive section padding using container queries */
+  @container (max-width: 768px) {
+    .section {
+      padding: 3rem 1rem;
+    }
+  }
 }
 
 .section--alt {
