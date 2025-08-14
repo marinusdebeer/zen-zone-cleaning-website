@@ -68,8 +68,8 @@ const Hero = ({ title, subtitle }) => {
       <div className="hero__background" style={{ willChange: 'transform' }}>
         <picture>
           {/* Prefer portrait asset on smaller screens */}
-          <source media="(max-width: 768px)" srcSet={`${process.env.PUBLIC_URL}/images/hero_mobile.avif`} type="image/avif" />
-          <source media="(max-width: 768px)" srcSet={`${process.env.PUBLIC_URL}/images/hero_mobile.webp`} type="image/webp" />
+          <source media="(max-width: 768px)" srcSet={`${process.env.PUBLIC_URL}/images/hero.avif`} type="image/avif" />
+          <source media="(max-width: 768px)" srcSet={`${process.env.PUBLIC_URL}/images/hero.webp`} type="image/webp" />
           {/* Default desktop/large */}
           <source srcSet={`${process.env.PUBLIC_URL}/images/hero.avif`} type="image/avif" />
           <source srcSet={`${process.env.PUBLIC_URL}/images/hero.webp`} type="image/webp" />
