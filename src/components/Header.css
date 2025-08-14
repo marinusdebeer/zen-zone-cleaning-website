@@ -424,13 +424,13 @@
   }
   .header__logo-text {
     display: inline;
-    /* font-size: 1.2rem; */
+    font-size: 1.8rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .header__logo-image {
-    height: 60px;
+    height: 40px;
     flex: none;
   }
 }
