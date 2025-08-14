@@ -49,33 +49,31 @@ const LazyImage = ({
   const canTranscode = /\.(png|jpe?g)$/i.test(src || '');
   const base = canTranscode ? (src || '').replace(/\.(png|jpe?g|webp|avif)$/i, '') : src;
   const avifSrc = canTranscode ? `${base}.avif` : src;
-  const srcSet = canTranscode
-    ? [40,64,80,96,128,160,256,360,512,720,768,1024,1536]
-        .map((w) => `${base}-w${w}.avif ${w}w`)
-        .join(', ')
-    : undefined;
+  const webpSrc = canTranscode ? `${base}.webp` : undefined;
 
   return (
     <div ref={imgRef} className={`lazy-image-wrapper ${className}`} style={{ minHeight: '200px' }}>
       {isInView ? (
         canTranscode ? (
-          <img
-            src={avifSrc}
-            srcSet={srcSet}
-            sizes={props.sizes || '(max-width: 768px) 92vw, 720px'}
-            alt={alt}
-            loading="lazy"
-            onLoad={handleLoad}
-            onError={handleError}
-            style={{
-              opacity: isLoaded ? 1 : 0,
-              transition: 'opacity 0.2s ease',
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-            {...props}
-          />
+          <picture>
+            <source type="image/avif" srcSet={(props['data-avif'] || avifSrc)} />
+            {webpSrc || props['data-webp'] ? <source type="image/webp" srcSet={(props['data-webp'] || webpSrc)} /> : null}
+            <img
+              src={(props['data-webp'] || webpSrc || src)}
+              alt={alt}
+              loading="lazy"
+              onLoad={handleLoad}
+              onError={handleError}
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transition: 'opacity 0.2s ease',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+              {...props}
+            />
+          </picture>
         ) : (
           <img
             src={src}

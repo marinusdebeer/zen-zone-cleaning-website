@@ -318,4 +318,11 @@
   .section__subtitle {
     font-size: 1.1rem;
   }
+
+  /* Make Request Estimate buttons smaller on mobile */
+  a.btn[href^="/book"] {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+    min-height: 40px;
+  }
 }

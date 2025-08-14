@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useRef } from 'react';
 import { getReviewsSummary } from './reviewsData';
 import { Link, useLocation } from 'react-router-dom';
 import './Hero.css';
@@ -11,6 +11,8 @@ import './Mascots.css';
  * not submit data anywhere. Adjust the options to suit the business.
  */
 const Hero = ({ title, subtitle }) => {
+  const heroRef = useRef(null);
+  const bgImgRef = useRef(null);
   const location = useLocation();
   const ratingInfo = useMemo(() => getReviewsSummary(), []);
   const match = location.pathname.match(/^\/house-cleaning-services-([a-z-]+)(?:\/.*)?$/);
@@ -18,10 +20,57 @@ const Hero = ({ title, subtitle }) => {
   const cityName = citySlug
     ? citySlug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
     : null;
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    let ticking = false;
+    const parallaxStrength = 1; // 1 = background appears fixed while content scrolls
+
+    const update = () => {
+      try {
+        if (!heroRef.current || !bgImgRef.current) return;
+        const rect = heroRef.current.getBoundingClientRect();
+        // Translate based on distance from top of viewport
+        const translateY = Math.round(rect.top * -parallaxStrength);
+        bgImgRef.current.style.transform = `translate3d(0, ${translateY}px, 0) scale(1.1)`;
+      } finally {
+        ticking = false;
+      }
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  const handleBgError = (e) => {
+    try {
+      e.currentTarget.onerror = null;
+      e.currentTarget.src = `${process.env.PUBLIC_URL}/images/hero.webp`;
+    } catch {}
+  };
+
   return (
-    <section className="hero">
+    <section className="hero" ref={heroRef}>
       <div className="hero__background" style={{ willChange: 'transform' }}>
         <picture>
+          {/* Prefer portrait asset on smaller screens */}
+          <source media="(max-width: 768px)" srcSet={`${process.env.PUBLIC_URL}/images/hero_mobile.avif`} type="image/avif" />
+          <source media="(max-width: 768px)" srcSet={`${process.env.PUBLIC_URL}/images/hero_mobile.webp`} type="image/webp" />
+          {/* Default desktop/large */}
           <source srcSet={`${process.env.PUBLIC_URL}/images/hero.avif`} type="image/avif" />
           <source srcSet={`${process.env.PUBLIC_URL}/images/hero.webp`} type="image/webp" />
           <img
@@ -35,17 +84,16 @@ const Hero = ({ title, subtitle }) => {
               inset: 0,
               width: '100%',
               height: '100%',
-              objectFit: 'cover'
+              objectFit: 'cover',
+              willChange: 'transform'
             }}
+            ref={bgImgRef}
+            onError={handleBgError}
           />
         </picture>
       </div>
       <div className="hero__overlay"></div>
       <div className="hero__content">
-        <picture>
-          <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/moose_in_suit.avif`} />
-          <img src={`${process.env.PUBLIC_URL}/images/moose_in_suit.webp`} alt="" className="mascot mascot--lg hero__mascot" aria-hidden="true"/>
-        </picture>
         <h1 className="hero__title">{title || 'House Cleaning Services'}</h1>
         <h2 className="hero__subtitle">
           {subtitle || 'Serving Barrie, Orillia, and greater Simcoe County'}

@@ -65,14 +65,14 @@ const Header = () => {
           }}
         >
           <picture>
-            <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/logo.avif`} />
+            <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/moose_logo.avif`} />
             <img
-              src={`${process.env.PUBLIC_URL}/images/logo.webp`}
+              src={`${process.env.PUBLIC_URL}/images/moose_logo.webp`}
               alt="Zen Zone Cleaning Services"
               className="header__logo-image"
             />
           </picture>
-          <span className="header__logo-text">Zen Zone Cleaning</span>
+          <span className="header__logo-text"><span className="header__logo-text-zen">Zen</span>Zone</span>
           <span className="header__flag" role="img" aria-label="Canada">
             🇨🇦
           </span>

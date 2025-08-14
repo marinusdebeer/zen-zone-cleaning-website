@@ -61,6 +61,9 @@ const makeCaption = (name) => `Project ${name.replace(/\.JPG$/i, '')}`;
 
 const GALLERY_ITEMS = galleryFileNames.map((fileName, idx) => ({
   src: `${process.env.PUBLIC_URL}/images/gallery/${fileName}`,
+  // Provide explicit fallbacks to modern formats for JPEGs
+  avif: `${process.env.PUBLIC_URL}/images/gallery/${fileName.replace(/\.JPG$/i, '.avif')}`,
+  webp: `${process.env.PUBLIC_URL}/images/gallery/${fileName.replace(/\.JPG$/i, '.webp')}`,
   alt: makeCaption(fileName),
   caption: makeCaption(fileName),
   size: mosaicPattern[idx % mosaicPattern.length],
@@ -161,7 +164,7 @@ export default function Gallery({
             onClick={() => openLightbox(index)}
             aria-label={`Open image`}
           >
-            <LazyImage src={item.src} alt={item.alt} loading="lazy" />
+            <LazyImage src={item.src} data-avif={item.avif} data-webp={item.webp} alt={item.alt} loading="lazy" />
             <span className="gallery__tile-overlay" aria-hidden="true" />
           </button>
         ))}

@@ -9,6 +9,8 @@
   border-bottom: 1px solid var(--color-border);
   box-shadow: 0 2px 10px var(--color-shadow);
   z-index: 1000;
+  /* capatalize the header text */
+  text-transform: uppercase;
   transition:
     background-color var(--transition-medium),
     border-color var(--transition-medium),
@@ -38,18 +40,22 @@
 }
 
 .header__logo-image {
-  height: 50px;
+  height: 60px;
   width: auto;
   max-width: 200px;
   object-fit: contain;
 }
 
 .header__logo-text {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: bold;
+  font-family: 'Libre Baskerville', serif;
   color: var(--color-text);
   transition: color var(--transition-fast);
   white-space: nowrap;
+}
+.header__logo-text-zen {
+  color: var(--color-tertiary);
 }
 
 .header__flag {
@@ -208,7 +214,7 @@
 .mobile-menu__content {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: .25rem;
   padding: 80px 1.25rem 1.5rem; /* leave room for close button and sticky header */
   height: 100%;
   overflow-y: auto;
@@ -352,7 +358,7 @@
   }
 
   .header__logo-image {
-    height: 40px;
+    height: 60px;
   }
 
   .header__logo-text {
@@ -418,13 +424,33 @@
   }
   .header__logo-text {
     display: inline;
-    font-size: 1.2rem; /* slightly larger company name on mobile */
+    /* font-size: 1.2rem; */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .header__logo-image {
-    height: 44px; /* slightly larger logo on mobile */
+    height: 60px;
     flex: none;
+  }
+}
+
+/* Make the drawer text a bit smaller on mobile */
+@media (max-width: 768px) {
+  .mobile-menu__content a {
+    font-size: 1.1rem;
+    padding: 0.7rem 0.6rem;
+  }
+  .mobile-menu__content {
+    gap: 0.9rem;
+    padding: 72px 1rem 1.25rem;
+  }
+  .mobile-menu__panel {
+    max-width: 280px;
+  }
+  .mobile-menu .btn.mobile-menu__cta {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.9rem;
+    min-height: 42px;
   }
 }

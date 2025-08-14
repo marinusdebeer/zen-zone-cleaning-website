@@ -27,11 +27,8 @@ img {
   display: block;
 }
 
-/* Improve font loading */
-@font-face {
-  font-family: 'Segoe UI';
-  font-display: swap;
-}
+/* Global font variables */
+
 
 /* Shimmer animation for loading states */
 @keyframes shimmer {
@@ -44,14 +41,19 @@ img {
 }
 
 :root {
+  /* Typography */
+  --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Noto Sans', Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+  --font-heading: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Noto Sans', Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+
   /* Light theme colors */
   --color-primary: #2e3d2f; /* dark green */
   --color-secondary: #ffffff; /* white */
+  --color-tertiary: #4a7c59; /* dark green */
   --color-accent: #f8f8f8; /* very light gray (almost white) */
   --color-dark: #000000; /* black */
   --color-light: #ffffff; /* white */
-  --color-text: #333333; /* dark gray for text */
-  --color-text-secondary: #666666; /* medium gray for secondary text */
+  --color-text: var(--color-primary); /* brand dark green for text */
+  --color-text-secondary: var(--color-primary); /* make secondary text also dark green in light mode */
   --color-background: #ffffff; /* white background */
   --color-surface: #f8f8f8; /* light surface color */
   --color-border: #e0e0e0; /* light border color */
@@ -68,7 +70,6 @@ img {
   --transition-fast: 0.2s ease-in-out;
   --transition-medium: 0.3s ease-in-out;
 
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Dark theme colors */
@@ -102,6 +103,7 @@ html {
 }
 
 body {
+  font-family: var(--font-sans);
   color: var(--color-text);
   background-color: var(--color-background);
   line-height: 1.6;
@@ -117,4 +119,9 @@ a {
 
 ul {
   list-style: none;
+}
+
+/* Headings use the brand heading font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
