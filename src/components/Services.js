@@ -40,14 +40,14 @@ const Services = () => {
         ],
       },
       PostConstructionCleaning: {
-        title: 'Post Renovation Cleaning',
+        title: 'Post Renovation',
         paragraphs: [
           'Our Post-Construction Cleaning Service handles the mess left behind after construction or renovation projects. We ensure your property is spotless, safe, and move-in ready by tackling dust, debris, and residue with precision.',
           'This service includes removing construction dust and debris, deep cleaning all surfaces, windows, fixtures, and hard-to-reach areas.',
         ],
       },
       MoveInOutCleaning: {
-        title: 'Move In Move Out Cleaning',
+        title: 'Move In Move Out',
         paragraphs: [
           'Thorough top‑to‑bottom clean tailored for moving day. We focus on kitchens, baths, appliances, baseboards, inside cabinets and closets, and more so the home is ready for hand‑off.',
           'Ideal for tenants, landlords, buyers, and sellers. Add‑ons like inside fridge/oven, interior windows, and wall spot cleaning are available.',
@@ -251,7 +251,7 @@ const Services = () => {
                 <img src={`${process.env.PUBLIC_URL}/images/3.webp`} alt="Post-construction dust cleanup" loading="lazy" decoding="async" />
               </picture>
             </div>
-            <h3>Post Renovation Cleaning</h3>
+            <h3>Post Renovation</h3>
             <p className="truncate">
               Our Post-Construction Cleaning Service handles the mess left behind after construction
               or renovation projects. We ensure your property is spotless…
@@ -276,7 +276,7 @@ const Services = () => {
                 <img src={`${process.env.PUBLIC_URL}/images/4.webp`} alt="Move-in cleaning bedroom" loading="lazy" decoding="async" />
               </picture>
             </div>
-            <h3>Move In Move Out Cleaning</h3>
+            <h3>Move In Move Out</h3>
             <p className="truncate">
               Complete top‑to‑bottom clean for moving day—kitchen, baths, baseboards, inside cabinets and more…
             </p>
