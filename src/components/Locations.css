@@ -68,8 +68,11 @@
 
 .locations__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 @media (max-width: 900px) {
@@ -107,13 +110,10 @@
     border-radius: 10px;
   }
 
+  /* Show media on mobile as a smaller banner */
   .location-card__media {
-    display: none; /* remove icon on mobile */
-  }
-
-  .location-card__media img {
-    width: 0;
-    height: 0;
+    display: block;
+    height: 120px;
   }
 
   .location-card__body {
@@ -149,6 +149,10 @@
     box-shadow 0.2s ease,
     border-color 0.2s ease,
     background-color 0.2s ease;
+  max-width: 360px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .location-card:hover {
@@ -161,6 +165,18 @@
 
 .location-card__body {
   padding: 0.75rem 1rem 0.9rem;
+}
+
+.location-card__media {
+  height: 160px;
+  background: var(--color-border);
+  overflow: hidden;
+}
+.location-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .location-card__title {

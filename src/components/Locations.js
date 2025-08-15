@@ -109,6 +109,12 @@ const Locations = () => {
             aria-label={`House cleaning services in ${area.name}`}
             animation={idx % 2 === 0 ? 'left' : 'right'}
           >
+            <div className="location-card__media" aria-hidden="true">
+              <picture>
+                <source type="image/avif" srcSet={area.image} />
+                <img src={area.image} alt="" loading="lazy" decoding="async" />
+              </picture>
+            </div>
             <div className="location-card__body">
               <h3 className="location-card__title">{area.name}</h3>
               <p className="location-card__blurb">{area.blurb}</p>

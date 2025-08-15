@@ -200,6 +200,7 @@ img {
     color: var(--color-text);
     background-color: var(--color-background);
     line-height: 1.6;
+    font-weight: 500;
     transition:
       background-color var(--transition-medium),
       color var(--transition-medium);
