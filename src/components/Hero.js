@@ -10,7 +10,7 @@ import './Mascots.css';
  * simple quote form. The form is for demonstration purposes only and does
  * not submit data anywhere. Adjust the options to suit the business.
  */
-const Hero = ({ title, subtitle }) => {
+const Hero = ({ title, subtitle, backgroundImage }) => {
   const heroRef = useRef(null);
   const bgImgRef = useRef(null);
   const location = useLocation();
@@ -63,18 +63,20 @@ const Hero = ({ title, subtitle }) => {
     } catch {}
   };
 
+  // Determine background image. If a backgroundImage base name is provided, use it from public/images
+  const bgBase = backgroundImage ? `${process.env.PUBLIC_URL}/images/${backgroundImage}` : `${process.env.PUBLIC_URL}/images/hero`;
+
   return (
     <section className="hero" ref={heroRef}>
       <div className="hero__background" style={{ willChange: 'transform' }}>
         <picture>
-          {/* Prefer portrait asset on smaller screens */}
-          <source media="(max-width: 768px)" srcSet={`${process.env.PUBLIC_URL}/images/hero.avif`} type="image/avif" />
-          <source media="(max-width: 768px)" srcSet={`${process.env.PUBLIC_URL}/images/hero.webp`} type="image/webp" />
-          {/* Default desktop/large */}
-          <source srcSet={`${process.env.PUBLIC_URL}/images/hero.avif`} type="image/avif" />
-          <source srcSet={`${process.env.PUBLIC_URL}/images/hero.webp`} type="image/webp" />
+          {/* Use selected background for both mobile and desktop */}
+          <source media="(max-width: 768px)" srcSet={`${bgBase}.avif`} type="image/avif" />
+          <source media="(max-width: 768px)" srcSet={`${bgBase}.webp`} type="image/webp" />
+          <source srcSet={`${bgBase}.avif`} type="image/avif" />
+          <source srcSet={`${bgBase}.webp`} type="image/webp" />
           <img
-            src={`${process.env.PUBLIC_URL}/images/hero.webp`}
+            src={`${bgBase}.webp`}
             alt=""
             aria-hidden="true"
             decoding="async"

@@ -122,6 +122,9 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
     }
   }, [cityName, location.pathname]);
 
+  // Prefer a slug-specific hero if present in public/images (files named by slug e.g., barrie.avif)
+  const heroImageBase = citySlug || null;
+
   return (
     <main>
       <SEO
@@ -130,7 +133,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         path={location.pathname}
         jsonLd={[localBusinessLd, faqLd]}
       />
-      <Hero title={heroTitle} subtitle={heroSubtitle} />
+      <Hero title={heroTitle} subtitle={heroSubtitle} backgroundImage={heroImageBase || undefined} />
       
       <Suspense fallback={<div style={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Loading...</div>}>
         <Reveal as="div" animation="up"><Services /></Reveal>
