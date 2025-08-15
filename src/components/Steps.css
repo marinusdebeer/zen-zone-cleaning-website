@@ -125,5 +125,11 @@
 }
 
 @media (max-width: 768px) {
-  .step__media { max-width: 100%; }
+  .step__media { max-width: 220px; }
+  .step__media::after { width: 80px; height: 20px; }
+  .step__photo::after { width: 90px; height: 45px; right: -18px; bottom: -12px; }
+}
+
+@media (max-width: 480px) {
+  .step__media { max-width: 200px; }
 }

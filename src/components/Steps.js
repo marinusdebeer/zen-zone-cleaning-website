@@ -1,6 +1,7 @@
 import React from 'react';
 import './Steps.css';
 import './Faces.css';
+import Reveal from './Reveal';
 
 /**
  * Displays the simplified booking process in three steps. Each step
@@ -32,10 +33,10 @@ const Steps = () => {
     <section className="section steps" id="how-it-works">
       <img src={`${process.env.PUBLIC_URL}/images/7.avif`} alt="" className="face face--lg face--heart face--sticker steps__face steps__face--l" aria-hidden="true" />
       <img src={`${process.env.PUBLIC_URL}/images/3.avif`} alt="" className="face face--md face--blob face--sticker steps__face steps__face--r" aria-hidden="true" />
-      <h2 className="section-title">How It Works</h2>
-      <div className="steps__grid">
+      <Reveal as="h2" className="section-title" animation="up">How It Works</Reveal>
+      <div className="steps__grid reveal-stagger">
         {steps.map((step, idx) => (
-          <div key={idx} className="step">
+          <Reveal key={idx} as="div" className="step" animation={idx % 2 === 0 ? 'left' : 'right'}>
             <div className="step__media">
               <div
                 className="step__photo"
@@ -48,7 +49,7 @@ const Steps = () => {
             </div>
             <h3 className="step__title">{`${idx + 1}. ${step.title}`}</h3>
             <p className="step__description">{step.description}</p>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

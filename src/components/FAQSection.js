@@ -1,5 +1,6 @@
 import React from 'react';
 import './FAQSection.css';
+import Reveal from './Reveal';
 
 /**
  * Generic FAQ section component.
@@ -39,13 +40,13 @@ export default function FAQSection({ id = 'faq', title = 'Frequently Asked Quest
 
   return (
     <section className="faq" id={id} aria-labelledby={`${id}-heading`} style={{ marginTop: '2.5rem', position: 'relative' }}>
-      <h2 id={`${id}-heading`} className="section-title">{title}</h2>
-      <div className="faq-list">
+      <Reveal as="h2" id={`${id}-heading`} className="section-title" animation="up">{title}</Reveal>
+      <div className="faq-list reveal-stagger">
         {visibleFaqs.map((f, i) => {
           const isOpen = openIndex === i;
           const maxHeight = isOpen ? `${panelHeights[i] || 0}px` : '0px';
           return (
-            <div className="faq-item" key={f.q}>
+            <Reveal as="div" className="faq-item" key={f.q} animation="up">
               <button
                 type="button"
                 className="faq-question"
@@ -68,7 +69,7 @@ export default function FAQSection({ id = 'faq', title = 'Frequently Asked Quest
                   <p>{f.a}</p>
                 </div>
               </div>
-            </div>
+            </Reveal>
           );
         })}
       </div>

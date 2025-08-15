@@ -1,5 +1,6 @@
 import React from 'react';
 import './Benefits.css';
+import Reveal from './Reveal';
 
 /**
  * Presents a list of reasons why customers should choose Zen Zone Cleaning Services. Each
@@ -42,19 +43,19 @@ const Benefits = () => {
   ];
   return (
     <section className="section section--alt benefits" id="why-us">
-      <h2 className="section-title">Why Choose Us</h2>
-      <p className="section__subtitle">
+      <Reveal as="h2" className="section-title" animation="up">Why Choose Us</Reveal>
+      <Reveal as="p" className="section__subtitle" animation="up" delay={60}>
         Reliable service, vetted pros, and flexible scheduling—backed by our satisfaction guarantee.
-      </p>
-      <div className="benefits__grid">
+      </Reveal>
+      <div className="benefits__grid reveal-stagger">
         {benefits.map((benefit, idx) => (
-          <div key={idx} className="benefit-card">
+          <Reveal key={idx} as="div" className="benefit-card" animation={idx % 2 === 0 ? 'left' : 'right'}>
             <div className="benefit-card__icon" aria-hidden="true">
               {benefit.icon}
             </div>
             <h3 className="benefit-card__title">{benefit.title}</h3>
             <p className="benefit-card__description">{benefit.description}</p>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

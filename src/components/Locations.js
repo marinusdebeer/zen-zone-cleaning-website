@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Locations.css';
+import Reveal from './Reveal';
 
 /**
  * Displays the list of primary service areas as visually rich cards.
@@ -62,8 +63,8 @@ const Locations = () => {
   return (
     <section className="section locations" id="locations" aria-label="Service Areas">
       <div className="locations__header">
-        <h2 className="section__title">Locations We Serve</h2>
-        <p className="section__subtitle">Proudly serving communities across Simcoe County.</p>
+        <Reveal as="h2" className="section__title" animation="up">Locations We Serve</Reveal>
+        <Reveal as="p" className="section__subtitle" animation="up" delay={60}>Proudly serving communities across Simcoe County.</Reveal>
 
         {/* City-specific location information */}
         {cityName && (
@@ -98,20 +99,22 @@ const Locations = () => {
         )}
       </div>
 
-      <div className="locations__grid">
-        {areas.map((area) => (
-          <Link
+      <div className="locations__grid reveal-stagger">
+        {areas.map((area, idx) => (
+          <Reveal
+            as={Link}
             key={area.slug}
             to={`/house-cleaning-services-${area.slug}`}
             className="location-card"
             aria-label={`House cleaning services in ${area.name}`}
+            animation={idx % 2 === 0 ? 'left' : 'right'}
           >
             <div className="location-card__body">
               <h3 className="location-card__title">{area.name}</h3>
               <p className="location-card__blurb">{area.blurb}</p>
               <span className="location-card__cta">Explore Services →</span>
             </div>
-          </Link>
+          </Reveal>
         ))}
       </div>
     </section>

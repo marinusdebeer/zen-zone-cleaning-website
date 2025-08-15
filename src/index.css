@@ -48,6 +48,56 @@ img {
   }
 }
 
+/* Scroll reveal animations */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+    transition-property: opacity, transform, filter;
+    transition-timing-function: var(--transition-medium);
+    will-change: transform, opacity, filter;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .reveal--up {
+    transform: translate3d(0, 16px, 0);
+  }
+  .reveal--down {
+    transform: translate3d(0, -16px, 0);
+  }
+  .reveal--left {
+    transform: translate3d(16px, 0, 0);
+  }
+  .reveal--right {
+    transform: translate3d(-16px, 0, 0);
+  }
+  .reveal--fade {
+    transform: none;
+  }
+  .reveal--zoom {
+    transform: scale(0.96);
+  }
+  .reveal--blur {
+    filter: blur(6px);
+  }
+
+  /* Stagger helper for grids: apply increasing delay via nth-child */
+  .reveal-stagger > * {
+    transition-delay: 0ms;
+  }
+  .reveal-stagger > *:nth-child(1) { transition-delay: 0ms; }
+  .reveal-stagger > *:nth-child(2) { transition-delay: 60ms; }
+  .reveal-stagger > *:nth-child(3) { transition-delay: 120ms; }
+  .reveal-stagger > *:nth-child(4) { transition-delay: 180ms; }
+  .reveal-stagger > *:nth-child(5) { transition-delay: 240ms; }
+  .reveal-stagger > *:nth-child(6) { transition-delay: 300ms; }
+  .reveal-stagger > *:nth-child(7) { transition-delay: 360ms; }
+  .reveal-stagger > *:nth-child(8) { transition-delay: 420ms; }
+}
+
 @layer base {
   :root {
     /* Typography */

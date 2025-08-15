@@ -1,8 +1,10 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import './About.css';
 import './Faces.css';
 import './Mascots.css';
+import Reveal from './Reveal';
+import { getReviewsSummary } from './reviewsData';
 
 /**
  * About section tells the story of the company and its mission. A
@@ -18,60 +20,84 @@ const About = () => {
     ? citySlug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
     : null;
 
+  const { average, count } = React.useMemo(() => getReviewsSummary(), []);
+
   return (
     <section className="section about" id="about">
       <div className="about__wrapper">
         <div className="about__content">
-          <h2 className="section-title about__title">
-            About Zen Zone Cleaning Services
-          </h2>
-          <p>
-            Zen Zone Cleaning Services is a locally operated, family-owned cleaning company in
-            Ontario, Canada created with one clear mission: to simplify your life by taking cleaning
-            off your busy schedule. Founded by Daleen and Marinus, we understand the pressures of
-            balancing work, family commitments, and household upkeep—especially in today’s demanding
-            world. Recognizing that many of our neighbors in Barrie, Orillia, Innisfil, and all
-            areas within Simcoe County faced similar daily challenges, we set out to offer a
-            solution that provides peace of mind and more free time for you and your family.
-          </p>
+          <Reveal as="p" className="about__eyebrow" animation="up">Family‑owned in Simcoe County</Reveal>
+          <Reveal as="h2" className="section-title about__title" animation="up">About Zen Zone Cleaning</Reveal>
+          <Reveal as="p" className="about__lead" animation="up" delay={60}>
+            We’re a local, family‑run team focused on thoughtful, reliable cleaning—so you get more
+            time for what matters most.
+          </Reveal>
 
-          <p>
-            What began as a family-owned passion project has blossomed into a respected, top-rated
-            cleaning service relied upon by homeowners, businesses, and rental property managers
-            across the region. From one-time comprehensive deep cleans to weekly or monthly
-            maintenance plans, Zen Zone delivers consistently exceptional results tailored
-            specifically to your needs. Our friendly, professional cleaning specialists are ready to
-            help transform your space—no matter your cleaning goals.
-          </p>
+          <Reveal as="div" className="about__badges" animation="up" delay={90}>
+            <div className="badge">
+              <span className="badge__icon" aria-hidden="true">🛡️</span>
+              <div className="badge__text">
+                <strong>Insured & Vetted</strong>
+                <span>Background‑checked professionals</span>
+              </div>
+            </div>
+            <div className="badge">
+              <span className="badge__icon" aria-hidden="true">⭐</span>
+              <div className="badge__text">
+                <strong>Top‑Rated Service</strong>
+                <span>Dozens of 5‑star reviews</span>
+              </div>
+            </div>
+            <div className="badge">
+              <span className="badge__icon" aria-hidden="true">⏱️</span>
+              <div className="badge__text">
+                <strong>Flexible Scheduling</strong>
+                <span>Weekly, bi‑weekly, monthly, one‑time</span>
+              </div>
+            </div>
+            <div className="badge">
+              <span className="badge__icon" aria-hidden="true">🧽</span>
+              <div className="badge__text">
+                <strong>Detail‑Driven</strong>
+                <span>Thorough checklists, consistent results</span>
+              </div>
+            </div>
+          </Reveal>
 
-          <h3>Our Mission</h3>
-          <h4>For Our Clients</h4>
-          <p>
-            We connect you with reliable, insured, and thoroughly background-checked cleaners who
-            consistently deliver outstanding results. Our customizable service options mean you can
-            choose exactly what you need—allowing you to reclaim precious time and enjoy life to its
-            fullest.
-          </p>
-          <h4>For Our Cleaners</h4>
-          <p>
-            We strive to create fulfilling, supportive job opportunities with competitive
-            compensation and respectful working conditions. We ensure every member of our team feels
-            valued, motivated, and committed to providing exceptional care for every home and
-            business they serve.
-          </p>
+          <Reveal as="div" className="about__copy" animation="up" delay={120}>
+            <p>
+              Founded by Daleen and Marinus, Zen Zone began as a passion project and grew into a
+              trusted service across Barrie, Orillia, Innisfil, and surrounding communities. From
+              first‑time deep cleans to ongoing maintenance, our team delivers dependable results
+              tailored to every home.
+            </p>
+            <p>
+              Our mission is two‑fold: help clients enjoy calm, clean spaces—and support our team
+              with fair, respectful work. That’s how we create lasting, positive experiences for
+              everyone we serve.
+            </p>
+          </Reveal>
 
-          <p>
-            At Zen Zone Cleaning, the satisfaction of our clients and the happiness of our team form
-            the foundation of our business. As we steadily grow across Barrie, Orillia, Innisfil,
-            and surrounding communities, we remain passionately committed to leaving homes, offices,
-            and vacation rentals sparkling clean and stress-free. Whether you’re hosting guests,
-            managing rental properties, or simply looking to reclaim your free time, Zen Zone is
-            here to help you maintain a cleaner, calmer space—one expert clean at a time.
-          </p>
-          <p>
-            Let us give you back your valuable time. Choose Zen Zone Cleaning Services today, and
-            experience the true joy of a clean, stress-free space.
-          </p>
+          <div className="about__stats">
+            <Reveal as="div" className="stat" animation="up">
+              <div className="stat__value">{average.toFixed(1)}</div>
+              <div className="stat__label">Average Rating</div>
+              <div className="stat__sub">from {count} reviews</div>
+            </Reveal>
+            <Reveal as="div" className="stat" animation="up" delay={60}>
+              <div className="stat__value">7d</div>
+              <div className="stat__label">Open Every Day</div>
+            </Reveal>
+            <Reveal as="div" className="stat" animation="up" delay={120}>
+              <div className="stat__value">100%</div>
+              <div className="stat__label">Satisfaction Promise</div>
+            </Reveal>
+          </div>
+
+          <Reveal as="div" className="about__cta" animation="up">
+            <Link to="/book" className="btn">Request Estimate</Link>
+            <a href="#services" className="btn btn--outline">See Services</a>
+          </Reveal>
 
           {/* City-specific about content */}
           {cityName && (
@@ -165,9 +191,9 @@ const About = () => {
             </div>
           )}
         </div>
-        <div className="about__image-wrapper">
+        <div className="about__aside">
           <div className="about__founders-grid">
-            <section className="founder-card" aria-label="Founder Daleen">
+            <Reveal as="section" className="founder-card" aria-label="Founder Daleen" animation="left">
               <img
                 src={`${process.env.PUBLIC_URL}/images/daleen.avif`}
                 alt="Founder Daleen from Zen Zone Cleaning"
@@ -179,15 +205,13 @@ const About = () => {
                 <h3 className="founder-card__name">Daleen</h3>
                 <div className="founder-card__role" aria-label="Role">Co‑Founder • Operations & Quality</div>
                 <p className="founder-card__blurb">
-                  Daleen leads our day-to-day operations and quality standards, bringing a strong
-                  cleaning and business background to every client relationship. With a hands-on
-                  approach and a focus on consistency, communication, and care, she ensures our
-                  teams deliver reliable, detail-oriented service—every single visit.
+                  Daleen leads our day‑to‑day operations and quality standards with a focus on
+                  consistency, communication, and care—so every visit meets our promise.
                 </p>
               </div>
-            </section>
+            </Reveal>
 
-            <section className="founder-card" aria-label="Founder Marinus">
+            <Reveal as="section" className="founder-card" aria-label="Founder Marinus" animation="right">
               <img
                 src={`${process.env.PUBLIC_URL}/images/marinus.avif`}
                 alt="Founder Marinus from Zen Zone Cleaning"
@@ -199,13 +223,11 @@ const About = () => {
                 <h3 className="founder-card__name">Marinus</h3>
                 <div className="founder-card__role" aria-label="Role">Co‑Founder • Technology & Marketing</div>
                 <p className="founder-card__blurb">
-                  Marinus brings a technology background that powers our scheduling, customer
-                  experience, and operational efficiency. He’s focused on building simple, modern
-                  systems that make it easy to book, manage, and customize your cleaning—so you get
-                  dependable results without any hassle.
+                  Marinus builds simple, modern systems that make booking and managing your cleaning
+                  effortless—backed by fast, friendly support.
                 </p>
               </div>
-            </section>
+            </Reveal>
           </div>
         </div>
       </div>

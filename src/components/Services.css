@@ -146,6 +146,12 @@
 .service-tile p {
   margin: 0;
 }
+.service-tile .truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .service-tile .price {
   font-weight: 700;
 }
@@ -294,3 +300,13 @@
 .faq { position: relative; }
 .faq__face { top: -24px; right: -12px; }
 @media (max-width: 768px) { .faq__face { top: -12px; right: -8px; } }
+
+/* Force two columns on mobile and slightly smaller media */
+@media (max-width: 768px) {
+  .services-hero-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .service-tile__media { max-width: 160px; }
+}
+
+@media (max-width: 480px) {
+  .service-tile__media { max-width: 140px; }
+}

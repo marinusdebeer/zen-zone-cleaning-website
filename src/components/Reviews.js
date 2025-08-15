@@ -3,6 +3,7 @@ import './Reviews.css';
 import './Faces.css';
 import './Mascots.css';
 import { REVIEWS as RAW_REVIEWS, getReviewsSummary } from './reviewsData';
+import Reveal from './Reveal';
 
 // Sort by date desc; parse using Date for robust ordering
 const REVIEWS = [...RAW_REVIEWS].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -111,7 +112,7 @@ export default function Reviews() {
   return (
     <section className="reviews" id="reviews" aria-label="Client Reviews">
       <div className="reviews__header">
-        <h2 className="reviews__title">Reviews</h2>
+        <Reveal as="h2" className="reviews__title" animation="up">Reviews</Reveal>
         <div className="reviews__actions">
           <a
             href="https://maps.app.goo.gl/EyMWdSuMsExvrxaG7"
@@ -138,9 +139,11 @@ export default function Reviews() {
         </div>
       </div>
 
-      <div className="reviews__grid" aria-label="Reviews list" ref={gridRef}>
+      <div className="reviews__grid reveal-stagger" aria-label="Reviews list" ref={gridRef}>
         {REVIEWS.map((r, i) => (
-          <ReviewCard key={r.name + i} review={r} />
+          <Reveal key={r.name + i} as="div" animation={i % 2 === 0 ? 'left' : 'right'}>
+            <ReviewCard review={r} />
+          </Reveal>
         ))}
       </div>
     </section>

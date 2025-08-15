@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import './Services.css';
 import './Faces.css';
+import Reveal from './Reveal';
  
 
 /**
@@ -80,7 +81,7 @@ const Services = () => {
   return (
     <section className="section services" id="services" aria-label="Services">
       <div className="services-content">
-        <h2 className="section-title">Our Cleaning Services Include</h2>
+        <Reveal as="h2" className="section-title" animation="up">Our Cleaning Services Include</Reveal>
 
         {/* City-specific service information */}
         {citySlug === 'barrie' && (
@@ -162,8 +163,10 @@ const Services = () => {
 
         {/* FAQ moved below the tiles in its own section */}
 
-        <div className="services-hero-tiles">
-          <div
+        <div className="services-hero-tiles reveal-stagger">
+          <Reveal
+            as="div"
+            animation="left"
             className="service-tile is-clickable"
             role="button"
             tabIndex={0}
@@ -180,8 +183,10 @@ const Services = () => {
             </div>
             <h3>Recurring Cleaning</h3>
             <p className="truncate">Weekly, bi‑weekly, or monthly visits to keep your home consistently clean.</p>
-          </div>
-          <div
+          </Reveal>
+          <Reveal
+            as="div"
+            animation="right"
             className="service-tile is-clickable"
             role="button"
             tabIndex={0}
@@ -202,9 +207,11 @@ const Services = () => {
               the visible and hidden dirt. We thoroughly clean all common areas…
             </p>
             
-          </div>
+          </Reveal>
 
-          <div
+          <Reveal
+            as="div"
+            animation="left"
             className="service-tile is-clickable"
             role="button"
             tabIndex={0}
@@ -225,9 +232,11 @@ const Services = () => {
               including bedrooms, kitchens, and bathrooms. We wipe and dust surfaces…
             </p>
             
-          </div>
+          </Reveal>
 
-          <div
+          <Reveal
+            as="div"
+            animation="right"
             className="service-tile is-clickable"
             role="button"
             tabIndex={0}
@@ -248,9 +257,11 @@ const Services = () => {
               or renovation projects. We ensure your property is spotless…
             </p>
             
-          </div>
+          </Reveal>
 
-          <div
+          <Reveal
+            as="div"
+            animation="left"
             className="service-tile is-clickable"
             role="button"
             tabIndex={0}
@@ -270,9 +281,11 @@ const Services = () => {
               Complete top‑to‑bottom clean for moving day—kitchen, baths, baseboards, inside cabinets and more…
             </p>
             
-          </div>
+          </Reveal>
 
-          <div
+          <Reveal
+            as="div"
+            animation="right"
             className="service-tile is-clickable"
             role="button"
             tabIndex={0}
@@ -293,9 +306,11 @@ const Services = () => {
               cleaning services…
             </p>
             
-          </div>
+          </Reveal>
 
-          <div
+          <Reveal
+            as="div"
+            animation="left"
             className="service-tile is-clickable"
             role="button"
             tabIndex={0}
@@ -312,9 +327,11 @@ const Services = () => {
             </div>
             <h3>Condo Cleaning</h3>
             <p className="truncate">Specialized condo cleaning—perfect for high‑rise living and compact spaces.</p>
-          </div>
+          </Reveal>
 
-          <div
+          <Reveal
+            as="div"
+            animation="right"
             className="service-tile is-clickable"
             role="button"
             tabIndex={0}
@@ -331,7 +348,7 @@ const Services = () => {
             </div>
             <h3>Custom Cleaning</h3>
             <p className="truncate">Build your own service: inside fridge/oven, cabinets, baseboards, windows, laundry, and more.</p>
-          </div>
+          </Reveal>
         </div>
       </div>
 

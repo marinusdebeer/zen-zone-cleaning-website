@@ -6,6 +6,7 @@ import Hero from './Hero';
 import { getReviewsSummary } from './reviewsData';
 import FAQSection from './FAQSection';
 import { FAQS } from './faqsData';
+import Reveal from './Reveal';
 
 // Lazy load non-critical components for better performance
 const Steps = lazy(() => import('./Steps'));
@@ -132,13 +133,13 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
       <Hero title={heroTitle} subtitle={heroSubtitle} />
       
       <Suspense fallback={<div style={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Loading...</div>}>
-        <Services />
-        <Steps />
-        <FAQSection id="faq" title="Frequently Asked Questions" faqs={FAQS} />
-        <Defer><Reviews /></Defer>
-        <Defer><About /></Defer>
-        <Defer><Benefits /></Defer>
-        <Defer><Gallery limit={8} fullWidth strip /></Defer>
+        <Reveal as="div" animation="up"><Services /></Reveal>
+        <Reveal as="div" animation="up"><Steps /></Reveal>
+        <Reveal as="div" animation="up"><FAQSection id="faq" title="Frequently Asked Questions" faqs={FAQS} /></Reveal>
+        <Defer><Reveal as="div" animation="up"><Reviews /></Reveal></Defer>
+        <Defer><Reveal as="div" animation="up"><About /></Reveal></Defer>
+        <Defer><Reveal as="div" animation="up"><Benefits /></Reveal></Defer>
+        <Defer><Reveal as="div" animation="up"><Gallery limit={8} fullWidth strip /></Reveal></Defer>
         
         <div className="locations-group">
           <Locations />
