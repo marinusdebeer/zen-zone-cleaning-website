@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import './Services.css';
 import './Faces.css';
-import { FAQS } from './faqsData';
+ 
 
 /**
  * Services shows two groups: Recurring Cleaning Plans and One‑Time Services.
@@ -17,6 +17,13 @@ const Services = () => {
 
   const oneTimeServiceContent = useMemo(
     () => ({
+      RecurringCleaning: {
+        title: 'Recurring Cleaning',
+        paragraphs: [
+          'Choose a schedule that fits your life: weekly, bi‑weekly, or monthly. We keep the same reliable standard each visit so your home stays consistently fresh.',
+          'A First‑Time Deep is often suggested to reset hard‑to‑reach areas before starting a recurring cadence.',
+        ],
+      },
       DeepCleaning: {
         title: 'Deep Cleaning',
         paragraphs: [
@@ -32,24 +39,31 @@ const Services = () => {
         ],
       },
       PostConstructionCleaning: {
-        title: 'Post-Construction Cleaning',
+        title: 'Post Renovation Cleaning',
         paragraphs: [
           'Our Post-Construction Cleaning Service handles the mess left behind after construction or renovation projects. We ensure your property is spotless, safe, and move-in ready by tackling dust, debris, and residue with precision.',
           'This service includes removing construction dust and debris, deep cleaning all surfaces, windows, fixtures, and hard-to-reach areas.',
         ],
       },
-      MoveInCleaning: {
-        title: 'Standard Moving Cleaning',
+      MoveInOutCleaning: {
+        title: 'Move In Move Out Cleaning',
         paragraphs: [
-          'Our Move-In/Out Standard Cleaning Service is perfect for homes that need a general refresh during a move. We clean all common areas, including bedrooms, kitchens, and bathrooms, ensuring surfaces, floors, and fixtures are spotless.',
-          'High-touch areas receive extra care to reduce the spread of germs, making it ideal for preparing a home for new occupants.',
+          'Thorough top‑to‑bottom clean tailored for moving day. We focus on kitchens, baths, appliances, baseboards, inside cabinets and closets, and more so the home is ready for hand‑off.',
+          'Ideal for tenants, landlords, buyers, and sellers. Add‑ons like inside fridge/oven, interior windows, and wall spot cleaning are available.',
         ],
       },
-      MoveOutCleaning: {
-        title: 'Deep Moving Cleaning',
+      CondoCleaning: {
+        title: 'Condo Cleaning',
         paragraphs: [
-          'Our Move-In/Out Deep Cleaning Service provides a comprehensive, detailed clean to ensure every corner of your home is spotless. In addition to standard cleaning tasks, we clean behind appliances, baseboards, door frames, interior windows, blinds, ceiling fans, light fixtures, and wall spots.',
-          'High-touch areas are sanitized to minimize the spread of germs, making this service perfect for a thorough reset during a move.',
+          'Specialized condo cleaning perfect for high‑rise living. We handle compact spaces with attention to detail—kitchens, baths, dusting, floors, and balcony sweep as applicable.',
+          'Great for owners, renters, and Airbnb hosts wanting a reliable tidy and refresh.',
+        ],
+      },
+      CustomCleaning: {
+        title: 'Custom Cleaning',
+        paragraphs: [
+          'Build your own cleaning plan by selecting exactly what you want. Popular choices include: inside fridge and oven, inside cabinets, baseboards, interior windows, wall spot cleaning, laundry and bed linens, balcony sweep, and more.',
+          'Use the booking form to choose services and frequency, or tell us your priorities and we will tailor a quote to your home.',
         ],
       },
       OfficeCleaning: {
@@ -66,7 +80,7 @@ const Services = () => {
   return (
     <section className="section services" id="services" aria-label="Services">
       <div className="services-content">
-        <h2 className="section-title">Recurring Cleaning Plans</h2>
+        <h2 className="section-title">Our Cleaning Services Include</h2>
 
         {/* City-specific service information */}
         {citySlug === 'barrie' && (
@@ -142,209 +156,186 @@ const Services = () => {
           </div>
         )}
 
-        <div className="services-intro">
-          <h3>What our recurring cleaning plans include</h3>
-          <div className="includes-list">
-            <ul>
-              <li>Dusting & cobweb removal</li>
-              <li>Vacuum carpets & rugs</li>
-              <li>Sweep & mop hard floors</li>
-              <li>Mirrors, glass surfaces & handles</li>
-              <li>Kitchen counters, stovetop & microwave</li>
-            </ul>
-            <ul>
-              <li>Oven door (exterior) & appliance exteriors</li>
-              <li>Sinks, toilets, tubs & showers</li>
-              <li>Light switches & high-touch sanitization</li>
-              <li>Laundry room surfaces & floors</li>
-              <li>Trash emptied & bins relined</li>
-            </ul>
-          </div>
-        </div>
+        {/* Removed includes section per request */}
+
+        {/* Removed separate recurring tiles; consolidated into the unified grid below */}
+
+        {/* FAQ moved below the tiles in its own section */}
 
         <div className="services-hero-tiles">
-          <div className="service-tile">
-            <img src={`${process.env.PUBLIC_URL}/images/broom.avif`} sizes="(max-width: 640px) 64px, 80px" alt="" aria-hidden="true" className="service-icon" />
-            <h3>Weekly Cleaning</h3>
-            <p>
-              Keep your home spotless with our weekly service—dusting, vacuuming, mopping, and
-              sanitizing every corner.
-            </p>
-            <p className="price">Starting at $130/visit</p>
-            <Link
-              to={'/book?service=Weekly'}
-              className="btn"
-              aria-label="Request estimate for Weekly Cleaning"
-            >
-              Request Estimate
-            </Link>
+          <div
+            className="service-tile is-clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => setActiveModal('RecurringCleaning')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveModal('RecurringCleaning'); } }}
+            aria-label="Learn more about Recurring Cleaning"
+          >
+            <div className="service-tile__media">
+              <picture>
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/7.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/7.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/7.webp`} alt="Recurring home cleaning schedule" loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <h3>Recurring Cleaning</h3>
+            <p className="truncate">Weekly, bi‑weekly, or monthly visits to keep your home consistently clean.</p>
           </div>
-
-          <div className="service-tile popular">
-            <img src={`${process.env.PUBLIC_URL}/images/house.avif`} sizes="(max-width: 640px) 64px, 80px" alt="" aria-hidden="true" className="service-icon" />
-            <h3>Bi-Weekly Cleaning</h3>
-            <p>
-              A thorough clean every two weeks—ideal for keeping your space fresh without the weekly
-              commitment.
-            </p>
-            <p className="price">Starting at $130/visit</p>
-            <Link
-              to={'/book?service=Bi-Weekly'}
-              className="btn"
-              aria-label="Request estimate for Bi-Weekly Cleaning"
-            >
-              Request Estimate
-            </Link>
-          </div>
-
-          <div className="service-tile">
-            <img src={`${process.env.PUBLIC_URL}/images/box.avif`} sizes="(max-width: 640px) 64px, 80px" alt="" aria-hidden="true" className="service-icon" />
-            <h3>Monthly Refresh</h3>
-            <p>
-              A deep refresh once a month, focusing on high-traffic areas to keep your home
-              guest-ready.
-            </p>
-            <p className="price">Starting at $130/visit</p>
-            <Link
-              to={'/book?service=Every%204%20Weeks'}
-              className="btn"
-              aria-label="Request estimate for Monthly Refresh"
-            >
-              Request Estimate
-            </Link>
-          </div>
-
-          <div className="service-tile">
-            <img src={`${process.env.PUBLIC_URL}/images/bucket.avif`} sizes="(max-width: 640px) 64px, 80px" alt="" aria-hidden="true" className="service-icon" />
-            <h3>First-Time Deep Cleaning</h3>
-            <p>
-              One comprehensive deep clean for new recurring customers—behind appliances,
-              baseboards, interior windows, and more.
-            </p>
-            <Link
-              to={'/book?service=First-Time%20Deep'}
-              className="btn"
-              aria-label="Request estimate for First-Time Deep Cleaning"
-            >
-              Request Estimate
-            </Link>
-          </div>
-        </div>
-
-        <section
-          className="faq"
-          id="faq"
-          aria-labelledby="faq-heading"
-          style={{ marginTop: '4rem', position: 'relative' }}
-        >
-          <h2 id="faq-heading" className="section-title">
-            Frequently Asked Questions
-          </h2>
-          <div className="faq-list">
-            {FAQS.map((f) => (
-              <details key={f.q}>
-                <summary>{f.q}</summary>
-                <p>{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        <h2 className="section-title" style={{ marginTop: '4rem' }}>
-          One‑Time Cleaning Services
-        </h2>
-        <div className="services-hero-tiles">
-          <div className="service-tile">
+          <div
+            className="service-tile is-clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => setActiveModal('DeepCleaning')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveModal('DeepCleaning'); } }}
+            aria-label="Learn more about Deep Cleaning"
+          >
+            <div className="service-tile__media">
+              <picture>
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/1.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/1.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/1.webp`} alt="Deep cleaning in kitchen" loading="lazy" decoding="async" />
+              </picture>
+            </div>
             <h3>Deep Cleaning</h3>
             <p className="truncate">
               Our Deep Cleaning Service is designed to give your home a fresh start by tackling both
               the visible and hidden dirt. We thoroughly clean all common areas…
             </p>
-            <button
-              className="btn btn--outline"
-              onClick={() => setActiveModal('DeepCleaning')}
-              aria-label="Learn more about Deep Cleaning"
-            >
-              Learn More
-            </button>
+            
           </div>
 
-          <div className="service-tile">
+          <div
+            className="service-tile is-clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => setActiveModal('StandardCleaning')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveModal('StandardCleaning'); } }}
+            aria-label="Learn more about Standard Cleaning"
+          >
+            <div className="service-tile__media">
+              <picture>
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/2.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/2.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/2.webp`} alt="Standard cleaning living room" loading="lazy" decoding="async" />
+              </picture>
+            </div>
             <h3>Standard Cleaning</h3>
             <p className="truncate">
               Our Standard Cleaning Service ensures a thorough cleaning of all common areas,
               including bedrooms, kitchens, and bathrooms. We wipe and dust surfaces…
             </p>
-            <button
-              className="btn btn--outline"
-              onClick={() => setActiveModal('StandardCleaning')}
-              aria-label="Learn more about Standard Cleaning"
-            >
-              Learn More
-            </button>
+            
           </div>
 
-          <div className="service-tile">
-            <h3>Post-Construction Cleaning</h3>
+          <div
+            className="service-tile is-clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => setActiveModal('PostConstructionCleaning')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveModal('PostConstructionCleaning'); } }}
+            aria-label="Learn more about Post Renovation Cleaning"
+          >
+            <div className="service-tile__media">
+              <picture>
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/3.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/3.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/3.webp`} alt="Post-construction dust cleanup" loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <h3>Post Renovation Cleaning</h3>
             <p className="truncate">
               Our Post-Construction Cleaning Service handles the mess left behind after construction
               or renovation projects. We ensure your property is spotless…
             </p>
-            <button
-              className="btn btn--outline"
-              onClick={() => setActiveModal('PostConstructionCleaning')}
-              aria-label="Learn more about Post-Construction Cleaning"
-            >
-              Learn More
-            </button>
+            
           </div>
 
-          <div className="service-tile">
-            <h3>Standard Moving Cleaning</h3>
+          <div
+            className="service-tile is-clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => setActiveModal('MoveInOutCleaning')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveModal('MoveInOutCleaning'); } }}
+            aria-label="Learn more about Move In Move Out Cleaning"
+          >
+            <div className="service-tile__media">
+              <picture>
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/4.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/4.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/4.webp`} alt="Move-in cleaning bedroom" loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <h3>Move In Move Out Cleaning</h3>
             <p className="truncate">
-              Our Move-In/Out Standard Cleaning Service is perfect for homes that need a general
-              refresh during a move. We focus on cleaning all common areas…
+              Complete top‑to‑bottom clean for moving day—kitchen, baths, baseboards, inside cabinets and more…
             </p>
-            <button
-              className="btn btn--outline"
-              onClick={() => setActiveModal('MoveInCleaning')}
-              aria-label="Learn more about Standard Moving Cleaning"
-            >
-              Learn More
-            </button>
+            
           </div>
 
-          <div className="service-tile">
-            <h3>Deep Moving Cleaning</h3>
-            <p className="truncate">
-              Our Move-In/Out Deep Cleaning Service provides a comprehensive, detailed clean
-              ensuring every corner of your home is spotless…
-            </p>
-            <button
-              className="btn btn--outline"
-              onClick={() => setActiveModal('MoveOutCleaning')}
-              aria-label="Learn more about Deep Moving Cleaning"
-            >
-              Learn More
-            </button>
-          </div>
-
-          <div className="service-tile">
+          <div
+            className="service-tile is-clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => setActiveModal('OfficeCleaning')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveModal('OfficeCleaning'); } }}
+            aria-label="Learn more about Office Cleaning"
+          >
+            <div className="service-tile__media">
+              <picture>
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/6.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/6.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/6.webp`} alt="Office cleaning desks" loading="lazy" decoding="async" />
+              </picture>
+            </div>
             <h3>Office Cleaning</h3>
             <p className="truncate">
               Boost productivity and maintain a professional image with our comprehensive office
               cleaning services…
             </p>
-            <button
-              className="btn btn--outline"
-              onClick={() => setActiveModal('OfficeCleaning')}
-              aria-label="Learn more about Office Cleaning"
-            >
-              Learn More
-            </button>
+            
+          </div>
+
+          <div
+            className="service-tile is-clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => setActiveModal('CondoCleaning')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveModal('CondoCleaning'); } }}
+            aria-label="Learn more about Condo Cleaning"
+          >
+            <div className="service-tile__media">
+              <picture>
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/2.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/2.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/2.webp`} alt="Condo exterior high rise" loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <h3>Condo Cleaning</h3>
+            <p className="truncate">Specialized condo cleaning—perfect for high‑rise living and compact spaces.</p>
+          </div>
+
+          <div
+            className="service-tile is-clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => setActiveModal('CustomCleaning')}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveModal('CustomCleaning'); } }}
+            aria-label="Learn more about Custom Cleaning"
+          >
+            <div className="service-tile__media">
+              <picture>
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/8.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/8.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/8.webp`} alt="Custom cleaning options collage" loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <h3>Custom Cleaning</h3>
+            <p className="truncate">Build your own service: inside fridge/oven, cabinets, baseboards, windows, laundry, and more.</p>
           </div>
         </div>
       </div>
+
+      {/* FAQ intentionally rendered on the Home page, not here */}
 
       {activeModal && createPortal(
         (

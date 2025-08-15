@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import ThemeToggle from './ThemeToggle';
 import './Header.css';
 
@@ -17,12 +18,10 @@ const Header = () => {
   const isCityHomepagePath = (pathname) => /^\/house-cleaning-services-[a-z-]+$/.test(pathname);
   // city slug derived where needed; no local state here
 
-  // Prevent body scroll when menu is open
+  // NOTE: Avoid locking body scroll to preserve sticky header on mobile
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
+    document.body.style.overflow = '';
+    return () => { document.body.style.overflow = ''; };
   }, [isMenuOpen]);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -42,9 +41,7 @@ const Header = () => {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        try {
-          window.history.replaceState(null, '', `#${sectionId}`);
-        } catch {}
+        try { window.history.replaceState(null, '', `#${sectionId}`); } catch {}
       }
     } else {
       navigate(`/#${sectionId}`);
@@ -52,30 +49,43 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const drawer = (
+    <div
+      id="mobile-menu"
+      className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site navigation"
+      onClick={(e) => { if (e.target === e.currentTarget) closeMenu(); }}
+    >
+      <div className="mobile-menu__panel" onClick={(e) => e.stopPropagation()}>
+        <button className="mobile-menu__burger" aria-label="Close menu" onClick={closeMenu}>
+          <span className="menu-icon" />
+        </button>
+        <ThemeToggle size="medium" className="mobile-menu__theme-toggle" />
+        <div className="mobile-menu__content">
+          <a href="#services" onClick={handleSectionClick('services')}>Services</a>
+          <a href="#locations" onClick={handleSectionClick('locations')}>Locations</a>
+          <a href="#about" onClick={handleSectionClick('about')}>About</a>
+          <a href="#why-us" onClick={handleSectionClick('why-us')}>Why Us</a>
+          <Link to={'/gallery'} onClick={closeMenu}>Gallery</Link>
+          <Link to={'/blog'} onClick={closeMenu}>Blog</Link>
+          <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>Request Estimate</Link>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <header className="header">
       <div className="header__container">
-        <Link
-          to={'/'}
-          className="header__logo"
-          onClick={() => {
-            setIsMenuOpen(false);
-            // Smooth scroll to top on home route
-            try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}
-          }}
-        >
+        <Link to={'/'} className="header__logo" onClick={() => { setIsMenuOpen(false); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {} }}>
           <picture>
-            <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/moose_logo.avif`} />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/moose_logo.webp`}
-              alt="Zen Zone Cleaning Services"
-              className="header__logo-image"
-            />
+            <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/logo.avif`} />
+            <img src={`${process.env.PUBLIC_URL}/images/logo.webp`} alt="Zen Zone Cleaning Services" className="header__logo-image" />
           </picture>
           <span className="header__logo-text"><span className="header__logo-text-zen">Zen</span>Zone</span>
-          <span className="header__flag" role="img" aria-label="Canada">
-            🇨🇦
-          </span>
+          <span className="header__flag" role="img" aria-label="Canada">🇨🇦</span>
         </Link>
 
         {/* Desktop navigation */}
@@ -91,72 +101,19 @@ const Header = () => {
         {/* Right side actions (desktop and mobile): phone, theme toggle, CTA, burger */}
         <div className="header__actions">
           <a href="tel:+17052425462" className="header__phone" aria-label="Call 705-242-5462">
-            <span className="phone-icon" aria-hidden="true">
-              📞
-            </span>
+            <span className="phone-icon" aria-hidden="true">📞</span>
             <span className="phone-text">705‑242‑5462</span>
           </a>
-          <Link to={'/book'} className="header__book">
-            Request Estimate
-          </Link>
+          <Link to={'/book'} className="header__book">Request Estimate</Link>
           <ThemeToggle size="medium" />
-          <button
-            className="header__menu-toggle"
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setIsMenuOpen((v) => !v)}
-          >
+          <button className="header__menu-toggle" aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMenuOpen} aria-controls="mobile-menu" onClick={() => setIsMenuOpen((v) => !v)}>
             <span className="menu-icon" />
           </button>
         </div>
-
-        {/* end header__actions */}
       </div>
 
-      {/* Mobile slide-out menu */}
-      <div
-        id="mobile-menu"
-        className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Site navigation"
-        onClick={(e) => {
-          // Clicking on the dimmed area (outside the panel) closes the drawer
-          if (e.target === e.currentTarget) closeMenu();
-        }}
-      >
-        <div className="mobile-menu__panel" onClick={(e) => e.stopPropagation()}>
-          <button className="mobile-menu__burger" aria-label="Close menu" onClick={closeMenu}>
-            <span className="menu-icon" />
-          </button>
-          <ThemeToggle size="medium" className="mobile-menu__theme-toggle" />
-            <div className="mobile-menu__content">
-            <a href="#services" onClick={handleSectionClick('services')}>
-              Services
-            </a>
-            <a href="#locations" onClick={handleSectionClick('locations')}>
-              Locations
-            </a>
-            <a href="#about" onClick={handleSectionClick('about')}>
-              About
-            </a>
-            <a href="#why-us" onClick={handleSectionClick('why-us')}>
-              Why Us
-            </a>
-            <Link to={'/gallery'} onClick={closeMenu}>
-              Gallery
-            </Link>
-            <Link to={'/blog'} onClick={closeMenu}>
-              Blog
-            </Link>
-            <Link to={'/book'} className="btn mobile-menu__cta" onClick={closeMenu}>
-              Request Estimate
-            </Link>
-          </div>
-        </div>
-      </div>
-      {isMenuOpen && <div className="menu-backdrop" onClick={closeMenu} aria-hidden="true" />}
+      {createPortal(drawer, document.body)}
+      {isMenuOpen && createPortal(<div className="menu-backdrop" onClick={closeMenu} aria-hidden="true" />, document.body)}
     </header>
   );
 };

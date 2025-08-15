@@ -30,15 +30,15 @@
     <!-- Critical CSS inline for fastest render -->
     <style>
       /* Critical CSS for initial render - optimized for LCP */
-      :root{--font-sans:'Zen Kaku Gothic New',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Noto Sans',Helvetica,Arial,'Apple Color Emoji','Segoe UI Emoji',sans-serif;--font-heading:'Zen Maru Gothic','Zen Kaku Gothic New',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Noto Sans',Helvetica,Arial,'Apple Color Emoji','Segoe UI Emoji',sans-serif;--color-primary:#2e3d2f;--color-secondary:#ffffff;--color-background:#ffffff;--color-text:#2e3d2f;--max-content-width:100%;--transition-fast:0.2s ease-in-out;--transition-medium:0.3s ease-in-out}
-      [data-theme='dark']{--color-primary:#4a7c59;--color-secondary:#ffffff;--color-text:#ffffff;--color-background:#121212}
+      :root{--font-sans:'Zen Kaku Gothic New',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Noto Sans',Helvetica,Arial,'Apple Color Emoji','Segoe UI Emoji',sans-serif;--font-heading:'Zen Maru Gothic','Zen Kaku Gothic New',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Noto Sans',Helvetica,Arial,'Apple Color Emoji','Segoe UI Emoji',sans-serif;--color-primary:#2e3d2f;--color-secondary:#ffffff;--color-background:#ffffff;--color-text:#2e3d2f;--max-content-width:100%;--transition-fast:0.2s ease-in-out;--transition-medium:0.3s ease-in-out;--color-overlay:rgba(255,255,255,0.62)}
+      [data-theme='dark']{--color-primary:#4a7c59;--color-secondary:#ffffff;--color-text:#ffffff;--color-background:#121212;--color-overlay:rgba(0,0,0,0.56)}
       *{margin:0;padding:0;box-sizing:border-box}
       body{font-family:var(--font-sans);margin:0;background:var(--color-background);color:var(--color-text)}
       h1,h2,h3,h4,h5,h6{font-family:var(--font-heading)}
       .app-shell{min-height:100vh;display:flex;flex-direction:column}
       .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 2rem;margin-top:-84px;overflow:hidden}
       .hero__background{position:absolute;top:0;left:0;right:0;bottom:0;background-size:cover;background-position:center;background-repeat:no-repeat;z-index:1}
-      .hero__overlay{position:absolute;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.1);z-index:2}
+      .hero__overlay{position:absolute;top:0;left:0;right:0;bottom:0;background-color:var(--color-overlay);z-index:2;pointer-events:none;transition:background-color var(--transition-medium)}
       .hero__content{position:relative;z-index:3;max-width:var(--max-content-width);color:var(--color-text)}
       .hero__title{font-size:3rem;font-weight:700;margin-bottom:1.5rem;line-height:1.2}
       .hero__subtitle{font-size:1.25rem;margin-bottom:2.5rem;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6}

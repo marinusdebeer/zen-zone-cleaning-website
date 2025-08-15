@@ -74,6 +74,10 @@ img {
     --color-primary-hover: #3a4e3f;
     --color-on-primary: #ffffff;
 
+    /* FAQ icon colors (theme-aware) */
+    --faq-icon: #2e3d2f;           /* dark green in light mode */
+    --faq-icon-hover: #4a7c59;     /* lighter green in light mode */
+
     /* Layout variables with modern units */
     --max-content-width: 100%;
     --border-radius: 6px;
@@ -102,6 +106,10 @@ img {
       --color-overlay: rgba(0, 0, 0, 0.56);
       --color-primary-hover: #5b8d67;
       --color-on-primary: #ffffff;
+
+      /* invert for dark mode */
+      --faq-icon: #4a7c59;        /* lighter green in dark mode */
+      --faq-icon-hover: #2e3d2f;  /* dark green in dark mode */
     }
   }
 }

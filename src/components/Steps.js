@@ -29,7 +29,7 @@ const Steps = () => {
   ];
 
   return (
-    <section className="section section--alt steps" id="how-it-works">
+    <section className="section steps" id="how-it-works">
       <img src={`${process.env.PUBLIC_URL}/images/7.avif`} alt="" className="face face--lg face--heart face--sticker steps__face steps__face--l" aria-hidden="true" />
       <img src={`${process.env.PUBLIC_URL}/images/3.avif`} alt="" className="face face--md face--blob face--sticker steps__face steps__face--r" aria-hidden="true" />
       <h2 className="section-title">How It Works</h2>

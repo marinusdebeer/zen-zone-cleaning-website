@@ -4,6 +4,8 @@ import SEO from './SEO';
 import Defer from './Defer';
 import Hero from './Hero';
 import { getReviewsSummary } from './reviewsData';
+import FAQSection from './FAQSection';
+import { FAQS } from './faqsData';
 
 // Lazy load non-critical components for better performance
 const Steps = lazy(() => import('./Steps'));
@@ -132,6 +134,7 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
       <Suspense fallback={<div style={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Loading...</div>}>
         <Services />
         <Steps />
+        <FAQSection id="faq" title="Frequently Asked Questions" faqs={FAQS} />
         <Defer><Reviews /></Defer>
         <Defer><About /></Defer>
         <Defer><Benefits /></Defer>

@@ -1,0 +1,111 @@
+.faq {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Single column list */
+.faq .faq-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+/* Accordion styling */
+.faq .faq-item {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-background);
+}
+.faq .faq-item:first-child {
+  border-top: 0;
+}
+
+.faq .faq-panel {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--transition-medium);
+}
+.faq .faq-panel.is-open {
+  /* max-height is controlled inline for smooth auto height */
+}
+
+.faq .faq-question {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.25rem;
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .faq .faq-question { font-size: 1.12rem; }
+}
+
+/* Branded plus icon on the left */
+.faq .faq-question::before {
+  content: '+';
+  display: inline-block;
+  width: 1.1em;
+  text-align: center;
+  color: var(--faq-icon);
+  font-weight: 900;
+  font-size: 1.4em;
+  line-height: 1;
+  transform: translateY(-1px);
+  transition: transform var(--transition-medium), color var(--transition-medium);
+}
+
+.faq .faq-panel.is-open + .noop {}
+
+/* State via aria-expanded */
+.faq .faq-question[aria-expanded="true"]::before {
+  content: '−';
+}
+
+/* Hover state changes icon color */
+.faq .faq-question:hover::before {
+  color: var(--faq-icon-hover);
+}
+
+.faq .faq-list p {
+  margin: 0;
+  padding: 0 0.4rem 0.6rem 2rem; /* indent to align under text after icon */
+  color: var(--color-text);
+  text-align: left;
+}
+
+/* No focus border on click */
+.faq .faq-question:focus { outline: none; }
+
+/* Controls */
+.faq-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.faq-toggle {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-medium), color var(--transition-medium), border-color var(--transition-medium);
+}
+
+.faq-toggle:hover {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+

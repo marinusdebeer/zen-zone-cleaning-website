@@ -59,7 +59,11 @@ function ReviewCard({ review }) {
           <span className="review-card__date">{review.date}</span>
         </div>
       </header>
-      {showText && <blockquote className="review-card__text">“{review.text}”</blockquote>}
+      {showText && (
+        <blockquote className="review-card__text">
+          "{review.text}"
+        </blockquote>
+      )}
     </article>
   );
 }
@@ -71,6 +75,39 @@ export default function Reviews() {
     const avg = count ? sum / count : 0;
     return { count, average: avg };
   }, []);
+
+  const gridRef = React.useRef(null);
+
+  // Masonry sizing to ensure consistent vertical gaps without overlap
+  React.useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const compute = () => {
+      const styles = window.getComputedStyle(grid);
+      const rowGap = parseFloat(styles.getPropertyValue('row-gap')) || 16;
+      const autoRow = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 8;
+      Array.from(grid.children).forEach((item) => {
+        // Reset span to auto to measure natural height
+        item.style.gridRowEnd = 'auto';
+        const height = item.getBoundingClientRect().height;
+        const span = Math.ceil((height + rowGap) / (autoRow + rowGap));
+        item.style.gridRowEnd = `span ${span}`;
+      });
+    };
+
+    compute();
+    const ro = new ResizeObserver(() => compute());
+    ro.observe(grid);
+    Array.from(grid.children).forEach((c) => ro.observe(c));
+    window.addEventListener('resize', compute);
+
+    return () => {
+      window.removeEventListener('resize', compute);
+      ro.disconnect();
+    };
+  }, []);
+
   return (
     <section className="reviews" id="reviews" aria-label="Client Reviews">
       <div className="reviews__header">
@@ -99,14 +136,11 @@ export default function Reviews() {
             </span>
           </a>
         </div>
-        {/* Removed small overlapping faces for a cleaner header */}
       </div>
 
-    {/* Scattered decorative faces */}
-    <img src={`${process.env.PUBLIC_URL}/images/8.avif`} alt="" className="face face--xl face--heart face--sticker reviews__face reviews__face--br face--tilt-r2" aria-hidden="true" />
-      <div className="reviews__scroller" aria-label="Reviews list">
-        {REVIEWS.map((r) => (
-          <ReviewCard key={r.name} review={r} />
+      <div className="reviews__grid" aria-label="Reviews list" ref={gridRef}>
+        {REVIEWS.map((r, i) => (
+          <ReviewCard key={r.name + i} review={r} />
         ))}
       </div>
     </section>
