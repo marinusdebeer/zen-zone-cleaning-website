@@ -5,6 +5,7 @@
  * - Scans public/images recursively
  * - Converts .png/.jpg/.jpeg to .avif next to originals
  * - For a small allow‑list (critical assets + gallery), also outputs .webp fallbacks
+ * - Does not generate responsive width variants (keeps only original-size conversions)
  * - Skips if target exists and is newer than source
  */
 
@@ -22,6 +23,7 @@ try {
 
 const ROOT = process.cwd();
 const IMAGES_DIR = path.join(ROOT, 'public', 'images');
+// Responsive size generation disabled by default to avoid asset bloat
 
 // Generate WebP fallbacks only for critical assets and gallery
 const SHOULD_ALSO_WEBP = (filePath) => {
@@ -85,26 +87,7 @@ async function convertOne(srcPath) {
     console.log(`[images] webp  ${path.relative(ROOT, outWebp)}${width ? `  (${width}w)` : ''}`);
   }
 
-  // Generate responsive width variants for better delivery
-  const targetWidths = [40, 64, 80, 96, 128, 160, 256, 360, 512, 720, 768, 1024, 1536, 1920];
-  const allowed = (width ? targetWidths.filter((w) => w < width) : [])
-    // avoid generating too many tiny variants
-    .filter((w, i, arr) => (arr.length > 8 ? i % 2 === 0 : true));
-
-  for (const w of allowed) {
-    const out = `${base}-w${w}.avif`;
-    if (isNewer(srcPath, out)) {
-      await img.clone().resize({ width: w }).toFormat('avif', avifOptions).toFile(out);
-      console.log(`[images] avif  ${path.relative(ROOT, out)} (${w}w)`);
-    }
-    if (SHOULD_ALSO_WEBP(srcPath)) {
-      const outW = `${base}-w${w}.webp`;
-      if (isNewer(srcPath, outW)) {
-        await img.clone().resize({ width: w }).toFormat('webp', webpOptions).toFile(outW);
-        console.log(`[images] webp  ${path.relative(ROOT, outW)} (${w}w)`);
-      }
-    }
-  }
+  // No responsive variants are generated here.
 }
 
 async function run() {
