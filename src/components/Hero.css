@@ -266,16 +266,16 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .hero {
-    padding: 60px 1rem 1rem;
+    padding: 88px 1rem 1.25rem; /* more breathing room from top */
     margin-top: -72px; /* match mobile header offset */
   }
 
   .hero__title {
-    font-size: 2rem;
+    font-size: 2.25rem; /* bigger mobile title */
   }
 
   .hero__subtitle {
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* bigger mobile subtitle */
   }
 
   .hero__buttons {
@@ -286,14 +286,14 @@
   .hero__buttons .btn {
     width: 100%;
     max-width: 300px;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
+    padding: 0.9rem 1.1rem;
+    font-size: 1.1rem; /* larger button text */
   }
 
   /* Make the primary Request Estimate button slightly smaller on mobile */
   .hero__buttons .btn:first-child {
-    padding: 0.65rem 0.9rem;
-    font-size: 0.95rem;
+    padding: 0.85rem 1.05rem;
+    font-size: 1.1rem;
   }
 
   .hero__trust {
@@ -305,10 +305,10 @@
 
 @media (max-width: 480px) {
   .hero__title {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 
   .hero__subtitle {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
