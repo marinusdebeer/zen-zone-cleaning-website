@@ -91,6 +91,7 @@ const Header = () => {
             if (preferred) {
               e.preventDefault();
               navigate(`/house-cleaning-services-${preferred}`);
+              try { setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0); } catch {}
               return;
             }
           } catch {}
