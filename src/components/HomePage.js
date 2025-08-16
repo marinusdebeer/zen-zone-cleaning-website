@@ -122,6 +122,13 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
     }
   }, [cityName, location.pathname]);
 
+  // Record the visited city as the preferred city so the logo/links route there next time
+  React.useEffect(() => {
+    try {
+      if (citySlug) localStorage.setItem('preferredCitySlug', citySlug);
+    } catch {}
+  }, [citySlug]);
+
   // Prefer a slug-specific hero if present in public/images (files named by slug e.g., barrie.avif)
   const heroImageBase = citySlug || null;
 
@@ -141,7 +148,6 @@ const HomePage = ({ heroTitle, heroSubtitle }) => {
         <Reveal as="div" animation="up"><FAQSection id="faq" title="Frequently Asked Questions" faqs={FAQS} /></Reveal>
         <Defer><Reveal as="div" animation="up"><Reviews /></Reveal></Defer>
         <Defer><Reveal as="div" animation="up"><About /></Reveal></Defer>
-        <Defer><Reveal as="div" animation="up"><Benefits /></Reveal></Defer>
         <Defer><Reveal as="div" animation="up"><Gallery limit={8} fullWidth strip /></Reveal></Defer>
         
         <div className="locations-group">

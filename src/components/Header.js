@@ -44,7 +44,12 @@ const Header = () => {
         try { window.history.replaceState(null, '', `#${sectionId}`); } catch {}
       }
     } else {
-      navigate(`/#${sectionId}`);
+      let base = '/';
+      try {
+        const preferred = localStorage.getItem('preferredCitySlug');
+        if (preferred) base = `/house-cleaning-services-${preferred}`;
+      } catch {}
+      navigate(`${base}#${sectionId}`);
     }
     setIsMenuOpen(false);
   };
@@ -79,7 +84,18 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__container">
-        <Link to={'/'} className="header__logo" onClick={() => { setIsMenuOpen(false); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {} }}>
+        <Link to={'/'} className="header__logo" onClick={(e) => {
+          setIsMenuOpen(false);
+          try {
+            const preferred = localStorage.getItem('preferredCitySlug');
+            if (preferred) {
+              e.preventDefault();
+              navigate(`/house-cleaning-services-${preferred}`);
+              return;
+            }
+          } catch {}
+          try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}
+        }}>
           <picture>
             <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/logo.avif`} />
             <img src={`${process.env.PUBLIC_URL}/images/logo.webp`} alt="Zen Zone Cleaning Services" className="header__logo-image" />

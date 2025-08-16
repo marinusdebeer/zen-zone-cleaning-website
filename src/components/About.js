@@ -33,35 +33,15 @@ const About = () => {
             time for what matters most.
           </Reveal>
 
-          <Reveal as="div" className="about__badges" animation="up" delay={90}>
-            <div className="badge">
-              <span className="badge__icon" aria-hidden="true">🛡️</span>
-              <div className="badge__text">
-                <strong>Insured & Vetted</strong>
-                <span>Background‑checked professionals</span>
-              </div>
-            </div>
-            <div className="badge">
-              <span className="badge__icon" aria-hidden="true">⭐</span>
-              <div className="badge__text">
-                <strong>Top‑Rated Service</strong>
-                <span>Dozens of 5‑star reviews</span>
-              </div>
-            </div>
-            <div className="badge">
-              <span className="badge__icon" aria-hidden="true">⏱️</span>
-              <div className="badge__text">
-                <strong>Flexible Scheduling</strong>
-                <span>Weekly, bi‑weekly, monthly, one‑time</span>
-              </div>
-            </div>
-            <div className="badge">
-              <span className="badge__icon" aria-hidden="true">🧽</span>
-              <div className="badge__text">
-                <strong>Detail‑Driven</strong>
-                <span>Thorough checklists, consistent results</span>
-              </div>
-            </div>
+          <Reveal as="ul" className="about__bullets" animation="up" delay={90}>
+            <li>Insured & Vetted cleaners</li>
+            <li>Top‑rated service</li>
+            <li>Flexible scheduling (weekly, bi‑weekly, monthly, one‑time)</li>
+            <li>Detail‑driven with thorough checklists</li>
+            <li>Satisfaction guarantee</li>
+            <li>People‑centric and community‑minded</li>
+            <li>Technology‑backed booking & management</li>
+            <li>Background‑checked professionals</li>
           </Reveal>
 
           <Reveal as="div" className="about__copy" animation="up" delay={120}>

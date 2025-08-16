@@ -176,9 +176,9 @@ const Services = () => {
           >
             <div className="service-tile__media">
               <picture>
-                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/7.avif`} />
-                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/7.webp`} />
-                <img src={`${process.env.PUBLIC_URL}/images/7.webp`} alt="Recurring home cleaning schedule" loading="lazy" decoding="async" />
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/recurring_cleaning.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/recurring_cleaning.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/recurring_cleaning.png`} alt="Recurring home cleaning schedule" loading="lazy" decoding="async" />
               </picture>
             </div>
             <h3>Recurring Cleaning</h3>
@@ -196,9 +196,9 @@ const Services = () => {
           >
             <div className="service-tile__media">
               <picture>
-                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/1.avif`} />
-                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/1.webp`} />
-                <img src={`${process.env.PUBLIC_URL}/images/1.webp`} alt="Deep cleaning in kitchen" loading="lazy" decoding="async" />
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/deep_cleaning.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/deep_cleaning.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/deep_cleaning.png`} alt="Deep cleaning in kitchen" loading="lazy" decoding="async" />
               </picture>
             </div>
             <h3>Deep Cleaning</h3>
@@ -221,9 +221,9 @@ const Services = () => {
           >
             <div className="service-tile__media">
               <picture>
-                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/2.avif`} />
-                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/2.webp`} />
-                <img src={`${process.env.PUBLIC_URL}/images/2.webp`} alt="Standard cleaning living room" loading="lazy" decoding="async" />
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/standard_cleaning.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/standard_cleaning.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/standard_cleaning.png`} alt="Standard cleaning living room" loading="lazy" decoding="async" />
               </picture>
             </div>
             <h3>Standard Cleaning</h3>
@@ -246,9 +246,9 @@ const Services = () => {
           >
             <div className="service-tile__media">
               <picture>
-                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/3.avif`} />
-                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/3.webp`} />
-                <img src={`${process.env.PUBLIC_URL}/images/3.webp`} alt="Post-construction dust cleanup" loading="lazy" decoding="async" />
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/post_renovation_cleaning.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/post_renovation_cleaning.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/post_renovation_cleaning.png`} alt="Post-construction dust cleanup" loading="lazy" decoding="async" />
               </picture>
             </div>
             <h3>Post Renovation</h3>
@@ -271,9 +271,9 @@ const Services = () => {
           >
             <div className="service-tile__media">
               <picture>
-                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/4.avif`} />
-                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/4.webp`} />
-                <img src={`${process.env.PUBLIC_URL}/images/4.webp`} alt="Move-in cleaning bedroom" loading="lazy" decoding="async" />
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/moving_cleaning.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/moving_cleaning.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/moving_cleaning.png`} alt="Move-in cleaning bedroom" loading="lazy" decoding="async" />
               </picture>
             </div>
             <h3>Move In Move Out</h3>
@@ -295,9 +295,9 @@ const Services = () => {
           >
             <div className="service-tile__media">
               <picture>
-                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/6.avif`} />
-                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/6.webp`} />
-                <img src={`${process.env.PUBLIC_URL}/images/6.webp`} alt="Office cleaning desks" loading="lazy" decoding="async" />
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/office_cleaning.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/office_cleaning.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/office_cleaning.png`} alt="Office cleaning desks" loading="lazy" decoding="async" />
               </picture>
             </div>
             <h3>Office Cleaning</h3>
@@ -320,9 +320,9 @@ const Services = () => {
           >
             <div className="service-tile__media">
               <picture>
-                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/2.avif`} />
-                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/2.webp`} />
-                <img src={`${process.env.PUBLIC_URL}/images/2.webp`} alt="Condo exterior high rise" loading="lazy" decoding="async" />
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/condo_cleaning.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/condo_cleaning.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/condo_cleaning.png`} alt="Condo exterior high rise" loading="lazy" decoding="async" />
               </picture>
             </div>
             <h3>Condo Cleaning</h3>
@@ -341,9 +341,9 @@ const Services = () => {
           >
             <div className="service-tile__media">
               <picture>
-                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/8.avif`} />
-                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/8.webp`} />
-                <img src={`${process.env.PUBLIC_URL}/images/8.webp`} alt="Custom cleaning options collage" loading="lazy" decoding="async" />
+                <source type="image/avif" srcSet={`${process.env.PUBLIC_URL}/images/custom_cleaning.avif`} />
+                <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/images/custom_cleaning.webp`} />
+                <img src={`${process.env.PUBLIC_URL}/images/custom_cleaning.png`} alt="Custom cleaning options collage" loading="lazy" decoding="async" />
               </picture>
             </div>
             <h3>Custom Cleaning</h3>
